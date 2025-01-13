@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.8
+  flutter_svg:
 
 dev_dependencies:
   flutter_test:
@@ -44,8 +45,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/fonts/
-    - assets/images/
     - assets/vectors/
 
   # An image asset can refer to one or more resolution-specific "variants", see

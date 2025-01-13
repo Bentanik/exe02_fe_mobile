@@ -20,19 +20,19 @@ class Button extends StatefulWidget {
 }
 
 class _LoadingButtonState extends State<Button> {
-  bool _isLoading = false; // Trạng thái loading
+  bool _isLoading = false;
 
   Future<void> _handlePress() async {
-    if (_isLoading) return; // Tránh nhấn nhiều lần
+    if (_isLoading) return;
 
     setState(() {
-      _isLoading = true; // Bắt đầu loading
+      _isLoading = true;
     });
 
-    await widget.onPressed(); // Thực thi callback
+    await widget.onPressed();
 
     setState(() {
-      _isLoading = false; // Kết thúc loading
+      _isLoading = false;
     });
   }
 
