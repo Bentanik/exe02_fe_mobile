@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class Button extends StatefulWidget {
   final String text;
-  final VoidCallback onPressed;
+  final Future<void> Function() onPressed; // Nhận callback async
   final Color backgroundColor;
   final Color textColor;
-  final double borderRadius;
-  final double paddingVertical;
-  final double paddingHorizontal;
 
   const Button({
     Key? key,
@@ -16,29 +13,48 @@ class Button extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = Colors.blue,
     this.textColor = Colors.white,
-    this.borderRadius = 8.0,
-    this.paddingVertical = 12.0,
-    this.paddingHorizontal = 20.0,
   }) : super(key: key);
+
+  @override
+  State<Button> createState() => _LoadingButtonState();
+}
+
+class _LoadingButtonState extends State<Button> {
+  bool _isLoading = false; // Trạng thái loading
+
+  Future<void> _handlePress() async {
+    if (_isLoading) return; // Tránh nhấn nhiều lần
+
+    setState(() {
+      _isLoading = true; // Bắt đầu loading
+    });
+
+    await widget.onPressed(); // Thực thi callback
+
+    setState(() {
+      _isLoading = false; // Kết thúc loading
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: _isLoading ? null : _handlePress,
       style: ElevatedButton.styleFrom(
-        backgroundColor: Color(0xFF0961F5),
-        padding: EdgeInsets.symmetric(
-          vertical: paddingVertical,
-          horizontal: paddingHorizontal,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
-        ),
+        backgroundColor: widget.backgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
       ),
-      child: Text(
-        text,
-        style: TextStyle(color: textColor, fontSize: 16),
-      ),
+      child: _isLoading
+          ? const SizedBox(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: Colors.red,
+              ),
+            )
+          : Text(
+              widget.text,
+              style: TextStyle(color: widget.textColor, fontSize: 16),
+            ),
     );
   }
 }
