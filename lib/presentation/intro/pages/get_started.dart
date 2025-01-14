@@ -1,5 +1,7 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
+import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
+import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +23,14 @@ class GetStartedPage extends StatelessWidget {
                   onTap: () => Routes.navigateToPage(context, Login()),
                   leading: const Icon(Icons.person_outline),
                   title: const Text('Personal Information'),
+                ),
+                SearchCourseCard(
+                  category: 'Security course',
+                  title: 'Security 3',
+                  rating: 4.2,
+                  students: 7830,
+                  isBookmarked: true,
+                  imageUrl: AppImages.bg,
                 ),
               ],
             ))
