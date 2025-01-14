@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 class ProfileButton extends StatefulWidget {
   final Future<void> Function() onTap;
+  final Widget leading;  // Thêm leading
+  final Widget title;
 
   const ProfileButton({
     Key? key,
     required this.onTap,
+    required this.leading,
+    required this.title,
   }) : super(key: key);
 
   @override
@@ -35,8 +39,8 @@ class _LoadingButtonState extends State<ProfileButton> {
     return GestureDetector(
       onTap:_isLoading ? null : _handleTap,
       child: ListTile(
-        leading: const Icon(Icons.person_outline),
-        title: const Text('Personal Information'),
+        leading: widget.leading,
+        title: widget.title,
         trailing: _isLoading
             ? const SizedBox(
           width: 16,

@@ -19,6 +19,8 @@ class GetStartedPage extends StatelessWidget {
               children: [
                 ProfileButton(
                   onTap: () => Routes.navigateToPage(context, Login()),
+                  leading: const Icon(Icons.person_outline),
+                  title: const Text('Personal Information'),
                 ),
               ],
             ))
