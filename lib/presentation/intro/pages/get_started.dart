@@ -1,10 +1,13 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
+import 'package:exe02_fe_mobile/common/widget/notification_dialog.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/core/configs/assets/app_vectors.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -22,7 +25,8 @@ class GetStartedPage extends StatelessWidget {
               children: [
                 ProfileButton(
                   onTap: () => Routes.navigateToPage(context, Login()),
-                  leading: const Icon(Icons.person_outline),
+                  leading: const Icon(FontAwesomeIcons.user,
+                      size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
                 ),
                 SearchCourseCard(
@@ -34,10 +38,16 @@ class GetStartedPage extends StatelessWidget {
                   imageUrl: AppImages.bg,
                 ),
                 NotificationCard(
+                    title: 'Thong báo',
+                    desc: 'Hôm nay là thứ 7',
+                    leading: const Icon(Icons.person_outline)),
+                NotificationDialog(
                   title: 'Thong báo',
                   desc: 'Hôm nay là thứ 7',
-                  leading: const Icon(Icons.person_outline)
-                )
+                  leading: AppVector.User_icon,
+                  btn_color: Colors.greenAccent,
+                  text_btn: 'Next video',
+                ),
               ],
             ))
           ],

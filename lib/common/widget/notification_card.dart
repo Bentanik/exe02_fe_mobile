@@ -13,7 +13,7 @@ class NotificationCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFE8F0FE), // Nền xanh nhạt
+        color: const Color(0xFFE8F0FE),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
