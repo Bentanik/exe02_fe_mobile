@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Button extends StatefulWidget {
   final String text;
-  final Future<void> Function() onPressed; // Nhận callback async
+  final Future<void> Function() onPressed;
   final Color backgroundColor;
   final Color textColor;
 

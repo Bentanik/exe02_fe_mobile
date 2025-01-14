@@ -30,9 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  font_awesome_flutter: ^10.5.0
   cupertino_icons: ^1.0.8
   flutter_svg:
+
 
 dev_dependencies:
   flutter_test:
