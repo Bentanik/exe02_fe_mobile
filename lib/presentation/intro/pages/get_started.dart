@@ -1,4 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
+import 'package:exe02_fe_mobile/common/widget/blog_card.dart';
 import 'package:exe02_fe_mobile/common/widget/curriculcum_item.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_dialog.dart';
@@ -42,14 +43,17 @@ class GetStartedPage extends StatelessWidget {
                     title: 'Thong báo',
                     desc: 'Hôm nay là thứ 7',
                     leading: const Icon(Icons.person_outline)),
-                CurriculcumItem(
-                  number: "06",
-                  title: "Building Secure Systems",
-                  duration: "15 Mins",
-                  isLocked: false,
+                BlogCard(
+                  imageUrl: AppImages.bg,
+                  category: "Awareness 2",
+                  title: "Blog about awareness 1",
+                  isBookmarked: true,
                 ),
               ],
-            ))
+
+            )
+
+            )
           ],
         ),
       ),
