@@ -1,3 +1,4 @@
+import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/get_started.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    // redirect();
+    redirect();
   }
 
   @override

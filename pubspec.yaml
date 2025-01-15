@@ -30,8 +30,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  font_awesome_flutter: ^10.5.0
   cupertino_icons: ^1.0.8
+  flutter_svg:
+
 
 dev_dependencies:
   flutter_test:
@@ -44,9 +46,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/fonts/
-    - assets/images/
     - assets/vectors/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
