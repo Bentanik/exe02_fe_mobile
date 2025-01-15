@@ -1,4 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
+import 'package:exe02_fe_mobile/common/widget/curriculcum_item.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_dialog.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
@@ -41,12 +42,11 @@ class GetStartedPage extends StatelessWidget {
                     title: 'Thong báo',
                     desc: 'Hôm nay là thứ 7',
                     leading: const Icon(Icons.person_outline)),
-                NotificationDialog(
-                  title: 'Thong báo',
-                  desc: 'Hôm nay là thứ 7',
-                  leading: AppVector.User_icon,
-                  btn_color: Colors.greenAccent,
-                  text_btn: 'Next video',
+                CurriculcumItem(
+                  number: "06",
+                  title: "Building Secure Systems",
+                  duration: "15 Mins",
+                  isLocked: false,
                 ),
               ],
             ))
