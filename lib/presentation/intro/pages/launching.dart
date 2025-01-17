@@ -16,7 +16,7 @@ class Launching extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Căn giữa theo chiều dọc
-            crossAxisAlignment: CrossAxisAlignment.center, // Căn giữa theo chiều ngang
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Image
               Image.asset('assets/images/logo.png', width: 200, height: 200),

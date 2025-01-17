@@ -4,6 +4,7 @@ import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, Launching()),
+                  onTap: () => Routes.navigateToPage(context, Login()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
