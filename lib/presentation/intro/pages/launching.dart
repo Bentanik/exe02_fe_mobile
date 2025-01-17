@@ -14,15 +14,13 @@ class Launching extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, // Căn giữa theo chiều dọc
             crossAxisAlignment: CrossAxisAlignment.center, // Căn giữa theo chiều ngang
             children: [
               // Image
-              Image.asset('assets/images/bg.png', width: 200, height: 200),
-              const SizedBox(height: 20),
-
+              Image.asset('assets/images/logo.png', width: 200, height: 200),
+              const SizedBox(height: 15),
               // Title
               const Text(
                 "antiSCM",
