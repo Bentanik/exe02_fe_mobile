@@ -6,6 +6,7 @@ class Button extends StatefulWidget {
   final Future<void> Function() onPressed;
   final Color backgroundColor;
   final Color textColor;
+  final Size buttonSize;
 
   const Button({
     Key? key,
@@ -13,6 +14,7 @@ class Button extends StatefulWidget {
     required this.onPressed,
     this.backgroundColor = Colors.blue,
     this.textColor = Colors.white,
+    this.buttonSize = const Size(200, 10),
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class _LoadingButtonState extends State<Button> {
       style: ElevatedButton.styleFrom(
         backgroundColor: widget.backgroundColor,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
+        minimumSize: widget.buttonSize,
       ),
       child: _isLoading
           ? const SizedBox(
