@@ -1,13 +1,11 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/blog_card.dart';
-import 'package:exe02_fe_mobile/common/widget/curriculcum_item.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
-import 'package:exe02_fe_mobile/common/widget/notification_dialog.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_vectors.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,7 +24,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, Login()),
+                  onTap: () => Routes.navigateToPage(context, Launching()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
@@ -50,10 +48,7 @@ class GetStartedPage extends StatelessWidget {
                   isBookmarked: true,
                 ),
               ],
-
-            )
-
-            )
+            ))
           ],
         ),
       ),
