@@ -8,6 +8,7 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/recover_password.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,7 +27,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, RecoveryPasswordPage()),
+                  onTap: () => Routes.navigateToPage(context, SearchCourse()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
