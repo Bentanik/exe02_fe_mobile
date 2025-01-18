@@ -44,7 +44,6 @@ class _LoadingButtonState extends State<Button> {
       onPressed: _isLoading ? null : _handlePress,
       style: ElevatedButton.styleFrom(
         backgroundColor: widget.backgroundColor,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 50),
         minimumSize: widget.buttonSize,
       ),
       child: _isLoading

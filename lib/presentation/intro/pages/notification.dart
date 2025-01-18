@@ -1,12 +1,5 @@
-import 'package:exe02_fe_mobile/common/helpers/routes.dart';
-import 'package:exe02_fe_mobile/common/widget/button.dart';
-import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_vectors.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NotificationPage extends StatelessWidget {

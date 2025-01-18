@@ -7,6 +7,7 @@ import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/recover_password.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/notification.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
@@ -28,7 +29,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, NotificationPage()),
+                  onTap: () => Routes.navigateToPage(context, Home()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
