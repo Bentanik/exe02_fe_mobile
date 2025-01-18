@@ -19,7 +19,8 @@ class CurriculcumItem extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
+        border: Border(bottom: BorderSide(color: Colors.grey,   // Màu của đường viền
+          width: 0.1,  )),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
