@@ -1,5 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
-import 'package:exe02_fe_mobile/common/widget/blog_card.dart';
+import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
@@ -158,19 +158,19 @@ class Home extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    BlogCard(
+                    HomeCard(
                         imageUrl: AppImages.bg,
                         category: 'Security',
                         title: 'Security 1'),
-                    BlogCard(
+                    HomeCard(
                         imageUrl: AppImages.bg,
                         category: 'Security',
                         title: 'Security 1'),
-                    BlogCard(
+                    HomeCard(
                         imageUrl: AppImages.bg,
                         category: 'Security',
                         title: 'Security 1'),
-                    BlogCard(
+                    HomeCard(
                         imageUrl: AppImages.bg,
                         category: 'Security',
                         title: 'Security 1'),
