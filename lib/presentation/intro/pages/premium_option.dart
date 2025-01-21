@@ -16,6 +16,7 @@ class PremiumOption extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(bottom: 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -28,12 +29,12 @@ class PremiumOption extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       Image.asset(
-                        AppImages.bg,
+                        AppImages.premiumBg1,
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width,
                       ),
                       Image.asset(
-                        AppImages.chatBot,
+                        AppImages.premiumBg,
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width,
                       ),
@@ -51,7 +52,7 @@ class PremiumOption extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Trải nghiệm âm nhạc đỉnh cao với gói Premium Individual.',
+                    'Trải nghiệm các khóa học chất lượng cùng chuyên gia',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,
@@ -60,7 +61,7 @@ class PremiumOption extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'Bạn không thể nâng cấp lên Premium trong ứng dụng này. Chúng tôi biết điều này thật bất tiện.',
+                    'Bạn có thể tham gia các khóa học sau khi nâng cấp lên gói premium.',
                     style: TextStyle(
                       color: Colors.white54,
                       fontSize: 16,
@@ -82,37 +83,42 @@ class PremiumOption extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FeatureItem(
-                    icon: Icons.music_note,
-                    text: 'Nghe nhạc không quảng cáo',
-                  ),
-                  FeatureItem(
-                    icon: Icons.download,
-                    text: 'Tải xuống để nghe không cần mạng',
+                    icon: Icons.video_label_outlined,
+                    text: 'Xem video không quảng cáo',
                   ),
                   FeatureItem(
                     icon: Icons.play_arrow,
-                    text: 'Phát nhạc theo thứ tự bất kỳ',
+                    text: 'Phát video theo thứ tự bất kỳ',
                   ),
                   FeatureItem(
                     icon: Icons.high_quality,
-                    text: 'Chất lượng âm thanh cao',
+                    text: 'Chất lượng video cao',
                   ),
                   FeatureItem(
-                    icon: Icons.people,
-                    text: 'Nghe cùng bạn bè theo thời gian thực',
-                  ),
-                  FeatureItem(
-                    icon: Icons.queue_music,
-                    text: 'Sắp xếp danh sách chờ nghe',
+                    icon: Icons.queue_play_next,
+                    text: 'Sắp xếp danh sách video theo ý muốn',
                   ),
                 ],
               ),
             ),
-            PremiumCard(),
+            PremiumCard(
+              duration: 'Ưu đãi 1 tháng',
+              price: '500.000 vnd',
+              backgroundColor: Color(0xFF6BB7CD),
+              textColor: Color(0xFF6BB7CD),
+            ),
             const SizedBox(height: 10,),
-            PremiumCard(),
+            PremiumCard(duration: 'Ưu đãi 3 tháng',
+              price: '1.000.000 vnd',
+              backgroundColor: Color(0xFF3794B3),
+              textColor: Color(0xFF3794B3),
+            ),
             const SizedBox(height: 10,),
-            PremiumCard(),
+            PremiumCard(duration: 'Ưu đãi 6 tháng',
+              price: '1.300.000 vnd',
+              backgroundColor: Color(0xFF047099),
+              textColor: Color(0xFF047099),
+            ),
           ],
         ),
       ),

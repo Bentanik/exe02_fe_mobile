@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
 class PremiumCard extends StatelessWidget {
+  final String duration;
+  final String price;
+  final Color backgroundColor;
+  final Color textColor;
+
+  const PremiumCard({
+    Key? key, required this.duration, required this.price,required this.backgroundColor, required this.textColor
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,11 +26,11 @@ class PremiumCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.pinkAccent.shade100,
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(8),
             ),
-            child: const Text(
-              'Ưu đãi 2 tháng',
+            child: Text(
+              duration,
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -40,10 +48,10 @@ class PremiumCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Individual',
+           Text(
+            price,
             style: TextStyle(
-              color: Colors.pinkAccent,
+              color: textColor,
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
@@ -56,15 +64,6 @@ class PremiumCard extends StatelessWidget {
             style: TextStyle(
               color: Colors.white,
               fontSize: 16,
-              height: 1.5,
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Bạn không thể nâng cấp lên Premium trong ứng dụng này. Chúng tôi biết điều này thật bất tiện.',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
               height: 1.5,
             ),
           ),
