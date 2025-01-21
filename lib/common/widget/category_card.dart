@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
-  final IconData? icon;
+  final String imageUrl;
   final Color backgroundColor;
 
   const CategoryCard({
     Key? key,
     required this.title,
-    required this.icon,
+    required this.imageUrl,
     required this.backgroundColor,
   }) : super(key: key);
 
@@ -28,14 +28,16 @@ class CategoryCard extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(
-              icon,
-              size: 80,
-              color: Colors.black,
+            Image.asset(
+              imageUrl,
+              height: 100,
+              width: 80,
+              fit: BoxFit.cover,
             ),
-            SizedBox(width: 30),
+            SizedBox(width: 50),
             Expanded(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(

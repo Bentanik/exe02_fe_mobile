@@ -1,6 +1,5 @@
 import 'package:exe02_fe_mobile/common/widget/category_card.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
-import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:flutter/material.dart';
 
@@ -11,28 +10,28 @@ class Categories extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> products = [
       {
-        "title": "Beats Solo 1",
-        "icon": Icons.headphones,
+        "title": "ChatBot",
+        "image": AppImages.chatBot,
         "backgroundColor": Colors.pinkAccent[100],
       },
       {
-        "title": "Beats Solo 2",
-        "icon": Icons.headphones,
+        "title": "Premium",
+        "image": AppImages.premium,
         "backgroundColor": Colors.purpleAccent[100],
       },
       {
-        "title": "Beats Solo 3",
-        "icon": Icons.headphones,
+        "title": "Course",
+        "image": AppImages.check,
         "backgroundColor": Colors.redAccent[100],
       },
       {
-        "title": "Beats Solo 2",
-        "icon": Icons.headphones,
+        "title": "Check scam",
+        "image": AppImages.course,
         "backgroundColor": Colors.purpleAccent[100],
       },
       {
-        "title": "Beats Solo 1",
-        "icon": Icons.headphones,
+        "title": "Setting",
+        "image": AppImages.setting,
         "backgroundColor": Colors.pinkAccent[100],
       },
     ];
@@ -58,7 +57,7 @@ class Categories extends StatelessWidget {
                   final product = products[index];
                   return CategoryCard(
                     title: product['title'],
-                    icon: product['icon'],
+                    imageUrl: product['image'],
                     backgroundColor: product['backgroundColor']!,
                   );
                 },
