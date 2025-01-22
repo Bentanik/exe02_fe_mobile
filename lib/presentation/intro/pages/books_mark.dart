@@ -28,21 +28,24 @@ class BooksMark extends StatelessWidget {
                     children: [
                       Button(
                         text: 'All',
-                        onPressed: () => Routes.navigateToPage(context, Success()),
+                        onPressed: () =>
+                            Routes.navigateToPage(context, Success()),
                         buttonSize: Size(100, 40),
                         backgroundColor: Color(0xFF167F71),
                       ),
                       const SizedBox(width: 10),
                       Button(
                         text: 'Application security',
-                        onPressed: () => Routes.navigateToPage(context, Success()),
+                        onPressed: () =>
+                            Routes.navigateToPage(context, Success()),
                         buttonSize: Size(100, 40),
                         backgroundColor: Color(0xFF167F71),
                       ),
                       const SizedBox(width: 10),
                       Button(
                         text: 'Application security',
-                        onPressed: () => Routes.navigateToPage(context, Success()),
+                        onPressed: () =>
+                            Routes.navigateToPage(context, Success()),
                         buttonSize: Size(100, 40),
                         backgroundColor: Color(0xFF167F71),
                       ),
@@ -65,21 +68,24 @@ class BooksMark extends StatelessWidget {
                   students: 7830,
                   isBookmarked: true,
                   imageUrl: AppImages.bg,
-                ),SearchCourseCard(
+                ),
+                SearchCourseCard(
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
                   students: 7830,
                   isBookmarked: true,
                   imageUrl: AppImages.bg,
-                ),SearchCourseCard(
+                ),
+                SearchCourseCard(
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
                   students: 7830,
                   isBookmarked: true,
                   imageUrl: AppImages.bg,
-                ),SearchCourseCard(
+                ),
+                SearchCourseCard(
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,

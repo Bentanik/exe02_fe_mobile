@@ -1,9 +1,3 @@
-import 'package:exe02_fe_mobile/common/helpers/routes.dart';
-import 'package:exe02_fe_mobile/common/widget/button.dart';
-import 'package:exe02_fe_mobile/common/widget/input_field.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
 class Launching extends StatelessWidget {
