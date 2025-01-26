@@ -1,6 +1,8 @@
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/get_started.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/term_condition.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -29,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute (builder:
-            (BuildContext context) => const GetStartedPage()),
+            (BuildContext context) => GetStartedPage()),
     );
   }
 }

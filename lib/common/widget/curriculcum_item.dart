@@ -32,7 +32,6 @@ class CurriculcumItem extends StatelessWidget {
       ),
       child: Row(
         children: [
-          // Vòng tròn chứa số
           Container(
             width: 40,
             height: 40,
