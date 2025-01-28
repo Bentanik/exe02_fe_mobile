@@ -3,13 +3,9 @@ import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
+import 'package:exe02_fe_mobile/common/widget/security_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/curriculcum.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/language.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/light_dark_mode.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/settings.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/term_condition.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/security.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -29,7 +25,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, Language()),
+                  onTap: () => Routes.navigateToPage(context, Security()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
