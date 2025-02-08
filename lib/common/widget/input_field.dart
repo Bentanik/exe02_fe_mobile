@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
-// Widget cho các ô nhập liệu
 class InputField extends StatelessWidget {
   final IconData icon;
   final String hintText;
   final bool isPassword;
+  final TextEditingController? controller;
 
   const InputField({
     super.key,
     required this.icon,
     required this.hintText,
     this.isPassword = false,
+    this.controller,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller, // Gán controller vào đây
       obscureText: isPassword,
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.grey),

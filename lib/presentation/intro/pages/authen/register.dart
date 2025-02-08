@@ -1,12 +1,81 @@
+import 'package:exe02_fe_mobile/Servers/api.dart';
+import 'package:exe02_fe_mobile/Servers/auth/register_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
+import 'package:exe02_fe_mobile/common/widget/ErrorDialog.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
   const Register({super.key});
+
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  bool _isLoading = false;
+  String? _errorMessage;
+
+  Future<void> _register() async {
+    final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+
+    if (!emailRegex.hasMatch(_emailController.text)) {
+      setState(() => _errorMessage = "Email không hợp lệ!");
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showErrorDialog("Email không hợp lệ!");
+      });
+      return;
+    }
+
+    if (_passwordController.text != _confirmPasswordController.text) {
+      setState(() => _errorMessage = "Mật khẩu không khớp!");
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showErrorDialog("Mật khẩu không khớp!");
+      });
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _errorMessage = null;
+    });
+
+    try {
+      await RegisterApi(Api()).register(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      if (mounted) {
+        Routes.navigateToPage(context, Success());
+      }
+    } catch (error) {
+      setState(() => _errorMessage = error.toString());
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _showErrorDialog('Tài khoản đã tồn tại, hãy thử lại');
+      });
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (context) => ErrorDialog(
+        message: message,
+        onRetry: _register,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,87 +87,60 @@ class Register extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
               const Center(
                 child: Text(
                   "Let's Get Started!",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 8),
               const Center(
                 child: Text(
                   "Create an account to get all features",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
               const SizedBox(height: 30),
 
-              // First Name
-              const InputField(
+              InputField(
+                controller: _nameController,
                 icon: Icons.person_outline,
-                hintText: 'First Name',
+                hintText: 'Họ và Tên',
               ),
               const SizedBox(height: 15),
 
-              // Last Name
-              const InputField(
-                icon: Icons.person_outline,
-                hintText: 'Last Name',
-              ),
-              const SizedBox(height: 15),
-
-              // User Name
-              const InputField(
-                icon: Icons.person_outline,
-                hintText: 'User Name',
-              ),
-              const SizedBox(height: 15),
-
-              // Email
-              const InputField(
+              InputField(
+                controller: _emailController,
                 icon: Icons.email_outlined,
                 hintText: 'Email',
               ),
               const SizedBox(height: 15),
 
-              // Password
-              const InputField(
+              InputField(
+                controller: _passwordController,
                 icon: Icons.lock_outline,
-                hintText: 'Password',
+                hintText: 'Mật khẩu',
                 isPassword: true,
               ),
               const SizedBox(height: 15),
 
-              // Confirm Password
-              const InputField(
+              InputField(
+                controller: _confirmPasswordController,
                 icon: Icons.lock_outline,
-                hintText: 'Confirm Password',
+                hintText: 'Xác nhận mật khẩu',
                 isPassword: true,
               ),
-              const SizedBox(height: 30),
-
-              // Create Button
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    child: Button(
-                      text: 'Tạo tài khỏan',
-                      onPressed: () => Routes.navigateToPage(context, Success()),
-                    ),
+              const SizedBox(height: 15),
+              Center(
+                child: SizedBox(
+                  child: Button(
+                    text: _isLoading ? 'Đang đăng ký...' : 'Tạo tài khoản',
+                    onPressed: _register,
                   ),
-                ],
+                ),
               ),
               const SizedBox(height: 20),
 
-              // Login Link
               Center(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +148,7 @@ class Register extends StatelessWidget {
                     const Text("Already have an account? "),
                     GestureDetector(
                       onTap: () {
-                        // Xử lý sự kiện chuyển sang trang đăng nhập
+                        // Chuyển sang trang đăng nhập
                       },
                       child: const Text(
                         "Login here",
