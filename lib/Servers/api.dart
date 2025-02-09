@@ -44,7 +44,7 @@ class Api {
 
   Future<void>  refreshToken() async{
     final refreshToken = await _storage.read(key: 'refreshToken');
-    final response = await api.post('auth/refresh', data: {'refreshToken':refreshToken});
+    final response = await api.post('https://exewebapi-a5b8h2hrdhbderhv.southeastasia-01.azurewebsites.net//api/auth/v1/refresh-token', data: {'refreshToken':refreshToken});
     if(response.statusCode == 201){
       accessToken = response.data;
     }else{

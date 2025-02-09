@@ -2,12 +2,33 @@ import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login_hook.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _isLoading = false;
+  late LoginController _loginController;
+
+  @override
+  void initState() {
+    super.initState();
+    _loginController = LoginController(
+      emailController: _emailController,
+      passwordController: _passwordController,
+      context: context,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +42,8 @@ class Login extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Logo
                   const SizedBox(height: 32),
-                  Image.asset(AppImages.logo, width: 200,),
-                  //Title
+                  Image.asset(AppImages.logo, width: 200),
                   const SizedBox(height: 16),
                   const Text(
                     "Welcome to antiSCM",
@@ -39,19 +58,18 @@ class Login extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 32),
-                  // Username field
                   InputField(
+                    controller: _emailController,
                     icon: FontAwesomeIcons.user,
-                    hintText: 'UserName',
+                    hintText: 'email',
                   ),
                   const SizedBox(height: 16),
-                  // Password field
                   InputField(
+                    controller: _passwordController,
                     icon: FontAwesomeIcons.lock,
                     hintText: 'Password',
                   ),
                   const SizedBox(height: 8),
-                  // Forgot password
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
@@ -63,13 +81,18 @@ class Login extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  // Login button
-                  Button(
-                    onPressed: () => Routes.navigateToPage(context, Success()),
-                    text: 'Đăng nhập',
+                  Center(
+                    child: SizedBox(
+                      child: Button(
+                        text: _isLoading ? 'Đang đăng ký...' : 'Đăng nhập',
+                        onPressed: () => _loginController.login(
+                              () => setState(() => _isLoading = true),
+                              () => setState(() => _isLoading = false),
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 32),
-                  // Social login
                   const Text("Or sign up using"),
                   const SizedBox(height: 16),
                   Row(
@@ -96,17 +119,6 @@ class Login extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 16),
-                  // Sign up
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text("Don't have an account?"),
-                      TextButton(
-                        onPressed: () {},
-                        child: const Text("Sign up"),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),

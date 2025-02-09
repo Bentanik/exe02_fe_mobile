@@ -1,7 +1,7 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/security_card.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
