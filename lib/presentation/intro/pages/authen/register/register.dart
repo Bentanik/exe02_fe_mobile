@@ -1,10 +1,8 @@
-import 'package:exe02_fe_mobile/Servers/api.dart';
-import 'package:exe02_fe_mobile/Servers/auth/register_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/ErrorDialog.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register_hook.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -20,60 +18,18 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
-  String? _errorMessage;
 
-  Future<void> _register() async {
-    final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
+  late RegisterController _registerController;
 
-    if (!emailRegex.hasMatch(_emailController.text)) {
-      setState(() => _errorMessage = "Email không hợp lệ!");
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showErrorDialog("Email không hợp lệ!");
-      });
-      return;
-    }
-
-    if (_passwordController.text != _confirmPasswordController.text) {
-      setState(() => _errorMessage = "Mật khẩu không khớp!");
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showErrorDialog("Mật khẩu không khớp!");
-      });
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-      _errorMessage = null;
-    });
-
-    try {
-      await RegisterApi(Api()).register(
-        name: _nameController.text,
-        email: _emailController.text,
-        password: _passwordController.text,
-      );
-
-      if (mounted) {
-        Routes.navigateToPage(context, Success());
-      }
-    } catch (error) {
-      setState(() => _errorMessage = error.toString());
-
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        _showErrorDialog('Tài khoản đã tồn tại, hãy thử lại');
-      });
-    } finally {
-      setState(() => _isLoading = false);
-    }
-  }
-
-  void _showErrorDialog(String message) {
-    showDialog(
+  @override
+  void initState() {
+    super.initState();
+    _registerController = RegisterController(
+      nameController: _nameController,
+      emailController: _emailController,
+      passwordController: _passwordController,
+      confirmPasswordController: _confirmPasswordController,
       context: context,
-      builder: (context) => ErrorDialog(
-        message: message,
-        onRetry: _register,
-      ),
     );
   }
 
@@ -131,11 +87,15 @@ class _RegisterState extends State<Register> {
                 isPassword: true,
               ),
               const SizedBox(height: 15),
+
               Center(
                 child: SizedBox(
                   child: Button(
                     text: _isLoading ? 'Đang đăng ký...' : 'Tạo tài khoản',
-                    onPressed: _register,
+                    onPressed: () => _registerController.register(
+                            () => setState(() => _isLoading = true),
+                            () => setState(() => _isLoading = false),
+                      ),
                   ),
                 ),
               ),

@@ -5,7 +5,7 @@ import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/recover_password.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blog_awareness_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
