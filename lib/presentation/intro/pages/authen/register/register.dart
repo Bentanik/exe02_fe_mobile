@@ -96,6 +96,7 @@ class _RegisterState extends State<Register> {
                             () => setState(() => _isLoading = true),
                             () => setState(() => _isLoading = false),
                       ),
+                    buttonSize: Size(350, 50),
                   ),
                 ),
               ),

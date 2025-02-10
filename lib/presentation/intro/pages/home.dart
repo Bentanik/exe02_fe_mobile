@@ -3,10 +3,20 @@ import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/logout.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final LogoutController _logoutController = LogoutController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,10 +56,8 @@ class Home extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Search bar
               SearchField(),
               SizedBox(height: 20),
-              // Banner
               Container(
                 padding: EdgeInsets.all(40),
                 width: double.infinity,
@@ -80,8 +88,6 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-
-              // Categories
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -93,42 +99,39 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => Routes.navigateToPage(context, Categories()),
                     child: Text("SEE ALL"),
                   ),
                 ],
               ),
-
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Button(
                       text: 'All',
-                      onPressed: () =>
-                          Routes.navigateToPage(context, Success()),
+                      onPressed: () => Routes.navigateToPage(context, Success()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),
                     ),
+                    const SizedBox(width: 10,),
                     Button(
                       text: 'Chatbot',
-                      onPressed: () =>
-                          Routes.navigateToPage(context, Success()),
+                      onPressed: () => Routes.navigateToPage(context, Success()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),
                     ),
+                    const SizedBox(width: 10,),
                     Button(
-                      text: 'News',
-                      onPressed: () =>
-                          Routes.navigateToPage(context, Success()),
+                      text: 'Premium',
+                      onPressed: () => Routes.navigateToPage(context, PremiumOption()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),
                     ),
+                    const SizedBox(width: 10,),
                     Button(
-                      text: 'Support',
-                      onPressed: () =>
-                          Routes.navigateToPage(context, Success()),
+                      text: 'Check scam',
+                      onPressed: () => Routes.navigateToPage(context, Success()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),
                     ),
@@ -136,8 +139,6 @@ class Home extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-
-              // Popular Courses
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -149,7 +150,7 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () => Routes.navigateToPage(context, Categories()),
                     child: Text("SEE ALL"),
                   ),
                 ],
@@ -157,29 +158,17 @@ class Home extends StatelessWidget {
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: [
-                    HomeCard(
-                        imageUrl: AppImages.bg,
-                        category: 'Security',
-                        title: 'Security 1'),
-                    HomeCard(
-                        imageUrl: AppImages.bg,
-                        category: 'Security',
-                        title: 'Security 1'),
-                    HomeCard(
-                        imageUrl: AppImages.bg,
-                        category: 'Security',
-                        title: 'Security 1'),
-                    HomeCard(
-                        imageUrl: AppImages.bg,
-                        category: 'Security',
-                        title: 'Security 1'),
-                  ],
+                  children: List.generate(
+                    4,
+                        (index) => HomeCard(
+                      imageUrl: AppImages.bg,
+                      category: 'Security',
+                      title: 'Security 1',
+                    ),
+                  ),
                 ),
               ),
               SizedBox(height: 20),
-
-              // Top Mentor
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -199,6 +188,18 @@ class Home extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: List.generate(4, (index) => _buildMentorAvatar()),
+              ),
+              SizedBox(height: 16),
+              Center(
+                child: Button(
+                  onPressed: () async {
+                    bool isSuccess = await _logoutController.logout();
+                    if (isSuccess && context.mounted) {
+                      Routes.navigateToPage(context, Success());
+                    }
+                  },
+                  text: 'Đăng xuất',
+                ),
               ),
             ],
           ),

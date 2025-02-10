@@ -12,9 +12,12 @@ class PremiumOption extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
+
       body: SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 80),
         child: Column(

@@ -8,6 +8,12 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/recover_password.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blog_awareness_detail.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/blogs_awareness.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/books_mark.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/curriculcum.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -26,7 +32,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, Login()),
+                  onTap: () => Routes.navigateToPage(context, ScamVerifierScreen()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),

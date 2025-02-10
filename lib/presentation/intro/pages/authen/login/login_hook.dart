@@ -35,7 +35,7 @@ class LoginController {
         Fluttertoast.showToast(
           msg: "Đăng nhập thành công!",
           toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.TOP, // Thả từ trên xuống
+          gravity: ToastGravity.TOP,
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0,
