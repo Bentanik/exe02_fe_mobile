@@ -14,6 +14,7 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/curriculcum.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -32,7 +33,7 @@ class GetStartedPage extends StatelessWidget {
                 child: ListView(
               children: [
                 ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, ScamVerifierScreen()),
+                  onTap: () => Routes.navigateToPage(context, Home()),
                   leading: const Icon(FontAwesomeIcons.user,
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),

@@ -1,11 +1,15 @@
+import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/authen/logout.dart';
+import 'package:exe02_fe_mobile/models/course.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
@@ -15,49 +19,120 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final LogoutController _logoutController = LogoutController();
+  List<Course> courses = [];
+  bool isLoggedIn = false;
+  String userAvatar = "";
+
+  @override
+  void initState() {
+    print("🚀 initState của Home đang chạy");
+    super.initState();
+    _fetchCourses();
+  }
+
+  Future<void> _fetchCourses() async {
+    print("🔍 Bắt đầu gọi API từ Home");
+    try {
+      List<Course> fetchedCourses = await CourseService().fetchCourses();
+      setState(() {
+        courses = fetchedCourses;
+      });
+    } catch (e) {
+      print("Lỗi khi tải khóa học: $e");
+      setState(() {});
+    }
+  }
+
+  void updateLoginState(bool status, {String? avatarUrl}) {
+    setState(() {
+      isLoggedIn = status;
+      if (avatarUrl != null) {
+        userAvatar = avatarUrl;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Hi, Cristiano Ronaldo",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-              ),
-            ),
-            Text(
-              "What would you like to learn today?",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications, color: Colors.black),
-            onPressed: () {},
-          ),
-        ],
-      ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 60),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchField(),
+              // Section: Đăng nhập / Đăng ký hoặc Avatar User
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Welcome!",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Spacer(),
+                  isLoggedIn
+                      ? GestureDetector(
+                          onTap: () =>
+                              Routes.navigateToPage(context, ProfileUser()),
+                          // Chuyển đến trang profile
+                          child: CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(userAvatar),
+                          ),
+                        )
+                      : Row(
+                          children: [
+                            TextButton(
+                              onPressed: () => Routes.navigateToPage(context,
+                                  Login(updateLoginState: updateLoginState)),
+                              child: Text("Đăng nhập"),
+                            ),
+                            SizedBox(width: 10),
+                            ElevatedButton(
+                              onPressed: () =>
+                                  Routes.navigateToPage(context, Register()),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: Text("Đăng ký",
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ],
+                        ),
+                  SizedBox(width: 10),
+                ],
+              ),
               SizedBox(height: 20),
+
+              // Section: Chào hỏi
+              Text(
+                "Hi, Cristiano Ronaldo",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
+              Text(
+                "What would you like to learn today?",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
+              ),
+              SizedBox(height: 20),
+
+              SearchField(onPressed: () => Routes.navigateToPage(context, SearchCourse()),),
+              SizedBox(height: 20),
+
               Container(
                 padding: EdgeInsets.all(40),
                 width: double.infinity,
@@ -88,6 +163,8 @@ class _HomeState extends State<Home> {
                 ),
               ),
               SizedBox(height: 20),
+
+              // Danh mục
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -99,119 +176,58 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   TextButton(
-                    onPressed: () => Routes.navigateToPage(context, Categories()),
+                    onPressed: () =>
+                        Routes.navigateToPage(context, Categories()),
                     child: Text("SEE ALL"),
                   ),
                 ],
               ),
+
+              // Các nút danh mục
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     Button(
-                      text: 'All',
-                      onPressed: () => Routes.navigateToPage(context, Success()),
-                      buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
-                    ),
-                    const SizedBox(width: 10,),
+                        text: 'Chatbot',
+                        onPressed: () =>
+                            Routes.navigateToPage(context, Success()),
+                        buttonSize: Size(100, 40),
+                        backgroundColor: Color(0xFF167F71)),
+                    SizedBox(width: 10),
                     Button(
-                      text: 'Chatbot',
-                      onPressed: () => Routes.navigateToPage(context, Success()),
-                      buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
-                    ),
-                    const SizedBox(width: 10,),
+                        text: 'Premium',
+                        onPressed: () =>
+                            Routes.navigateToPage(context, PremiumOption()),
+                        buttonSize: Size(100, 40),
+                        backgroundColor: Color(0xFF167F71)),
+                    SizedBox(width: 10),
                     Button(
-                      text: 'Premium',
-                      onPressed: () => Routes.navigateToPage(context, PremiumOption()),
-                      buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
-                    ),
-                    const SizedBox(width: 10,),
-                    Button(
-                      text: 'Check scam',
-                      onPressed: () => Routes.navigateToPage(context, Success()),
-                      buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
-                    ),
+                        text: 'Check scam',
+                        onPressed: () =>
+                            Routes.navigateToPage(context, Success()),
+                        buttonSize: Size(100, 40),
+                        backgroundColor: Color(0xFF167F71)),
                   ],
                 ),
               ),
               SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Popular Courses",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () => Routes.navigateToPage(context, Categories()),
-                    child: Text("SEE ALL"),
-                  ),
-                ],
-              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate(
-                    4,
-                        (index) => HomeCard(
-                      imageUrl: AppImages.bg,
-                      category: 'Security',
-                      title: 'Security 1',
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Top Mentor",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text("SEE ALL"),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: List.generate(4, (index) => _buildMentorAvatar()),
-              ),
-              SizedBox(height: 16),
-              Center(
-                child: Button(
-                  onPressed: () async {
-                    bool isSuccess = await _logoutController.logout();
-                    if (isSuccess && context.mounted) {
-                      Routes.navigateToPage(context, Success());
-                    }
-                  },
-                  text: 'Đăng xuất',
+                  children: courses
+                      .map((course) => HomeCard(
+                            imageUrl: course.thumbnailUrl,
+                            category: 'Course',
+                            title: course.name,
+                          ))
+                      .toList(),
                 ),
               ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildMentorAvatar() {
-    return CircleAvatar(
-      radius: 30,
-      backgroundColor: Colors.grey[300],
     );
   }
 }

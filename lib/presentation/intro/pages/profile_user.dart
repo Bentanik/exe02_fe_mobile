@@ -1,10 +1,21 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/logout.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ProfileUser extends StatelessWidget {
+class ProfileUser extends StatefulWidget {
+  @override
+  _ProfileUserState createState() => _ProfileUserState();
+}
+
+class _ProfileUserState extends State<ProfileUser> {
+  final LogoutController _logoutController = LogoutController();
+  bool isLoggedIn = true;
+  String userAvatar = AppImages.chatBot; // Avatar mặc định
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +28,7 @@ class ProfileUser extends StatelessWidget {
         ),
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
+          onPressed: () => Navigator.pop(context),
         ),
       ),
       body: SingleChildScrollView(
@@ -35,7 +46,7 @@ class ProfileUser extends StatelessWidget {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.grey.shade300,
-                    child: Image.asset(AppImages.chatBot),
+                    backgroundImage: AssetImage(userAvatar),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -51,60 +62,43 @@ class ProfileUser extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
+
             // Profile Buttons
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
+              leading: Icon(FontAwesomeIcons.user, size: 20, color: Colors.black),
+              title: Text('Personal Information'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
+              leading: Icon(FontAwesomeIcons.cog, size: 20, color: Colors.black),
+              title: Text('Settings'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
+              leading: Icon(FontAwesomeIcons.creditCard, size: 20, color: Colors.black),
+              title: Text('Payment Methods'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
+              leading: Icon(FontAwesomeIcons.history, size: 20, color: Colors.black),
+              title: Text('Order History'),
             ),
+
+            // Đăng xuất
             ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
-            ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
-            ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
-            ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
-            ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: const Icon(FontAwesomeIcons.user,
-                  size: 20, color: Colors.black),
-              title: const Text('Personal Information'),
+              onTap: () async {
+                bool isSuccess = await _logoutController.logout();
+                if (isSuccess && context.mounted) {
+                  setState(() {
+                    isLoggedIn = false;
+                    userAvatar = "";
+                  });
+                  Routes.navigateToPage(context, Home());
+                }
+              },
+              leading: Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Colors.red),
+              title: Text('Đăng xuất', style: TextStyle(color: Colors.red)),
             ),
           ],
         ),

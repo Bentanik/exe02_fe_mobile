@@ -1,6 +1,7 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
@@ -76,7 +77,7 @@ class RecoveryPasswordPage extends StatelessWidget {
                               children: [
                                 Button(
                                   onPressed: () =>
-                                      Routes.navigateToPage(context, Login()),
+                                      Routes.navigateToPage(context, Success()),
                                   text: 'Gửi mã code',
                                   backgroundColor: Colors.black,
                                   buttonSize: Size(328, 10),
@@ -136,7 +137,7 @@ class RecoveryPasswordPage extends StatelessWidget {
                         children: [
                           Button(
                             onPressed: () =>
-                                Routes.navigateToPage(context, Login()),
+                                Routes.navigateToPage(context, Success()),
                             text: 'Nhập mã xác minh',
                             backgroundColor: Colors.black,
                             buttonSize: Size(328, 10),
@@ -244,7 +245,7 @@ class RecoveryPasswordPage extends StatelessWidget {
                         children: [
                           Button(
                             onPressed: () =>
-                                Routes.navigateToPage(context, Login()),
+                                Routes.navigateToPage(context, Success()),
                             text: 'Xác nhận mã pin mới',
                             backgroundColor: Colors.black,
                             buttonSize: Size(328, 10),
@@ -270,7 +271,7 @@ class RecoveryPasswordPage extends StatelessWidget {
                         children: [
                           Button(
                             onPressed: () =>
-                                Routes.navigateToPage(context, Login()),
+                                Routes.navigateToPage(context, Success()),
                             text: 'Đăng nhập',
                             backgroundColor: Colors.black,
                             buttonSize: Size(328, 10),

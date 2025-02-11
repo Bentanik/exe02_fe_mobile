@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {
-  const SearchField({Key? key}) : super(key: key);
+  final VoidCallback? onPressed; // ✅ Thêm tham số onPressed
+
+  const SearchField({Key? key, this.onPressed}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +20,15 @@ class SearchField extends StatelessWidget {
           ),
           Expanded(
             child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search for..',
+              decoration: const InputDecoration(
+                hintText: 'Search for...',
                 border: InputBorder.none,
               ),
             ),
           ),
           IconButton(
             icon: const Icon(Icons.send, color: Colors.blue),
-            onPressed: () {},
+            onPressed: onPressed, // ✅ Gọi hàm onPressed khi bấm vào icon
           ),
         ],
       ),

@@ -19,15 +19,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(
-        title: const Text("Scam Verifier", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () {},
-        ),
-      ),
+      appBar: AppBar(title: const Text('Check scam')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

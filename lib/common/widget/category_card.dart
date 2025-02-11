@@ -1,26 +1,26 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryCard extends StatelessWidget {
   final String title;
   final String imageUrl;
   final Color backgroundColor;
+  final VoidCallback? onPress; // ✅ Thêm sự kiện onTap
 
   const CategoryCard({
     Key? key,
     required this.title,
     required this.imageUrl,
     required this.backgroundColor,
+    this.onPress, // ✅ Nhận giá trị onTap từ ngoài vào
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 100,
+    return GestureDetector(
+      onTap: onPress, // ✅ Bắt sự kiện khi nhấn vào thẻ
       child: Container(
-        padding: const EdgeInsets.all(16),
+        height: 100,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           color: backgroundColor.withOpacity(0.4),
           borderRadius: BorderRadius.circular(20),
@@ -30,27 +30,22 @@ class CategoryCard extends StatelessWidget {
           children: [
             Image.asset(
               imageUrl,
-              height: 100,
+              height: 80,
               width: 80,
               fit: BoxFit.cover,
             ),
-            SizedBox(width: 50),
+            const SizedBox(width: 20), // ✅ Giữ khoảng cách hợp lý hơn
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                ],
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
               ),
             ),
+            const Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 18), // ✅ Thêm icon điều hướng
           ],
         ),
       ),

@@ -13,13 +13,14 @@ class LoginController {
   final BuildContext context;
   bool isLoading = false;
   String? errorMessage;
+  final Function(bool, {String? avatarUrl}) updateLoginState;
 
   LoginController({
     required this.emailController,
     required this.passwordController,
     required this.context,
+    required this.updateLoginState,
   });
-
 
   Future<void> login(VoidCallback onLoading, VoidCallback onDone) async {
     onLoading();
@@ -31,6 +32,8 @@ class LoginController {
       );
 
       if (context.mounted) {
+
+        // updateLoginState(true);
         // Hiển thị thông báo thành công
         Fluttertoast.showToast(
           msg: "Đăng nhập thành công!",

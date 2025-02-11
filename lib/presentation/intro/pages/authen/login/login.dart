@@ -1,14 +1,14 @@
-import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login_hook.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+  final Function(bool, {String? avatarUrl}) updateLoginState;
+
+  const Login({Key? key, required this.updateLoginState}) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
@@ -20,6 +20,7 @@ class _LoginState extends State<Login> {
   bool _isLoading = false;
   late LoginController _loginController;
 
+
   @override
   void initState() {
     super.initState();
@@ -27,6 +28,21 @@ class _LoginState extends State<Login> {
       emailController: _emailController,
       passwordController: _passwordController,
       context: context,
+      updateLoginState: widget.updateLoginState,
+    );
+  }
+
+  Future<void> _handleLogin() async {
+    setState(() => _isLoading = true); // Bắt đầu loading
+
+    await _loginController.login(
+          () => setState(() => _isLoading = true),  // Khi login bắt đầu
+          () {
+        setState(() => _isLoading = false);
+        String avatarUrl = "https://example.com/avatar.jpg";
+        widget.updateLoginState(true, avatarUrl: avatarUrl);
+        Navigator.pop(context);
+      },
     );
   }
 
@@ -61,7 +77,7 @@ class _LoginState extends State<Login> {
                   InputField(
                     controller: _emailController,
                     icon: FontAwesomeIcons.user,
-                    hintText: 'email',
+                    hintText: 'Email',
                   ),
                   const SizedBox(height: 16),
                   InputField(
@@ -84,12 +100,9 @@ class _LoginState extends State<Login> {
                   Center(
                     child: SizedBox(
                       child: Button(
-                        text: _isLoading ? 'Đang đăng ký...' : 'Đăng nhập',
-                        onPressed: () => _loginController.login(
-                              () => setState(() => _isLoading = true),
-                              () => setState(() => _isLoading = false),
-                        ),
-                        buttonSize: Size(350, 50),
+                        text: _isLoading ? 'Đang đăng nhập...' : 'Đăng nhập',
+                        onPressed: _handleLogin,
+                        buttonSize: const Size(350, 50),
                       ),
                     ),
                   ),

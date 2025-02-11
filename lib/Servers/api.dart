@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
 
 class Api {
   Dio api = Dio();
@@ -11,8 +10,8 @@ class Api {
     api.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          if(!options.path.contains('http')) {
-            options.path = 'https://exewebapi-a5b8h2hrdhbderhv.southeastasia-01.azurewebsites.net' + options.path;
+          if(!options.path.contains('https')) {
+            options.path = 'https://10.0.2.2:6060' + options.path;
           }
           options.headers['Authorization'] = 'Bearer $accessToken';
           return handler.next(options);
