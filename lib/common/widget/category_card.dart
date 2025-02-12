@@ -30,11 +30,11 @@ class CategoryCard extends StatelessWidget {
           children: [
             Image.asset(
               imageUrl,
-              height: 80,
-              width: 80,
+              height: 60,
+              width: 60,
               fit: BoxFit.cover,
             ),
-            const SizedBox(width: 20), // ✅ Giữ khoảng cách hợp lý hơn
+            const SizedBox(width: 60), // ✅ Giữ khoảng cách hợp lý hơn
             Expanded(
               child: Text(
                 title,
@@ -44,8 +44,7 @@ class CategoryCard extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-            ),
-            const Icon(Icons.arrow_forward_ios, color: Colors.black54, size: 18), // ✅ Thêm icon điều hướng
+            ), // ✅ Thêm icon điều hướng
           ],
         ),
       ),

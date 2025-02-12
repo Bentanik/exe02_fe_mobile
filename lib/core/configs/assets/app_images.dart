@@ -10,4 +10,6 @@ class AppImages {
   static const String report = '${basePath}report.png';
   static const String premiumBg = '${basePath}premium_bg.png';
   static const String premiumBg1 = '${basePath}premium_bg1.png';
+  static const String awareness = '${basePath}awareness.png';
+  static const String signal = '${basePath}signal.png';
 }

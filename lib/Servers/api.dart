@@ -10,8 +10,8 @@ class Api {
     api.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          if(!options.path.contains('https')) {
-            options.path = 'https://10.0.2.2:6060' + options.path;
+          if(!options.path.contains('http')) {
+            options.path = 'http://10.0.2.2:5000' + options.path;
           }
           options.headers['Authorization'] = 'Bearer $accessToken';
           return handler.next(options);

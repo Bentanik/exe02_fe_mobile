@@ -41,7 +41,7 @@ class HomeCard extends StatelessWidget {
                 child: Container(
                   height: 100,
                   color: Colors.black,
-                  child: Image.asset(
+                  child: Image.network(
                     imageUrl,
                     fit: BoxFit.cover,
                     width: 170,

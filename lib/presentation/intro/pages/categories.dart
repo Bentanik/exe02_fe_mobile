@@ -5,6 +5,7 @@ import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blogs_awareness.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/web_verify.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/courses.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/list_sign_of_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
@@ -26,7 +27,6 @@ class Categories extends StatelessWidget {
             SearchField(),
             const SizedBox(height: 10),
 
-            // Bọc trong Expanded và ListView để có thể cuộn
             Expanded(
               child: ListView(
                 children: [
@@ -38,7 +38,7 @@ class Categories extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
-                    onPress: () => Routes.navigateToPage(context, Success()),
+                    onPress: () => Routes.navigateToPage(context, Courses()),
                     title: 'Course',
                     imageUrl: AppImages.course,
                     backgroundColor: Colors.purpleAccent,
@@ -55,21 +55,21 @@ class Categories extends StatelessWidget {
                     onPress: () => Routes.navigateToPage(context, ScamVerifierScreen()),
                     title: 'Check scam',
                     imageUrl: AppImages.check,
-                    backgroundColor: Colors.pinkAccent,
+                    backgroundColor: Colors.greenAccent,
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, BlogsAwareness()),
                     title: 'Blog awareness',
-                    imageUrl: AppImages.chatBot,
-                    backgroundColor: Colors.pinkAccent,
+                    imageUrl: AppImages.awareness,
+                    backgroundColor: Colors.orangeAccent,
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, ScamSignsList()),
-                    title: 'Blog awareness',
-                    imageUrl: AppImages.chatBot,
-                    backgroundColor: Colors.pinkAccent,
+                    title: 'Sign of scam',
+                    imageUrl: AppImages.signal,
+                    backgroundColor: Colors.blueAccent,
                   ),
                 ],
               ),
