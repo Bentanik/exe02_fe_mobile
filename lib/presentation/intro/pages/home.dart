@@ -3,7 +3,7 @@ import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
-import 'package:exe02_fe_mobile/models/course.dart';
+import 'package:exe02_fe_mobile/models/course/course_model.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
@@ -25,7 +25,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    print("🚀 initState của Home đang chạy");
     super.initState();
     _fetchCourses();
   }
@@ -33,15 +32,22 @@ class _HomeState extends State<Home> {
   Future<void> _fetchCourses() async {
     print("🔍 Bắt đầu gọi API từ Home");
     try {
-      List<Course> fetchedCourses = await CourseService().fetchCourses();
-      setState(() {
-        courses = fetchedCourses;
-      });
+      CourseResponse courseResponse = await CourseService().fetchCourses();
+
+      if (courseResponse.isSuccess) {
+        setState(() {
+          courses = courseResponse.courses;
+        });
+      } else {
+        print("Lỗi từ API: ${courseResponse.message}");
+      }
     } catch (e) {
       print("Lỗi khi tải khóa học: $e");
-      setState(() {});
+    } finally {
+      setState(() {}); // Đảm bảo UI cập nhật dù có lỗi hay không
     }
   }
+
 
   void updateLoginState(bool status, {String? avatarUrl}) {
     setState(() {
@@ -211,6 +217,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
+
               SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

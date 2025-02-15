@@ -38,14 +38,6 @@ class GetStartedPage extends StatelessWidget {
                       size: 20, color: Colors.black),
                   title: const Text('Personal Information'),
                 ),
-                SearchCourseCard(
-                  category: 'Security course',
-                  title: 'Security 3',
-                  rating: 4.2,
-                  students: 7830,
-                  isBookmarked: true,
-                  imageUrl: AppImages.bg,
-                ),
                 NotificationCard(
                     title: 'Thong báo',
                     desc: 'Hôm nay là thứ 7',

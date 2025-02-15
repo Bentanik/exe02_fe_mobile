@@ -1,6 +1,8 @@
+import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
 import 'package:flutter/material.dart';
 
 class SearchCourse extends StatelessWidget {
@@ -57,6 +59,7 @@ class SearchCourse extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0),
                     child: SearchCourseCard(
+                      onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                       category: 'Nhận thức',
                       title: 'Nhận thức 1',
                       rating: 4,

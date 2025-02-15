@@ -3,6 +3,7 @@ import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -54,6 +55,8 @@ class BooksMark extends StatelessWidget {
                   ),
                 ),
                 SearchCourseCard(
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
+
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
@@ -62,6 +65,7 @@ class BooksMark extends StatelessWidget {
                   imageUrl: AppImages.bg,
                 ),
                 SearchCourseCard(
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
@@ -70,6 +74,7 @@ class BooksMark extends StatelessWidget {
                   imageUrl: AppImages.bg,
                 ),
                 SearchCourseCard(
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
@@ -78,6 +83,7 @@ class BooksMark extends StatelessWidget {
                   imageUrl: AppImages.bg,
                 ),
                 SearchCourseCard(
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,
@@ -86,6 +92,7 @@ class BooksMark extends StatelessWidget {
                   imageUrl: AppImages.bg,
                 ),
                 SearchCourseCard(
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                   category: 'Security course',
                   title: 'Security 3',
                   rating: 4.2,

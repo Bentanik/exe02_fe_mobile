@@ -1,12 +1,45 @@
+import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
-import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
-import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
+import 'package:exe02_fe_mobile/models/course/course_model.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/filters.dart';
 import 'package:flutter/material.dart';
 
-class Courses extends StatelessWidget {
+class Courses extends StatefulWidget {
   const Courses({Key? key}) : super(key: key);
+
+  @override
+  _CoursesState createState() => _CoursesState();
+}
+class _CoursesState extends State<Courses> {
+  List<Course> courses = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchCourses();
+  }
+
+  Future<void> _fetchCourses() async {
+    print("🔍 Bắt đầu gọi API từ Home");
+    try {
+      CourseResponse courseResponse = await CourseService().fetchCourses();
+
+      if (courseResponse.isSuccess) {
+        setState(() {
+          courses = courseResponse.courses;
+        });
+      } else {
+        print("Lỗi từ API: ${courseResponse.message}");
+      }
+    } catch (e) {
+      print("Lỗi khi tải khóa học: $e");
+    } finally {
+      setState(() {}); // Đảm bảo UI cập nhật dù có lỗi hay không
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +50,7 @@ class Courses extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            //Search Bar
+            // Search Bar
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -39,7 +72,7 @@ class Courses extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.list_rounded, color: Colors.blue),
-                    onPressed: () => Routes.navigateToPage(context, Success()),
+                    onPressed: () => Routes.navigateToPage(context, Filters()),
                   ),
                 ],
               ),
@@ -55,22 +88,18 @@ class Courses extends StatelessWidget {
 
             // Course cards
             Expanded(
-              child: ListView.builder(
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                    child: SearchCourseCard(
-                      category: 'Nhận thức',
-                      title: 'Nhận thức 1',
-                      rating: 4,
-                      students: 7000,
-                      imageUrl: AppImages.bg,
-                    ),
-                  );
-                },
+              child: ListView(
+                children: courses.map((course) => SearchCourseCard(
+                  imageUrl: course.thumbnailUrl,
+                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
+                  category: 'Course',
+                  title: course.name,
+                  rating: 3,
+                  students: 500,
+                  isBookmarked: false,
+                )).toList(),
               ),
-            ),
+            )
           ],
         ),
       ),
