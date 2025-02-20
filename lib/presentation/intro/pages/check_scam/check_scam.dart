@@ -19,7 +19,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: AppBar(title: const Text('Check scam')),
+      appBar: AppBar(title: const Text('Kiểm tra lừa đảo')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -35,12 +35,12 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () => switchTab(true),
-                      style: ElevatedButton.styleFrom(
+                        onPressed: () => switchTab(true),
+                        style: ElevatedButton.styleFrom(
                         backgroundColor: isBankVerify ? Colors.blue : Colors.white,
                         foregroundColor: isBankVerify ? Colors.white : Colors.black,
                       ),
-                      child: const Text("Bank Verify"),
+                      child: const Text("Ngân hàng"),
                     ),
                   ),
                   Expanded(
@@ -50,7 +50,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
                         backgroundColor: !isBankVerify ? Colors.blue : Colors.white,
                         foregroundColor: !isBankVerify ? Colors.white : Colors.black,
                       ),
-                      child: const Text("Web Verify"),
+                      child: const Text("Số điện thoại"),
                     ),
                   ),
                 ],

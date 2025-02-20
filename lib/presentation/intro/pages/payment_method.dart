@@ -1,10 +1,51 @@
-import 'package:exe02_fe_mobile/common/helpers/routes.dart';
+import 'package:exe02_fe_mobile/Servers/api.dart';
+import 'package:exe02_fe_mobile/Servers/premiums/premium_detail_api.dart';
+import 'package:exe02_fe_mobile/Servers/users/purchase_api.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
-import 'package:exe02_fe_mobile/common/widget/premium_card.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
+import 'package:exe02_fe_mobile/models/premiums/premium_detail_model.dart';
+import 'package:exe02_fe_mobile/models/users/purchase_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class PaymentMethods extends StatelessWidget {
+class PaymentMethods extends StatefulWidget {
+  final String premiumId;
+
+  PaymentMethods({required this.premiumId});
+
+  @override
+  _PaymentMethodsState createState() => _PaymentMethodsState();
+}
+
+class _PaymentMethodsState extends State<PaymentMethods> {
+  late Future<PremiumResponse> _premiumFuture;
+  final PremiumApiService _apiService = PremiumApiService();
+  final PurchaseVipApi _purchaseVipApi = PurchaseVipApi(Api());
+
+  @override
+  void initState() {
+    super.initState();
+    _premiumFuture = _apiService.fetchPremiums(widget.premiumId);
+  }
+
+  Future<void> _handlePayment() async {
+    try {
+      PaymentResponse response =
+          await _purchaseVipApi.fetchPurchase(widget.premiumId);
+      if (response.value.data.success &&
+          await canLaunchUrl(Uri.parse(response.value.data.paymentUrl))) {
+        await launchUrl(Uri.parse(response.value.data.paymentUrl));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Không thể mở đường dẫn thanh toán')),
+        );
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi khi xử lý thanh toán: $error')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,128 +56,88 @@ class PaymentMethods extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.grey.shade800, width: 2),
-                ),
-                child: Column(
+          child: FutureBuilder<PremiumResponse>(
+            future: _premiumFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Center(child: Text("Lỗi: ${snapshot.error}"));
+              } else if (!snapshot.hasData) {
+                return Center(child: Text("Không có dữ liệu"));
+              }
+
+              final premium = snapshot.data!;
+              return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 4),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.cyan,
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(16),
+                        border:
+                            Border.all(color: Colors.grey.shade800, width: 2),
                       ),
-                      child: Text(
-                        '1 tháng',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
+                            decoration: BoxDecoration(
+                              color: Colors.cyan,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              '1 tháng',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Text(
+                            premium.data.subscriptionPackage.name,
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '${premium.data.subscriptionPackage.price} vnd',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            '• 1 tài khoản Premium\n'
+                            '• Hủy bất cứ lúc nào\n'
+                            '• Đăng ký hoặc thanh toán một lần',
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      'Premium',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    Center(
+                      child: Button(
+                          text: 'Thanh toán',
+                          onPressed: _handlePayment,
+                          buttonSize: Size(double.infinity, 40),
+                          backgroundColor: Color(0xFF047099)),
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '500.000 vnd',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    const Text(
-                      '• 1 tài khoản Premium\n'
-                      '• Hủy bất cứ lúc nào\n'
-                      '• Đăng ký hoặc thanh toán một lần',
-                      style: TextStyle(
-                        fontSize: 16,
-                        height: 1.5,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Text('CURRENT METHOD',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              SizedBox(height: 20),
-              Text(
-                  'Choose desired vehicle type. We offer cars suitable for most everyday needs.'),
-              SizedBox(height: 10),
-              Column(
-                children: [
-                  PaymentCard(
-                      brand: 'Mastercard',
-                      lastDigits: '5967',
-                      expiry: '09/25',
-                      color: Colors.red),
-                  PaymentCard(
-                      brand: 'Visa',
-                      lastDigits: '3802',
-                      expiry: '10/27',
-                      color: Colors.blue),
-                  PaymentCard(
-                      brand: 'PayPal',
-                      lastDigits: 'petra_stark@email.com',
-                      expiry: '',
-                      color: Colors.blueAccent),
-                ],
-              ),
-              SizedBox(height: 20),
-              Center(
-                child: Button(
-                    text: 'Thanh toán ngay',
-                    onPressed: () => Routes.navigateToPage(context, Success()),
-                    buttonSize: Size(300, 40),
-                ),
-              ),
-              SizedBox(height: 50),
-            ],
+                  ]);
+            },
           ),
         ),
-      ),
-    );
-  }
-}
-
-class PaymentCard extends StatelessWidget {
-  final String brand;
-  final String lastDigits;
-  final String expiry;
-  final Color color;
-
-  PaymentCard(
-      {required this.brand,
-      required this.lastDigits,
-      required this.expiry,
-      required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(Icons.credit_card, color: color),
-        title: Text('$brand **** $lastDigits'),
-        subtitle: expiry.isNotEmpty ? Text('Expires $expiry') : null,
       ),
     );
   }

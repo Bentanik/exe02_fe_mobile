@@ -2,11 +2,14 @@ import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/category_card.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/blog_awareness_detail.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blogs_awareness.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/courses.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/get_started.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/lecture_video.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/list_sign_of_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
@@ -73,10 +76,10 @@ class Categories extends StatelessWidget {
                     imageUrl: AppImages.signal,
                     backgroundColor: Colors.blueAccent,
                   ),
-
                   const SizedBox(height: 10),
                   CategoryCard(
-                    onPress: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
+                    onPress: () =>
+                        Routes.navigateToPage(context, YouTubeEmbed()),
                     title: 'Sign of scam',
                     imageUrl: AppImages.signal,
                     backgroundColor: Colors.blueAccent,

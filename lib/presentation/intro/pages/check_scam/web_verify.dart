@@ -1,3 +1,4 @@
+import 'package:exe02_fe_mobile/Servers/CheckScam/check_scam_api.dart';
 import 'package:flutter/material.dart';
 
 class WebVerifyBody extends StatefulWidget {
@@ -9,12 +10,13 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
   final TextEditingController _webController = TextEditingController();
   String resultText = "";
 
-  void checkScam() {
+  void checkScam() async {
     String input = _webController.text.trim();
     if (input.isEmpty) return;
 
+    String result = await checkScamReport(input, "phone"); // Gọi API kiểm tra web scam
     setState(() {
-      resultText = "This web scam";
+      resultText = result;
     });
   }
 
@@ -24,7 +26,7 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Protect yourself from fraud by verifying every website you interact with.",
+          "Nhập số điện thoại vào dưới đây để kiểm tra độ an toàn của số điện thoại.",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
@@ -32,7 +34,7 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
         TextField(
           controller: _webController,
           decoration: InputDecoration(
-            hintText: "Drop web URL",
+            hintText: "Nhập số điện thoại",
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(
@@ -50,13 +52,13 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
               backgroundColor: Colors.blue,
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
-            child: const Text("Start Check", style: TextStyle(fontSize: 18)),
+            child: const Text("Kiểm tra", style: TextStyle(fontSize: 18)),
           ),
         ),
 
         const SizedBox(height: 20),
 
-        const Text("The result show in here"),
+        const Text("Kết quả trả về:"),
         const SizedBox(height: 10),
         if (resultText.isNotEmpty)
           Container(
@@ -68,7 +70,10 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
             ),
             child: Text(
               resultText,
-              style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: resultText.contains("❌") ? Colors.red : Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
       ],

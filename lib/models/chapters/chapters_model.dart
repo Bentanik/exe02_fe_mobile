@@ -1,20 +1,24 @@
 import 'dart:convert';
 
-class ChapterResponse {
+import 'package:exe02_fe_mobile/models/lectures/lecture_detail_model.dart';
+import 'package:exe02_fe_mobile/models/lectures/lectures_model.dart';
+
+class ChaptersResponse {
   final String code;
   final String message;
   final List<ChapterModel> chapters;
   final bool isSuccess;
 
-  ChapterResponse({
+
+  ChaptersResponse({
     required this.code,
     required this.message,
     required this.chapters,
     required this.isSuccess,
   });
 
-  factory ChapterResponse.fromJson(Map<String, dynamic> json) {
-    return ChapterResponse(
+  factory ChaptersResponse.fromJson(Map<String, dynamic> json) {
+    return ChaptersResponse(
       code: json['value']['code'] ?? '',
       message: json['value']['message'] ?? '',
       isSuccess: json['isSuccess'] ?? false,
@@ -32,6 +36,7 @@ class ChapterModel {
   final String description;
   final int quantityLectures;
   final double totalDurationLectures;
+  final List<LecturesModel> lectures;
 
   ChapterModel({
     required this.id,
@@ -40,6 +45,7 @@ class ChapterModel {
     required this.description,
     required this.quantityLectures,
     required this.totalDurationLectures,
+    required this.lectures,
   });
 
   factory ChapterModel.fromJson(Map<String, dynamic> json) {
@@ -50,6 +56,10 @@ class ChapterModel {
       description: json['description'] ?? '',
       quantityLectures: json['quantityLectures'] ?? 0,
       totalDurationLectures: (json['totalDurationLectures'] ?? 0.0).toDouble(),
+      lectures: (json['lectures'] as List<dynamic>? ?? [])
+          .map((lecture) => LecturesModel.fromJson(lecture))
+          .toList(),
     );
   }
 }
+

@@ -3,6 +3,7 @@ import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login_hook.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Login extends StatefulWidget {
@@ -36,10 +37,17 @@ class _LoginState extends State<Login> {
     setState(() => _isLoading = true); // Bắt đầu loading
 
     await _loginController.login(
-          () => setState(() => _isLoading = true),  // Khi login bắt đầu
-          () {
+          () => setState(() => _isLoading = true),
+          () async {
         setState(() => _isLoading = false);
-        String avatarUrl = "https://example.com/avatar.jpg";
+
+        final storage = FlutterSecureStorage();
+        String? avatarUrl = await storage.read(key: 'userAvatarUrl');
+        String? fullName = await storage.read(key: 'userFullName');
+        print("Login Success - Avatar URL: $avatarUrl");
+        print("Login Success - name: $fullName");
+
+
         widget.updateLoginState(true, avatarUrl: avatarUrl);
         Navigator.pop(context);
       },
@@ -54,7 +62,7 @@ class _LoginState extends State<Login> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 50),
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

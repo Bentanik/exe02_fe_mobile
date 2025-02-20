@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
-import 'package:exe02_fe_mobile/models/chapters/chapter_model.dart';
+import 'package:exe02_fe_mobile/models/chapters/chapters_model.dart';
 
-class ChapterService {
+class ChaptersService {
   final Dio _dio = Api().api;
 
-  Future<ChapterResponse> fetchChapters(String courseId) async {
+  Future<ChaptersResponse> fetchChapters(String courseId) async {
     try {
       final response = await _dio.get(
         '/api/course/v1/get-chapters',
@@ -15,7 +15,7 @@ class ChapterService {
       );
 
       if (response.statusCode == 200) {
-        return ChapterResponse.fromJson(response.data);
+        return ChaptersResponse.fromJson(response.data);
       } else {
         throw Exception("Lỗi khi lấy danh sách chương");
       }

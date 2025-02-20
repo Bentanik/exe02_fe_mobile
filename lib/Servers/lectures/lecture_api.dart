@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
-import 'package:exe02_fe_mobile/models/lectures/lecture_model.dart';
+import 'package:exe02_fe_mobile/models/lectures/lecture_detail_model.dart';
 
 class LectureService {
   final Dio _dio = Api().api;

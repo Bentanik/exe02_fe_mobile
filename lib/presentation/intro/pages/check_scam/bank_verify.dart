@@ -1,3 +1,4 @@
+import 'package:exe02_fe_mobile/Servers/CheckScam/check_scam_api.dart';
 import 'package:flutter/material.dart';
 
 class BankVerifyBody extends StatefulWidget {
@@ -9,12 +10,13 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
   final TextEditingController _bankController = TextEditingController();
   String resultText = "";
 
-  void checkScam() {
+  void checkScam() async {
     String input = _bankController.text.trim();
     if (input.isEmpty) return;
 
+    String result = await checkScamReport(input, "bank"); // Gọi API
     setState(() {
-      resultText = "This bank number $input is a scam number";
+      resultText = result;
     });
   }
 
@@ -32,7 +34,7 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
         TextField(
           controller: _bankController,
           decoration: InputDecoration(
-            hintText: "Drop your bank number",
+            hintText: "Enter bank account number",
             filled: true,
             fillColor: Colors.white,
             border: OutlineInputBorder(
@@ -50,13 +52,13 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
               backgroundColor: Colors.blue,
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
-            child: const Text("Start Check", style: TextStyle(fontSize: 18)),
+            child: const Text("Check", style: TextStyle(fontSize: 18)),
           ),
         ),
 
         const SizedBox(height: 20),
 
-        const Text("The result show in here"),
+        const Text("Result:"),
         const SizedBox(height: 10),
         if (resultText.isNotEmpty)
           Container(
@@ -68,7 +70,10 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
             ),
             child: Text(
               resultText,
-              style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: resultText.contains("❌") ? Colors.red : Colors.green,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
       ],

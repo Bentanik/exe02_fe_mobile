@@ -49,7 +49,7 @@ class RegisterController {
       if (context.mounted) {
         // Hiển thị thông báo thành công
         Fluttertoast.showToast(
-          msg: "Đăng nhập thành công!",
+          msg: "Đăng kí thành công!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           backgroundColor: Colors.green,

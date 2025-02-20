@@ -1,6 +1,8 @@
+import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/blog_card.dart';
 import 'package:exe02_fe_mobile/common/widget/feature_blog_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/blog_awareness_detail.dart';
 import 'package:flutter/material.dart';
 
 class BlogsAwareness extends StatelessWidget {
@@ -94,6 +96,7 @@ class BlogsAwareness extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final news = newsItems[index];
                       return BlogCard(
+                        onPress: () => Routes.navigateToPage(context, BlogAwarenessDetail()),
                         category: news['category']!,
                         title: news['title']!,
                         imageUrl: news['imageUrl']!,

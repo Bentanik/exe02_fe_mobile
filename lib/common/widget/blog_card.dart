@@ -4,17 +4,20 @@ class BlogCard extends StatelessWidget {
   final String category;
   final String title;
   final String imageUrl;
+  final VoidCallback onPress;
 
   const BlogCard({
     Key? key,
     required this.category,
     required this.title,
     required this.imageUrl,
+    required this.onPress,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return
+      Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
         children: [

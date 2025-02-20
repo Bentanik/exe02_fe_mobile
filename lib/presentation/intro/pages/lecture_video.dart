@@ -1,82 +1,101 @@
+// import 'package:cloudinary_flutter/cloudinary_object.dart';
+// import 'package:cloudinary_flutter/video/cld_video_controller.dart';
+// import 'package:cloudinary_url_gen/cloudinary.dart';
+// import 'package:flutter/material.dart';
+// import 'package:video_player/video_player.dart';
+//
+// /// Stateful widget nhận `publicId` từ bên ngoài.
+// class VideoApp extends StatefulWidget {
+//   final String publicId; // Nhận publicId từ file khác
+//
+//   const VideoApp({super.key, required this.publicId});
+//
+//   @override
+//   _VideoAppState createState() => _VideoAppState();
+// }
+//
+// class _VideoAppState extends State<VideoApp> {
+//   late CldVideoController _controller;
+//   Cloudinary cloudinary = CloudinaryObject.fromCloudName(cloudName: 'tivas');
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//
+//     _controller = CldVideoController(cloudinary: cloudinary, publicId: widget.publicId)
+//       ..initialize().then((_) {
+//         setState(() {});
+//       });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(
+//         child: _controller.value.isInitialized
+//             ? AspectRatio(
+//           aspectRatio: _controller.value.aspectRatio,
+//           child: VideoPlayer(_controller),
+//         )
+//             : CircularProgressIndicator(),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           setState(() {
+//             _controller.value.isPlaying ? _controller.pause() : _controller.play();
+//           });
+//         },
+//         child: Icon(_controller.value.isPlaying ? Icons.pause : Icons.play_arrow),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   void dispose() {
+//     _controller.dispose();
+//     super.dispose();
+//   }
+// }
+
+
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
-import 'package:chewie/chewie.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class LectureVideoPage extends StatefulWidget {
-  final String videoUrl;
-  final String lectureTitle;
-
-  const LectureVideoPage({
-    super.key,
-    required this.videoUrl,
-    required this.lectureTitle,
-  });
-
+class YouTubeEmbed extends StatefulWidget {
   @override
-  State<LectureVideoPage> createState() => _LectureVideoPageState();
+  _YouTubeEmbedState createState() => _YouTubeEmbedState();
 }
 
-class _LectureVideoPageState extends State<LectureVideoPage> {
-  late VideoPlayerController _controller;
-  ChewieController? _chewieController;
-  bool _isInitialized = false;
+class _YouTubeEmbedState extends State<YouTubeEmbed> {
+  late YoutubePlayerController _controller;
 
   @override
   void initState() {
     super.initState();
-    _initializeVideo();
-  }
-
-  void _initializeVideo() {
-    _controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl),formatHint: VideoFormat.hls)
-      ..initialize().then((_) {
-        if (mounted) {
-          if (_controller.value.hasError) {
-            debugPrint("Lỗi video: ${_controller.value.errorDescription}");
-          } else {
-            setState(() {
-              _isInitialized = true;
-              _chewieController = ChewieController(
-                videoPlayerController: _controller,
-                autoPlay: true,
-                looping: false,
-                aspectRatio: _controller.value.isInitialized
-                    ? _controller.value.aspectRatio
-                    : 16 / 9,
-                allowFullScreen: true,
-                allowMuting: true,
-                showControls: true,
-              );
-            });
-          }
-        }
-      }).catchError((error) {
-        debugPrint("Lỗi khi tải video: $error");
-      });
+    _controller = YoutubePlayerController(
+      initialVideoId: 'HHY-CbyH7_s', // ID của video YouTube
+      flags: const YoutubePlayerFlags(
+        autoPlay: false,
+        mute: false,
+      ),
+    );
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _chewieController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.lectureTitle),
-        backgroundColor: Colors.black,
-        foregroundColor: Colors.white,
-      ),
+      appBar: AppBar(title: const Text("YouTube Video")),
       body: Center(
-        child: _isInitialized && _chewieController != null
-            ? AspectRatio(
-          aspectRatio: _controller.value.aspectRatio,
-          child: Chewie(controller: _chewieController!),
-        )
-            : const CircularProgressIndicator(),
+        child: YoutubePlayer(
+          controller: _controller,
+          showVideoProgressIndicator: true,
+        ),
       ),
     );
   }

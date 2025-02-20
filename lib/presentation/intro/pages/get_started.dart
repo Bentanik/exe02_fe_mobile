@@ -1,4 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
+import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/notification_card.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
@@ -17,6 +18,7 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
 
 class GetStartedPage extends StatelessWidget {
   const GetStartedPage({super.key});
@@ -32,12 +34,7 @@ class GetStartedPage extends StatelessWidget {
             Expanded(
                 child: ListView(
               children: [
-                ProfileButton(
-                  onTap: () => Routes.navigateToPage(context, Home()),
-                  leading: const Icon(FontAwesomeIcons.user,
-                      size: 20, color: Colors.black),
-                  title: const Text('Personal Information'),
-                ),
+                Button(text: 'test', onPressed: () => checkVideo()),
                 NotificationCard(
                     title: 'Thong báo',
                     desc: 'Hôm nay là thứ 7',
@@ -54,5 +51,13 @@ class GetStartedPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> checkVideo() async {
+    var url =
+        "https://res.cloudinary.com/tivas/video/upload/q_auto:good/AntiSCM/t97zttkt07ef0emrkdt4.mp4";
+    var response = await http.get(Uri.parse(url));
+    print("Status code: ${response.statusCode}");
+    print("Headers: ${response.headers}");
   }
 }

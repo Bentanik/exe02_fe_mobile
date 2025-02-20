@@ -1,10 +1,11 @@
+import 'package:exe02_fe_mobile/Servers/premiums/premiums_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/premium_card.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/payment_method.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
+import 'package:exe02_fe_mobile/models/premiums/premiums_model.dart';
 
 class PremiumOption extends StatefulWidget {
   @override
@@ -13,18 +14,34 @@ class PremiumOption extends StatefulWidget {
 
 class _PremiumOptionState extends State<PremiumOption> {
   String? selectedPlan;
-  bool isSelected = false;
+  bool isLoading = true;
+  List<PremiumsModel> premiumPlans = [];
 
-  void selectPlan(String plan) {
-    setState(() {
-      selectedPlan = plan;
-    });
+  @override
+  void initState() {
+    super.initState();
+    fetchPremiumPlans();
+  }
+
+  Future<void> fetchPremiumPlans() async {
+    try {
+      PremiumsApiService apiService = PremiumsApiService();
+      PremiumsResponse response = await apiService.fetchPremiums();
+      setState(() {
+        premiumPlans = response.data.subscriptionPackages.items;
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        isLoading = false;
+      });
+      print("Lỗi khi tải gói premium: $e");
+    }
   }
 
   void toggleSelection(String plan) {
     setState(() {
-      selectedPlan =
-          (selectedPlan == plan) ? null : plan; // Nếu chọn lại thì bỏ chọn
+      selectedPlan = (selectedPlan == plan) ? null : plan;
     });
   }
 
@@ -42,7 +59,9 @@ class _PremiumOptionState extends State<PremiumOption> {
           },
         ),
       ),
-      body: SingleChildScrollView(
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
         padding: EdgeInsets.only(bottom: 80),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,13 +84,11 @@ class _PremiumOptionState extends State<PremiumOption> {
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width,
                       ),
-                      // Add more images as needed
                     ],
                   ),
                 ],
               ),
             ),
-            // Phần header
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -93,7 +110,7 @@ class _PremiumOptionState extends State<PremiumOption> {
                       fontSize: 16,
                     ),
                   ),
-                  const SizedBox(height: 16,),
+                  const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.grey[900],
@@ -103,10 +120,6 @@ class _PremiumOptionState extends State<PremiumOption> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        FeatureItem(
-                          icon: Icons.video_label_outlined,
-                          text: 'Xem video không quảng cáo',
-                        ),
                         FeatureItem(
                           icon: Icons.play_arrow,
                           text: 'Phát video theo thứ tự bất kỳ',
@@ -123,32 +136,17 @@ class _PremiumOptionState extends State<PremiumOption> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  PremiumCard(
-                    duration: 'Ưu đãi 1 tháng',
-                    price: '500.000 vnd',
-                    backgroundColor: Color(0xFF6BB7CD),
-                    textColor: Color(0xFF6BB7CD),
-                    isSelected: selectedPlan == '1 tháng',
-                    onTap: () => toggleSelection('1 tháng'),
-                  ),
-                  const SizedBox(height: 10),
-                  PremiumCard(
-                    duration: 'Ưu đãi 3 tháng',
-                    price: '1.000.000 vnd',
-                    backgroundColor: Color(0xFF3794B3),
-                    textColor: Color(0xFF3794B3),
-                    isSelected: selectedPlan == '3 tháng',
-                    onTap: () => toggleSelection('3 tháng'),
-                  ),
-                  const SizedBox(height: 10),
-                  PremiumCard(
-                    duration: 'Ưu đãi 6 tháng',
-                    price: '1.300.000 vnd',
-                    backgroundColor: Color(0xFF047099),
-                    textColor: Color(0xFF047099),
-                    isSelected: selectedPlan == '6 tháng',
-                    onTap: () => toggleSelection('6 tháng'),
-                  ),
+                  ...premiumPlans.map((plan) => Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: PremiumCard(
+                      duration: plan.name,
+                      price: '${plan.price} vnd',
+                      backgroundColor: Color(0xFF6BB7CD),
+                      textColor: Color(0xFF6BB7CD),
+                      isSelected: selectedPlan == plan.id,
+                      onTap: () => toggleSelection(plan.id),
+                    ),
+                  )),
                   const SizedBox(height: 16),
                   // Nút Thanh Toán
                   Center(
@@ -160,8 +158,9 @@ class _PremiumOptionState extends State<PremiumOption> {
                           : Color(0xFF6BB7CD),
                       onPressed: selectedPlan != null
                           ? () async {
-                              await Routes.navigateToPage(context, PaymentMethods());
-                            }
+                        await Routes.navigateToPage(
+                            context, PaymentMethods(premiumId: selectedPlan!));
+                      }
                           : () async {},
                     ),
                   ),
