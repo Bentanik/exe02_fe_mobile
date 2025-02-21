@@ -11,7 +11,8 @@ class SearchCourse extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Search')),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Search')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

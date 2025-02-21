@@ -16,7 +16,6 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -82,19 +81,18 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header: Avatar hoặc Đăng nhập / Đăng ký
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Welcome!",
+                    "Chào mừng!",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   Spacer(),
@@ -139,11 +137,11 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hi, ${userFullName ?? 'User'}",
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                      "Xin chào, ${userFullName ?? 'User'}",
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     Text(
-                      "What would you like to learn today?",
+                      "Có những gì nổi bật vào hôm nay ?",
                       style: TextStyle(color: Colors.grey, fontSize: 14),
                     ),
                     SizedBox(height: 20),
@@ -157,7 +155,7 @@ class _HomeState extends State<Home> {
 
               // Banner Welcome
               Container(
-                padding: EdgeInsets.all(40),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.blue,
@@ -167,12 +165,12 @@ class _HomeState extends State<Home> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Welcome to antiSCM",
+                      "antiSCM xin chào !",
                       style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Guess what are hot news today?",
+                      "Cùng antiSCM khám phá những thông tin mới nào.",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   ],
@@ -184,10 +182,10 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Categories", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("Tính năng nổi bật", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   TextButton(
                     onPressed: () => Routes.navigateToPage(context, Categories()),
-                    child: Text("SEE ALL"),
+                    child: Text("Xem tất cả"),
                   ),
                 ],
               ),
@@ -198,7 +196,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: [
                     Button(
-                      text: 'Chatbot',
+                      text: 'Nhắn với AI',
                       onPressed: () => Routes.navigateToPage(context, ChatBot()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),
@@ -212,7 +210,7 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(width: 10),
                     Button(
-                      text: 'Check scam',
+                      text: 'Kiểm tra lừa đảo',
                       onPressed: () => Routes.navigateToPage(context, ScamVerifierScreen()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF167F71),

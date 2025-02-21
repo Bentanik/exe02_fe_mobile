@@ -42,7 +42,9 @@ class _FilterScreenState extends State<Filters> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: const Text("Filter", style: TextStyle(fontSize: 18)),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

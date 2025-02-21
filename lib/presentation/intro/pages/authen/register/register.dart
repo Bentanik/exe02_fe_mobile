@@ -36,7 +36,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 70),
@@ -45,14 +45,14 @@ class _RegisterState extends State<Register> {
             children: [
               const Center(
                 child: Text(
-                  "Let's Get Started!",
+                  "Cùng đăng kí nào!",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 8),
               const Center(
                 child: Text(
-                  "Create an account to get all features",
+                  "Tạo tài khoản để có thể trải nghiệm đầy đủ các tính năng",
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
               ),
@@ -106,15 +106,14 @@ class _RegisterState extends State<Register> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Already have an account? "),
+                    const Text("Bạn đã có tài khoản? "),
                     GestureDetector(
                       onTap: () {
                         // Chuyển sang trang đăng nhập
                       },
                       child: const Text(
-                        "Login here",
+                        "Đăng nhập tại đây",
                         style: TextStyle(
-                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

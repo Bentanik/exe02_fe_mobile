@@ -49,9 +49,11 @@ class _PaymentMethodsState extends State<PaymentMethods> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: Text('Payment methods'),
-        actions: [TextButton(onPressed: () {}, child: Text('Done'))],
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text('Chi tiết về gói đăng kí'),
+        actions: [TextButton(onPressed: () {}, child: Text('Hoàn thành'))],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -90,7 +92,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
-                              '1 tháng',
+                                premium.data.subscriptionPackage.name,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
@@ -100,7 +102,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            premium.data.subscriptionPackage.name,
+                            'Premium',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,

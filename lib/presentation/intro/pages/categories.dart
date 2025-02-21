@@ -2,17 +2,13 @@ import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/category_card.dart';
 import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/blog_awareness_detail.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blogs_awareness.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/courses.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/get_started.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/lecture_video.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/list_sign_of_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/success.dart';
 import 'package:flutter/material.dart';
 
 class Categories extends StatelessWidget {
@@ -21,7 +17,8 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Categories')),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Các tính năng')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -36,7 +33,7 @@ class Categories extends StatelessWidget {
                 children: [
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, ChatBot(  )),
-                    title: 'Chatbot', 
+                    title: 'Nhắn tin với AI',
                     imageUrl: AppImages.chatBot,
                     backgroundColor: Colors.pinkAccent,
                   ),
@@ -44,7 +41,7 @@ class Categories extends StatelessWidget {
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, Courses()),
-                    title: 'Course',
+                    title: 'Khóa học',
                     imageUrl: AppImages.course,
                     backgroundColor: Colors.purpleAccent,
                   ),
@@ -58,21 +55,21 @@ class Categories extends StatelessWidget {
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, ScamVerifierScreen()),
-                    title: 'Check scam',
+                    title: 'Kiểm tra lừa đảo',
                     imageUrl: AppImages.check,
                     backgroundColor: Colors.greenAccent,
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, BlogsAwareness()),
-                    title: 'Blog awareness',
+                    title: 'Bài viết nhân thức',
                     imageUrl: AppImages.awareness,
                     backgroundColor: Colors.orangeAccent,
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, ScamSignsList()),
-                    title: 'Sign of scam',
+                    title: 'Dấu hiệu lừa đảo',
                     imageUrl: AppImages.signal,
                     backgroundColor: Colors.blueAccent,
                   ),
@@ -80,7 +77,7 @@ class Categories extends StatelessWidget {
                   CategoryCard(
                     onPress: () =>
                         Routes.navigateToPage(context, YouTubeEmbed()),
-                    title: 'Sign of scam',
+                    title: 'Check video',
                     imageUrl: AppImages.signal,
                     backgroundColor: Colors.blueAccent,
                   ),

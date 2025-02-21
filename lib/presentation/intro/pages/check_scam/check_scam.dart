@@ -18,7 +18,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(title: const Text('Kiểm tra lừa đảo')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -27,7 +27,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
             // Nút chuyển tab
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.secondary,
                 borderRadius: BorderRadius.circular(12),
               ),
               padding: const EdgeInsets.all(8),

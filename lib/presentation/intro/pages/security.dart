@@ -9,7 +9,9 @@ class Security extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text('Security'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),

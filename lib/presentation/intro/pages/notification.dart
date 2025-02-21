@@ -8,8 +8,8 @@ class NotificationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Notification')),
-      backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Thông báo')),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

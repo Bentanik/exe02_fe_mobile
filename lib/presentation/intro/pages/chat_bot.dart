@@ -32,7 +32,7 @@ class _ChatBotState extends State<ChatBot> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Chat with NOVA'),
+        title: const Text('Nhắn tin với antiSCM AI'),
         backgroundColor: Colors.purple.shade100,
       ),
       body: Column(
@@ -108,7 +108,7 @@ class ChatInputField extends StatelessWidget {
             child: TextField(
               controller: controller,
               decoration: InputDecoration(
-                hintText: "Type your message...",
+                hintText: "Nhập tin nhắn tại đây...",
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),

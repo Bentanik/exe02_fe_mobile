@@ -19,11 +19,12 @@ class ScamSignsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
           'Signs of Scam',
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -31,7 +32,7 @@ class ScamSignsList extends StatelessWidget {
         // backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -62,7 +63,6 @@ class ScamSignsList extends StatelessWidget {
                       article['title']!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
                       ),
                     ),
                   ),
@@ -72,7 +72,6 @@ class ScamSignsList extends StatelessWidget {
                     article['description']!,
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.black87,
                       height: 1.5,
                     ),
                   ),

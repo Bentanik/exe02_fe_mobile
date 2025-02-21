@@ -26,7 +26,7 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          "Protect yourself from fraud by verifying every bank account you interact with.",
+          "Nhập số tài khoản ngân hàng vào dưới đây để kiểm tra độ an toàn của tài khoản đó .",
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
@@ -34,9 +34,8 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
         TextField(
           controller: _bankController,
           decoration: InputDecoration(
-            hintText: "Enter bank account number",
+            hintText: "Nhập số tài khoản ngân hàng",
             filled: true,
-            fillColor: Colors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -52,13 +51,13 @@ class _BankVerifyBodyState extends State<BankVerifyBody> {
               backgroundColor: Colors.blue,
               padding: const EdgeInsets.symmetric(vertical: 14),
             ),
-            child: const Text("Check", style: TextStyle(fontSize: 18)),
+            child: const Text("Kiểm tra", style: TextStyle(fontSize: 18)),
           ),
         ),
 
         const SizedBox(height: 20),
 
-        const Text("Result:"),
+        const Text("Kết quả trả về:"),
         const SizedBox(height: 10),
         if (resultText.isNotEmpty)
           Container(

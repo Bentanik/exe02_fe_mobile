@@ -6,7 +6,8 @@ class Language extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Language')),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Language')),
       body: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(

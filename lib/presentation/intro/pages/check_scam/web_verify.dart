@@ -36,7 +36,6 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
           decoration: InputDecoration(
             hintText: "Nhập số điện thoại",
             filled: true,
-            fillColor: Colors.white,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
             ),

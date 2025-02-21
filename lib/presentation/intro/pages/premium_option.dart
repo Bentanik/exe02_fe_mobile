@@ -48,12 +48,12 @@ class _PremiumOptionState extends State<PremiumOption> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -97,7 +97,6 @@ class _PremiumOptionState extends State<PremiumOption> {
                   Text(
                     'Trải nghiệm các khóa học chất lượng cùng chuyên gia',
                     style: TextStyle(
-                      color: Colors.white,
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
@@ -106,7 +105,6 @@ class _PremiumOptionState extends State<PremiumOption> {
                   Text(
                     'Bạn có thể tham gia các khóa học sau khi nâng cấp lên gói premium.',
                     style: TextStyle(
-                      color: Colors.white54,
                       fontSize: 16,
                     ),
                   ),

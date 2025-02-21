@@ -36,7 +36,8 @@ class BlogsAwareness extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Blogs Awareness')),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Blogs Awareness')),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

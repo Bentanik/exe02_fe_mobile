@@ -14,7 +14,7 @@ class TermsAndConditions extends StatelessWidget {
           },
         ),
         title: Text(
-          'Terms & Conditions',
+          'Chính sách người dùng',
           style: TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
@@ -27,27 +27,33 @@ class TermsAndConditions extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildSectionCard(
-              title: 'Condition & Attending',
+              title: 'Chính sách và điều kiện',
               content:
-              'At enim hic etiam dolore. Dulce amarum, leve asperum, prope longe, stare movere, quadratum rotundum. At certe gravius. Nullus est igitur cuiusquam dies natalis. Paulum, cum regem Perseum captum adduceret, eodem flumine invectio?\n\n'
-                  'Quare hoc videndum est, possitne nobis hoc ratio philosophorum dare.\n'
-                  'Sed fingé non solum callidum eum, qui aliquid improbe faciat, verum etiam praeponentem, ut M.\n'
-                  'Est autem officium, quod ita factum est, ut eius facti probabilis ratio reddi possit.',
+              '1. Khi mua gói VIP, bạn sẽ có quyền truy cập vào tất cả các khóa học video trong thời gian gói còn hiệu lực.\n\n'
+                  '2. Gói VIP không thể chuyển nhượng, cho tặng hoặc hoàn tiền sau khi đã thanh toán.\n\n'
+                  '3. Thời hạn của gói VIP sẽ được tính từ thời điểm thanh toán thành công.\n\n'
+                  '4. Chúng tôi có quyền thay đổi nội dung khóa học mà không cần thông báo trước, nhưng sẽ luôn đảm bảo quyền lợi tốt nhất cho người dùng.\n\n'
+                  '5. Người dùng cần tuân thủ các quy định về sử dụng nội dung, không chia sẻ tài khoản hoặc phát tán video trái phép.\n\n'
+                  '6. Nếu phát hiện hành vi gian lận, tài khoản có thể bị khóa mà không hoàn tiền.\n\n'
+                  '7. Việc sử dụng gói VIP đồng nghĩa với việc bạn đồng ý với tất cả các điều khoản trên.',
             ),
             SizedBox(height: 16),
             _buildSectionCard(
-              title: 'Terms & Use',
+              title: 'Quyền lợi người dùng',
               content:
-              'Ut proverbia non nulla veriora sint quam vestra dogmata. Tamen aberramus a proposito, et, ne longius, prorsus, inquam, Piso, si ista mala sunt, placet. Omnes enim iucundum motum, qua sensus hilaretur. Cum id fugient, re eadem defendent, quae Peripatetici, verba.\n\n'
-                  'Quibusnam praeteritis? Portenta haec esse dicit, quidam hactenus; Si id dicis, vicimus. Qui ita affectus, beatum esse numquam probabis; Igitur neque stultorum quisquam beatus neque sapientium non beatus.\n\n'
-                  'Dicam, inquam, et quidem discendi causa magis, quam quo te aut Epicurum reprehensum velim. Dolor ergo, id est summum malum, metuetur semper, etiamsi non aderit.',
+              '1. Người dùng gói VIP có quyền truy cập không giới hạn vào tất cả các khóa học video trong thời gian gói còn hiệu lực.\n\n'
+                  '2. Được cập nhật nội dung mới nhất mà không phải trả thêm phí.\n\n'
+                  '3. Hỗ trợ ưu tiên từ đội ngũ chăm sóc khách hàng khi gặp vấn đề trong quá trình học.\n\n'
+                  '4. Được tham gia các sự kiện, hội thảo trực tuyến độc quyền dành riêng cho thành viên VIP.\n\n'
+                  '5. Không có quảng cáo làm gián đoạn quá trình học tập.\n\n'
+                  '6. Có thể học mọi lúc, mọi nơi trên nhiều thiết bị khác nhau.\n\n'
+                  '7. Quyền lợi có thể được điều chỉnh theo chính sách mới nhất nhưng sẽ luôn đảm bảo lợi ích tốt nhất cho người dùng.',
             ),
           ],
         ),
       ),
     );
   }
-
   Widget _buildSectionCard({required String title, required String content}) {
     return Container(
       padding: EdgeInsets.all(16),

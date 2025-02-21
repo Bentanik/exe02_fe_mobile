@@ -14,8 +14,8 @@ class BooksMark extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Book mark')),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Book mark')),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

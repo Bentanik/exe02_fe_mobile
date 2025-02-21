@@ -3,6 +3,10 @@ import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/logout.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/language.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/light_dark_mode.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/notification.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/term_condition.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,15 +23,18 @@ class _ProfileUserState extends State<ProfileUser> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         title: Text(
-          'Profile',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          'Hồ sơ người dùng',
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -51,7 +58,10 @@ class _ProfileUserState extends State<ProfileUser> {
                   SizedBox(height: 10),
                   Text(
                     'James S. Hernandez',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 5),
                   Text(
@@ -66,23 +76,39 @@ class _ProfileUserState extends State<ProfileUser> {
             // Profile Buttons
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: Icon(FontAwesomeIcons.user, size: 20, color: Colors.black),
-              title: Text('Personal Information'),
+              leading:
+                  Icon(FontAwesomeIcons.user, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text(
+                  'Chỉnh sửa hồ sơ'),
             ),
             ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: Icon(FontAwesomeIcons.cog, size: 20, color: Colors.black),
-              title: Text('Settings'),
+              onTap: () => Routes.navigateToPage(context, LightDarkMode()),
+              leading:
+                  Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text(
+                  'Trạng thái màn hình'),
             ),
             ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: Icon(FontAwesomeIcons.creditCard, size: 20, color: Colors.black),
-              title: Text('Payment Methods'),
+              onTap: () => Routes.navigateToPage(context, Language()),
+              leading:
+                  Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text(
+                  'Tùy chỉnh ngôn ngữ'),
             ),
             ProfileButton(
-              onTap: () => Routes.navigateToPage(context, ProfileUser()),
-              leading: Icon(FontAwesomeIcons.history, size: 20, color: Colors.black),
-              title: Text('Order History'),
+              onTap: () => Routes.navigateToPage(context, NotificationPage()),
+              leading: Icon(FontAwesomeIcons.creditCard,
+                  size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text(
+
+                  'Thông báo'),
+            ),
+            ProfileButton(
+              onTap: () => Routes.navigateToPage(context, TermsAndConditions()),
+              leading:
+                  Icon(FontAwesomeIcons.history, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text(
+                  'Chính sách người dùng'),
             ),
 
             // Đăng xuất
@@ -97,7 +123,8 @@ class _ProfileUserState extends State<ProfileUser> {
                   Routes.navigateToPage(context, Home());
                 }
               },
-              leading: Icon(FontAwesomeIcons.signOutAlt, size: 20, color: Colors.red),
+              leading: Icon(FontAwesomeIcons.signOutAlt,
+                  size: 20, color: Colors.red),
               title: Text('Đăng xuất', style: TextStyle(color: Colors.red)),
             ),
           ],

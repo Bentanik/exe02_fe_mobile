@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -70,7 +70,7 @@ class _LoginState extends State<Login> {
                   Image.asset(AppImages.logo, width: 200),
                   const SizedBox(height: 16),
                   const Text(
-                    "Welcome to antiSCM",
+                    "Chào mừng đến với antiSCM",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -78,7 +78,7 @@ class _LoginState extends State<Login> {
                   ),
                   const SizedBox(height: 8),
                   const Text(
-                    "Log in to existing antiSCM account",
+                    "Đăng nhập vào tài khoản của bạn",
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 32),
@@ -91,7 +91,8 @@ class _LoginState extends State<Login> {
                   InputField(
                     controller: _passwordController,
                     icon: FontAwesomeIcons.lock,
-                    hintText: 'Password',
+                    hintText: 'Mật khẩu',
+                    isPassword: true,
                   ),
                   const SizedBox(height: 8),
                   Align(
@@ -99,7 +100,7 @@ class _LoginState extends State<Login> {
                     child: TextButton(
                       onPressed: () {},
                       child: const Text(
-                        "Forgot Password?",
+                        "Quên mật khẩu ?",
                         style: TextStyle(color: Colors.blue),
                       ),
                     ),
@@ -115,7 +116,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 32),
-                  const Text("Or sign up using"),
+                  const Text("hoặc sử dụng"),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

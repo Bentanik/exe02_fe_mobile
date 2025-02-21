@@ -21,14 +21,15 @@ class SearchField extends StatelessWidget {
           Expanded(
             child: TextField(
               decoration: const InputDecoration(
-                hintText: 'Search for...',
+                hintText: 'Tìm kiếm...',
+                hintStyle: TextStyle(color: Colors.black), // Đặt màu đen cho hint text
                 border: InputBorder.none,
               ),
             ),
           ),
           IconButton(
             icon: const Icon(Icons.send, color: Colors.blue),
-            onPressed: onPressed, // ✅ Gọi hàm onPressed khi bấm vào icon
+            onPressed: onPressed,
           ),
         ],
       ),

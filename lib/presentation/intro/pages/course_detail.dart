@@ -52,9 +52,10 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text("Course Detail"),
-        backgroundColor: Colors.black,
+        title: const Text("Chi tiết khóa học"),
+        backgroundColor: Theme.of(context).colorScheme.background,
         foregroundColor: Colors.white,
       ),
       body: FutureBuilder<CourseDetailModel>(
@@ -119,6 +120,28 @@ class _CourseDetailState extends State<CourseDetail> {
                           const SizedBox(height: 10),
                           Text("Lần cập nhật gần nhất: 12 giờ trước"),
                           const SizedBox(height: 10),
+                        ],
+                      ),
+                    ),
+                    const Divider(),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Phân loại khóa học",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Độ khó: ${course.levelName}'
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            'Thể loại: ${course.categoryName}'
+                          ),
                         ],
                       ),
                     ),

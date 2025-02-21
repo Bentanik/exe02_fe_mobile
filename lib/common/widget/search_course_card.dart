@@ -46,7 +46,7 @@ class SearchCourseCard extends StatelessWidget {
             // Hình ảnh khóa học
             Container(
               width: 100,
-              height: 100,
+              height: 120,
               decoration: BoxDecoration(
                 color: Colors.black,
                 borderRadius: const BorderRadius.only(
@@ -79,7 +79,8 @@ class SearchCourseCard extends StatelessWidget {
                       title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
+                      style: TextStyle(
+                        color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -89,7 +90,7 @@ class SearchCourseCard extends StatelessWidget {
                       children: [
                         Text(
                           category!,
-                          style: const TextStyle(fontSize: 12),
+                          style: TextStyle(color: Colors.black,fontSize: 12),
                         ),
                       ],
                     ),

@@ -7,8 +7,8 @@ class Curriculcum extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Curriculcum')),
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Curriculcum')),
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 50),

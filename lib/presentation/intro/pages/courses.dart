@@ -44,7 +44,8 @@ class _CoursesState extends State<Courses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Course online')),
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,title: const Text('Các khóa học')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -65,7 +66,8 @@ class _CoursesState extends State<Courses> {
                   Expanded(
                     child: TextField(
                       decoration: const InputDecoration(
-                        hintText: 'Search for...',
+                        hintText: 'Tìm kiếm...',
+                        hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none,
                       ),
                     ),
@@ -81,7 +83,7 @@ class _CoursesState extends State<Courses> {
 
             // Courses section
             const Text(
-              'Courses you might like',
+              'Các khóa học có thể bạn sẽ thích',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
