@@ -3,20 +3,22 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class SearchCourseCard extends StatelessWidget {
-  final String category;
+  final String? category;
+  final String? level;
   final String title;
-  final double rating;
-  final int students;
+  // final double rating;
+  // final int students;
   final bool isBookmarked;
   final String imageUrl;
-  final VoidCallback onTap; // Thay đổi kiểu dữ liệu của onTap
+  final VoidCallback onTap;
 
   const SearchCourseCard({
     Key? key,
     required this.category,
     required this.title,
-    required this.rating,
-    required this.students,
+    required this.level,
+    // required this.rating,
+    // required this.students,
     this.isBookmarked = false,
     required this.imageUrl,
     required this.onTap, // Đảm bảo bắt buộc truyền vào
@@ -65,7 +67,7 @@ class SearchCourseCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      category,
+                      level!,
                       style: const TextStyle(
                         color: Colors.orange,
                         fontSize: 12,
@@ -75,6 +77,8 @@ class SearchCourseCard extends StatelessWidget {
                     const SizedBox(height: 5),
                     Text(
                       title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -83,21 +87,9 @@ class SearchCourseCard extends StatelessWidget {
                     const SizedBox(height: 10),
                     Row(
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 16),
-                        const SizedBox(width: 4),
                         Text(
-                          rating.toString(),
+                          category!,
                           style: const TextStyle(fontSize: 12),
-                        ),
-                        const SizedBox(width: 8),
-                        const Text("|", style: TextStyle(color: Colors.grey)),
-                        const SizedBox(width: 8),
-                        Text(
-                          "$students Std",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
-                          ),
                         ),
                       ],
                     ),

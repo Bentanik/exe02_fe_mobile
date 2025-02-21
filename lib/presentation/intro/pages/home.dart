@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
       CourseResponse courseResponse = await CourseService().fetchCourses();
       if (courseResponse.isSuccess) {
         setState(() {
-          courses = courseResponse.courses;
+          courses = courseResponse.data.items;
         });
       }
     } catch (e) {
@@ -226,7 +226,7 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: courses
                       .map((course) => HomeCard(
-                    imageUrl: course.thumbnailUrl,
+                    imageUrl: course.thumbnail.publicUrl,
                     category: 'Course',
                     title: course.name,
                   ))

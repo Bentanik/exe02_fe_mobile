@@ -62,8 +62,7 @@ class SearchCourse extends StatelessWidget {
                       onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: "222",)),
                       category: 'Nhận thức',
                       title: 'Nhận thức 1',
-                      rating: 4,
-                      students: 7000,
+                      level: "1",
                       imageUrl: AppImages.bg,
                     ),
                   );

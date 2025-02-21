@@ -28,7 +28,7 @@ class _CoursesState extends State<Courses> {
 
       if (courseResponse.isSuccess) {
         setState(() {
-          courses = courseResponse.courses;
+          courses = courseResponse.data.items;
         });
       } else {
         print("Lỗi từ API: ${courseResponse.message}");
@@ -38,6 +38,11 @@ class _CoursesState extends State<Courses> {
     } finally {
       setState(() {}); // Đảm bảo UI cập nhật dù có lỗi hay không
     }
+  }
+
+  String _limitWords(String text, int maxWords) {
+    List<String> words = text.split(' ');
+    return words.length > maxWords ? '${words.take(maxWords).join(' ')}...' : text;
   }
 
 
@@ -90,12 +95,11 @@ class _CoursesState extends State<Courses> {
             Expanded(
               child: ListView(
                 children: courses.map((course) => SearchCourseCard(
-                  imageUrl: course.thumbnailUrl,
+                  imageUrl: course.thumbnail.publicUrl,
                   onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
-                  category: 'Course',
+                  category: _limitWords(course.category!.name, 4),
+                  level: _limitWords(course.level!.name, 3),
                   title: course.name,
-                  rating: 3,
-                  students: 500,
                   isBookmarked: false,
                 )).toList(),
               ),

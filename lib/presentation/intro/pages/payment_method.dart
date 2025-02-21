@@ -134,7 +134,8 @@ class _PaymentMethodsState extends State<PaymentMethods> {
                           buttonSize: Size(double.infinity, 40),
                           backgroundColor: Color(0xFF047099)),
                     ),
-                  ]);
+                  ]
+              );
             },
           ),
         ),
