@@ -39,12 +39,6 @@ class GetStartedPage extends StatelessWidget {
                     title: 'Thong báo',
                     desc: 'Hôm nay là thứ 7',
                     leading: const Icon(Icons.person_outline)),
-                HomeCard(
-                  imageUrl: AppImages.bg,
-                  category: "Awareness 2",
-                  title: "Blog about awareness 1",
-                  isBookmarked: true,
-                ),
               ],
             ))
           ],

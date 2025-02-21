@@ -1,4 +1,5 @@
 import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
+import 'package:exe02_fe_mobile/common/helpers/limit_word.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/search_course_card.dart';
 import 'package:exe02_fe_mobile/models/course/course_model.dart';
@@ -36,15 +37,9 @@ class _CoursesState extends State<Courses> {
     } catch (e) {
       print("Lỗi khi tải khóa học: $e");
     } finally {
-      setState(() {}); // Đảm bảo UI cập nhật dù có lỗi hay không
+      setState(() {});
     }
   }
-
-  String _limitWords(String text, int maxWords) {
-    List<String> words = text.split(' ');
-    return words.length > maxWords ? '${words.take(maxWords).join(' ')}...' : text;
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -97,8 +92,8 @@ class _CoursesState extends State<Courses> {
                 children: courses.map((course) => SearchCourseCard(
                   imageUrl: course.thumbnail.publicUrl,
                   onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
-                  category: _limitWords(course.category!.name, 4),
-                  level: _limitWords(course.level!.name, 3),
+                  category: limitWords(course.category?.name?? "Không phân loại", 4),
+                  level: limitWords(course.level?.name ?? "Không phân cấp độ", 3),
                   title: course.name,
                   isBookmarked: false,
                 )).toList(),

@@ -1,5 +1,7 @@
+import 'package:exe02_fe_mobile/common/helpers/limit_word.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
@@ -227,8 +229,9 @@ class _HomeState extends State<Home> {
                   children: courses
                       .map((course) => HomeCard(
                     imageUrl: course.thumbnail.publicUrl,
-                    category: 'Course',
+                    level: limitWords(course.level?.name ?? "Không phân cấp độ", 3),
                     title: course.name,
+                    onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
                   ))
                       .toList(),
                 ),

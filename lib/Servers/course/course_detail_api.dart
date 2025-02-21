@@ -12,7 +12,7 @@ class CourseDetailService {
         '/api/course/v1/get-course-by-id',
         queryParameters: {
           'courseId': courseId,
-          'includes': 'Chapter',
+          'includes': ['Chapter', 'Level', 'Category'],
         },
       );
 
