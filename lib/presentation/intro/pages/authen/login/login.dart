@@ -1,9 +1,12 @@
+import 'package:exe02_fe_mobile/Servers/auth/auth_service.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/forgot_password/forgot_password.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login_hook.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -18,42 +21,43 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isLoading = false;
-  late LoginController _loginController;
+  // late LoginController _loginController;
 
 
   @override
   void initState() {
     super.initState();
-    _loginController = LoginController(
-      emailController: _emailController,
-      passwordController: _passwordController,
-      context: context,
-      updateLoginState: widget.updateLoginState,
-    );
+    // _loginController = LoginController(
+    //   emailController: _emailController,
+    //   passwordController: _passwordController,
+    //   context: context,
+    //   updateLoginState: widget.updateLoginState,
+    // );
   }
 
   Future<void> _handleLogin() async {
     setState(() => _isLoading = true); // Bắt đầu loading
 
-    await _loginController.login(
-          () => setState(() => _isLoading = true),
-          () async {
-        setState(() => _isLoading = false);
-
-        final storage = FlutterSecureStorage();
-        String? avatarUrl = await storage.read(key: 'userAvatarUrl');
-        String? fullName = await storage.read(key: 'userFullName');
-        print("Login Success - Avatar URL: $avatarUrl");
-        print("Login Success - name: $fullName");
-
-
-        widget.updateLoginState(true, avatarUrl: avatarUrl);
-        Navigator.pop(context);
-      },
-    );
+    // await _loginController.login(
+    //       () => setState(() => _isLoading = true),
+    //       () async {
+    //     setState(() => _isLoading = false);
+    //
+    //     final storage = FlutterSecureStorage();
+    //     String? avatarUrl = await storage.read(key: 'userAvatarUrl');
+    //     String? fullName = await storage.read(key: 'userFullName');
+    //     print("Login Success - Avatar URL: $avatarUrl");
+    //     print("Login Success - name: $fullName");
+    //
+    //
+    //     widget.updateLoginState(true, avatarUrl: avatarUrl);
+    //     Navigator.pop(context);
+    //   },
+    // );
   }
 
   @override
@@ -124,14 +128,25 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Center(
-                    child: SizedBox(
-                      child: Button(
-                        text: _isLoading ? 'Đang đăng nhập...' : 'Đăng nhập',
-                        onPressed: _handleLogin,
-                        buttonSize: const Size(350, 50),
-                      ),
-                    ),
+                  // Center(
+                  //   child: SizedBox(
+                  //     child: Button(
+                  //       text: _isLoading ? 'Đang đăng nhập...' : 'Đăng nhập',
+                  //       onPressed: _handleLogin,
+                  //       buttonSize: const Size(350, 50),
+                  //     ),
+                  //   ),
+                  // ),
+
+                  ElevatedButton(
+                    onPressed: () async {
+                        AuthService().signIn(
+                        context: context,
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      );
+                    },
+                    child: const Text('Đăng ký'),
                   ),
                   const SizedBox(height: 32),
                   const Text("hoặc sử dụng"),

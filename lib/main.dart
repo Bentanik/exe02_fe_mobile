@@ -1,6 +1,8 @@
 import 'package:exe02_fe_mobile/core/configs/theme/theme.dart';
+import 'package:exe02_fe_mobile/firebase_options.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/light_dark_tongle.dart';
 import 'package:exe02_fe_mobile/presentation/splash/pages/splash.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +11,20 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+  );
   runApp(
     ChangeNotifierProvider(
-      create:  (context) => ThemeProvider(),
+      create: (context) => ThemeProvider(),
       child: const MyApp(),
-    )
+    ),
   );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

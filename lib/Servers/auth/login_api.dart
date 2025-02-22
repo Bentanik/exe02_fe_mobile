@@ -8,16 +8,12 @@ class LoginApi {
 
   LoginApi(this.api);
 
-  Future<Response<dynamic>> login({
-    required String email,
-    required String password,
-  }) async {
+  Future<void> login({required String idTokenFirebase}) async {
     try {
       final response = await api.api.post(
         '/api/auth/v1/login',
         data: {
-          "email": email,
-          "password": password,
+          "idTokenFirebase": idTokenFirebase,
         },
       );
 
@@ -28,14 +24,18 @@ class LoginApi {
         // Lưu accessToken và thông tin người dùng
         api.accessToken = authTokenDTO['accessToken'];
         await _storage.write(key: 'accessToken', value: api.accessToken);
-
         await _storage.write(key: 'userFullName', value: authUserDTO['fullName']);
         await _storage.write(key: 'userEmail', value: authUserDTO['email']);
         await _storage.write(key: 'userAvatarUrl', value: authUserDTO['avatarUrl']);
-      }
 
-      return response;
+
+        print(await _storage.read(key: 'userEmail'));
+      } else {
+        // Xử lý các mã trạng thái khác nếu cần
+        print('Đăng nhập thất bại với mã trạng thái: ${response.statusCode}');
+      }
     } catch (error) {
+      print('Lỗi khi gọi API đăng nhập: $error');
       rethrow;
     }
   }
