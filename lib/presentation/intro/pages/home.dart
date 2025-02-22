@@ -1,7 +1,9 @@
 import 'package:exe02_fe_mobile/common/helpers/limit_word.dart';
+import 'package:exe02_fe_mobile/core/configs/theme/theme.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/course_detail.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/light_dark_tongle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
@@ -16,6 +18,7 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -80,6 +83,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    bool isDarkMode = themeProvider.themeData == darkMode;
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SingleChildScrollView(
@@ -97,14 +102,32 @@ class _HomeState extends State<Home> {
                   ),
                   Spacer(),
                   isLoggedIn
-                      ? GestureDetector(
-                    onTap: () => Routes.navigateToPage(context, ProfileUser()),
-                    child: CircleAvatar(
-                      radius: 20,
-                      backgroundImage: userAvatar != null
-                          ? NetworkImage(userAvatar!)
-                          : AssetImage('assets/images/default_avatar.png') as ImageProvider,
-                    ),
+                      ?
+
+                  Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () => Routes.navigateToPage(context, ProfileUser()),
+                        child: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: userAvatar != null
+                              ? NetworkImage(userAvatar!)
+                              : AssetImage('assets/images/default_avatar.png') as ImageProvider,
+                        ),
+                      ),
+                      const SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: () {
+                          themeProvider.tongleTheme();
+                        },
+                        child: Icon(
+                          isDarkMode ? Icons.nightlight_round : Icons.wb_sunny,
+                          size: 20,
+                          color: isDarkMode ? Colors.amber : Colors.orange,
+                        ),
+                      ),
+                    ],
+
                   )
                       : Row(
                     children: [

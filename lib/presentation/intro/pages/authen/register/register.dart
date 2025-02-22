@@ -1,8 +1,11 @@
+import 'package:exe02_fe_mobile/Servers/auth/auth_service.dart';
+import 'package:exe02_fe_mobile/Servers/firebase_auth/firebase_auth.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/ErrorDialog.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register_hook.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -18,6 +21,9 @@ class _RegisterState extends State<Register> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+
+  //Test
+  final FirebaseAuthService _authService = FirebaseAuthService();
 
   late RegisterController _registerController;
 
@@ -36,6 +42,22 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'Đăng kí',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
         child: SingleChildScrollView(
@@ -58,12 +80,12 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 30),
 
-              InputField(
-                controller: _nameController,
-                icon: Icons.person_outline,
-                hintText: 'Họ và Tên',
-              ),
-              const SizedBox(height: 15),
+              // InputField(
+              //   controller: _nameController,
+              //   icon: Icons.person_outline,
+              //   hintText: 'Họ và Tên',
+              // ),
+              // const SizedBox(height: 15),
 
               InputField(
                 controller: _emailController,
@@ -78,28 +100,31 @@ class _RegisterState extends State<Register> {
                 hintText: 'Mật khẩu',
                 isPassword: true,
               ),
+              // const SizedBox(height: 15),
+              //
+              // InputField(
+              //   controller: _confirmPasswordController,
+              //   icon: Icons.lock_outline,
+              //   hintText: 'Xác nhận mật khẩu',
+              //   isPassword: true,
+              // ),
               const SizedBox(height: 15),
 
-              InputField(
-                controller: _confirmPasswordController,
-                icon: Icons.lock_outline,
-                hintText: 'Xác nhận mật khẩu',
-                isPassword: true,
-              ),
-              const SizedBox(height: 15),
+              // Center(
+              //   child: SizedBox(
+              //     child: Button(
+              //       text: _isLoading ? 'Đang đăng ký...' : 'Tạo tài khoản',
+              //       onPressed: () => _registerController.register(
+              //               () => setState(() => _isLoading = true),
+              //               () => setState(() => _isLoading = false),
+              //         ),
+              //       buttonSize: Size(350, 50),
+              //     ),
+              //   ),
+              // ),
 
-              Center(
-                child: SizedBox(
-                  child: Button(
-                    text: _isLoading ? 'Đang đăng ký...' : 'Tạo tài khoản',
-                    onPressed: () => _registerController.register(
-                            () => setState(() => _isLoading = true),
-                            () => setState(() => _isLoading = false),
-                      ),
-                    buttonSize: Size(350, 50),
-                  ),
-                ),
-              ),
+              //Test Sign Up by FireBase
+              ElevatedButton(onPressed: _signUp, child: const Text('Đăng kí')),
               const SizedBox(height: 20),
 
               Center(
@@ -126,5 +151,17 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  void _signUp() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    User? user = await _authService.signup(email, password);
+
+    if(user != null){
+      print('User create success');
+    }else{
+      print("Fail");
+    }
   }
 }

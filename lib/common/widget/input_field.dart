@@ -19,6 +19,7 @@ class InputField extends StatelessWidget {
     return TextField(
       controller: controller, // Gán controller vào đây
       obscureText: isPassword,
+      style: TextStyle(color: Colors.black),
       decoration: InputDecoration(
         prefixIcon: Icon(icon, color: Colors.grey),
         hintText: hintText,

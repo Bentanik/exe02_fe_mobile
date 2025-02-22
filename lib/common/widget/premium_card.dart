@@ -19,7 +19,7 @@ class PremiumCard extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.background,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: isSelected ? Color(0xFF047099) : Colors.grey.shade800, width: 2),
         ),
@@ -45,7 +45,6 @@ class PremiumCard extends StatelessWidget {
             const Text(
               'Premium',
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
@@ -54,7 +53,6 @@ class PremiumCard extends StatelessWidget {
             Text(
               price,
               style: TextStyle(
-                color: textColor,
                 fontSize: 20,
                 fontWeight: FontWeight.w500,
               ),
@@ -65,7 +63,6 @@ class PremiumCard extends StatelessWidget {
                   '• Hủy bất cứ lúc nào\n'
                   '• Đăng ký hoặc thanh toán một lần',
               style: TextStyle(
-                color: Colors.white,
                 fontSize: 16,
                 height: 1.5,
               ),

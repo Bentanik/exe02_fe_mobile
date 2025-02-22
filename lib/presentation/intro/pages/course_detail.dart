@@ -56,7 +56,6 @@ class _CourseDetailState extends State<CourseDetail> {
       appBar: AppBar(
         title: const Text("Chi tiết khóa học"),
         backgroundColor: Theme.of(context).colorScheme.background,
-        foregroundColor: Colors.white,
       ),
       body: FutureBuilder<CourseDetailModel>(
         future: courseFuture,

@@ -4,14 +4,14 @@ class CategoryCard extends StatelessWidget {
   final String title;
   final String imageUrl;
   final Color backgroundColor;
-  final VoidCallback? onPress; // ✅ Thêm sự kiện onTap
+  final VoidCallback? onPress;
 
   const CategoryCard({
     Key? key,
     required this.title,
     required this.imageUrl,
     required this.backgroundColor,
-    this.onPress, // ✅ Nhận giá trị onTap từ ngoài vào
+    this.onPress,
   }) : super(key: key);
 
   @override
@@ -34,17 +34,16 @@ class CategoryCard extends StatelessWidget {
               width: 60,
               fit: BoxFit.cover,
             ),
-            const SizedBox(width: 60), // ✅ Giữ khoảng cách hợp lý hơn
+            const SizedBox(width: 60),
             Expanded(
               child: Text(
                 title,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
                 ),
               ),
-            ), // ✅ Thêm icon điều hướng
+            ),
           ],
         ),
       ),

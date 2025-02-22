@@ -5,10 +5,10 @@ class TermsAndConditions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -16,7 +16,6 @@ class TermsAndConditions extends StatelessWidget {
         title: Text(
           'Chính sách người dùng',
           style: TextStyle(
-            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -54,6 +53,7 @@ class TermsAndConditions extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSectionCard({required String title, required String content}) {
     return Container(
       padding: EdgeInsets.all(16),
@@ -74,12 +74,12 @@ class TermsAndConditions extends StatelessWidget {
           Container(
             padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             decoration: BoxDecoration(
-              color: Colors.white,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(
               title,
               style: TextStyle(
+                color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
@@ -88,7 +88,7 @@ class TermsAndConditions extends StatelessWidget {
           SizedBox(height: 12),
           Text(
             content,
-            style: TextStyle(fontSize: 14, height: 1.5),
+            style: TextStyle(color: Colors.black, fontSize: 14, height: 1.5),
           ),
         ],
       ),

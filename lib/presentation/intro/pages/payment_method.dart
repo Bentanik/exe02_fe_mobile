@@ -52,8 +52,7 @@ class _PaymentMethodsState extends State<PaymentMethods> {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text('Chi tiết về gói đăng kí'),
-        actions: [TextButton(onPressed: () {}, child: Text('Hoàn thành'))],
+        title: Text('Đăng kí chi tiết'),
       ),
       body: SingleChildScrollView(
         child: Padding(

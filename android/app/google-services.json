@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "288877858511",
+    "project_id": "antiscm-2c859",
+    "storage_bucket": "antiscm-2c859.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:288877858511:android:a6014841c578816eeab1ba",
+        "android_client_info": {
+          "package_name": "com.example.exe02_fe_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfjCv6XJTAs8LiDUhZgYOkWNN8KD66fWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
