@@ -5,6 +5,7 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/launching.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/term_condition.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/term_splash.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SplashPageState extends State<SplashPage> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute (builder:
-            (BuildContext context) => Home()),
+            (BuildContext context) => SplashTerm()),
     );
   }
 }

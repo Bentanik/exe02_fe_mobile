@@ -5,6 +5,7 @@ import 'package:exe02_fe_mobile/common/widget/input_field.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/forgot_password/forgot_password.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login_hook.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,52 +13,21 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Login extends StatefulWidget {
-  final Function(bool, {String? avatarUrl}) updateLoginState;
-
-  const Login({Key? key, required this.updateLoginState}) : super(key: key);
+  const Login({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
-  // late LoginController _loginController;
-
 
   @override
   void initState() {
     super.initState();
-    // _loginController = LoginController(
-    //   emailController: _emailController,
-    //   passwordController: _passwordController,
-    //   context: context,
-    //   updateLoginState: widget.updateLoginState,
-    // );
-  }
-
-  Future<void> _handleLogin() async {
-    setState(() => _isLoading = true); // Bắt đầu loading
-
-    // await _loginController.login(
-    //       () => setState(() => _isLoading = true),
-    //       () async {
-    //     setState(() => _isLoading = false);
-    //
-    //     final storage = FlutterSecureStorage();
-    //     String? avatarUrl = await storage.read(key: 'userAvatarUrl');
-    //     String? fullName = await storage.read(key: 'userFullName');
-    //     print("Login Success - Avatar URL: $avatarUrl");
-    //     print("Login Success - name: $fullName");
-    //
-    //
-    //     widget.updateLoginState(true, avatarUrl: avatarUrl);
-    //     Navigator.pop(context);
-    //   },
-    // );
   }
 
   @override
@@ -67,7 +37,8 @@ class _LoginState extends State<Login> {
         backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.primary),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -84,7 +55,8 @@ class _LoginState extends State<Login> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -120,10 +92,11 @@ class _LoginState extends State<Login> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: TextButton(
-                      onPressed: () => Routes.navigateToPage(context, ForgotPassword()),
+                      onPressed: () =>
+                          Routes.navigateToPage(context, ForgotPassword()),
                       child: const Text(
                         "Quên mật khẩu ?",
-                        style: TextStyle(color: Colors.blue),
+                        style: TextStyle(color: Color(0xFF6BB7CD)),
                       ),
                     ),
                   ),
@@ -137,44 +110,41 @@ class _LoginState extends State<Login> {
                   //     ),
                   //   ),
                   // ),
-
-                  ElevatedButton(
+                  Button(
+                    text: 'Đăng nhập',
                     onPressed: () async {
-                        AuthService().signIn(
+                      AuthService().signIn(
                         context: context,
                         email: _emailController.text,
                         password: _passwordController.text,
                       );
                     },
-                    child: const Text('Đăng ký'),
+                    backgroundColor: Color(0xFF047099),
+                    buttonSize: Size(double.infinity, 40),
                   ),
-                  const SizedBox(height: 32),
-                  const Text("hoặc sử dụng"),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(FontAwesomeIcons.facebook),
-                        color: Colors.blue,
-                        iconSize: 32,
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(FontAwesomeIcons.google),
-                        color: Colors.red,
-                        iconSize: 32,
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const FaIcon(FontAwesomeIcons.phone),
-                        color: Colors.green,
-                        iconSize: 32,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
+                  Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min, // Giúp nội dung không chiếm toàn bộ chiều rộng
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bạn chưa có tài khoản? ',
+                          style: TextStyle(color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                        TextButton(
+                          onPressed: () => Routes.navigateToPage(context, Register()),
+                          child: const Text(
+                            'Đăng kí ngay.',
+                            style: TextStyle(
+                              color: Color(0xFF6BB7CD),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ),

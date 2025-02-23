@@ -73,14 +73,6 @@ class Categories extends StatelessWidget {
                     imageUrl: AppImages.signal,
                     backgroundColor: Colors.blueAccent,
                   ),
-                  const SizedBox(height: 10),
-                  CategoryCard(
-                    onPress: () =>
-                        Routes.navigateToPage(context, YouTubeEmbed()),
-                    title: 'Check video',
-                    imageUrl: AppImages.signal,
-                    backgroundColor: Colors.blueAccent,
-                  ),
                 ],
               ),
             ),

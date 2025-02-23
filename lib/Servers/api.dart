@@ -19,6 +19,7 @@ class Api {
           if (accessToken != null) {
             options.headers['Authorization'] = 'Bearer $accessToken';
           }
+
           return handler.next(options);
         },
         onError: (DioError error, handler) async {
@@ -40,6 +41,10 @@ class Api {
                 data: {"message": "Không có quyền"},
               ),
             ));
+          }
+
+          if(error.response?.statusCode == 400) {
+            return handler.reject(error);
           }
           return handler.next(error);
         },
@@ -116,6 +121,12 @@ class Api {
   Future<void> _handleTokenExpired() async {
     accessToken = null;
     await _storage.deleteAll();
+  }
+
+  /// Cập nhật accessToken sau khi đăng nhập
+  Future<void> updateAccessToken(String newToken) async {
+    accessToken = newToken;
+    await _storage.write(key: 'accessToken', value: newToken);
   }
 }
 

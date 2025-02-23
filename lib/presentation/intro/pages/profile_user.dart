@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/profile_button.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
@@ -7,8 +8,8 @@ import 'package:exe02_fe_mobile/presentation/intro/pages/language.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/light_dark_mode.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/notification.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/term_condition.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ProfileUser extends StatefulWidget {
   @override
@@ -17,8 +18,30 @@ class ProfileUser extends StatefulWidget {
 
 class _ProfileUserState extends State<ProfileUser> {
   final LogoutController _logoutController = LogoutController();
+  final FlutterSecureStorage _storage = const FlutterSecureStorage();
+
   bool isLoggedIn = true;
+  String userFullName = "Loading...";
+  String userEmail = "Loading...";
   String userAvatar = AppImages.chatBot; // Avatar mặc định
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData();
+  }
+
+  Future<void> _loadUserData() async {
+    String? fullName = await _storage.read(key: 'userFullName');
+    String? email = await _storage.read(key: 'userEmail');
+    String? avatarUrl = await _storage.read(key: 'userAvatarUrl');
+
+    setState(() {
+      userFullName = fullName ?? "Chưa có tên";
+      userEmail = email ?? "Chưa có email";
+      userAvatar = avatarUrl ?? AppImages.chatBot;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +76,13 @@ class _ProfileUserState extends State<ProfileUser> {
                   CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.grey.shade300,
-                    backgroundImage: AssetImage(userAvatar),
+                    backgroundImage: userAvatar.isNotEmpty
+                        ? NetworkImage(userAvatar)
+                        : AssetImage(AppImages.chatBot) as ImageProvider,
                   ),
                   SizedBox(height: 10),
                   Text(
-                    'James S. Hernandez',
+                    userFullName,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontSize: 18,
@@ -65,7 +90,7 @@ class _ProfileUserState extends State<ProfileUser> {
                   ),
                   SizedBox(height: 5),
                   Text(
-                    'hernandez.redial@gmail.ac.in',
+                    userEmail,
                     style: TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                 ],
@@ -77,38 +102,32 @@ class _ProfileUserState extends State<ProfileUser> {
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, ProfileUser()),
               leading:
-                  Icon(FontAwesomeIcons.user, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text(
-                  'Chỉnh sửa hồ sơ'),
+              Icon(FontAwesomeIcons.user, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text('Chỉnh sửa hồ sơ'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, LightDarkMode()),
               leading:
-                  Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text(
-                  'Trạng thái màn hình'),
+              Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text('Trạng thái màn hình'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, Language()),
               leading:
-                  Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text(
-                  'Tùy chỉnh ngôn ngữ'),
+              Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text('Tùy chỉnh ngôn ngữ'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, NotificationPage()),
               leading: Icon(FontAwesomeIcons.creditCard,
-                  size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text(
-
-                  'Thông báo'),
+                size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text('Thông báo'),
             ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, TermsAndConditions()),
               leading:
-                  Icon(FontAwesomeIcons.history, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text(
-                  'Chính sách người dùng'),
+              Icon(FontAwesomeIcons.history, size: 20, color: Theme.of(context).colorScheme.primary,),
+              title: Text('Chính sách người dùng'),
             ),
 
             // Đăng xuất
@@ -116,9 +135,12 @@ class _ProfileUserState extends State<ProfileUser> {
               onTap: () async {
                 bool isSuccess = await _logoutController.logout();
                 if (isSuccess && context.mounted) {
+                  await _storage.deleteAll(); // Xóa dữ liệu sau khi đăng xuất
                   setState(() {
                     isLoggedIn = false;
-                    userAvatar = "";
+                    userFullName = "Loading...";
+                    userEmail = "Loading...";
+                    userAvatar = AppImages.chatBot;
                   });
                   Routes.navigateToPage(context, Home());
                 }

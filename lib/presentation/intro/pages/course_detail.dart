@@ -1,10 +1,13 @@
 import 'package:exe02_fe_mobile/Servers/chapter/chapters_api.dart';
 import 'package:exe02_fe_mobile/Servers/chapter/get_chapter_by_id_api.dart';
 import 'package:exe02_fe_mobile/Servers/course/course_detail_api.dart';
+import 'package:exe02_fe_mobile/Servers/lectures/lecture_detail_api.dart';
 import 'package:exe02_fe_mobile/common/widget/dropdown_text.dart';
 import 'package:exe02_fe_mobile/models/chapters/chapter_detail_model.dart';
 import 'package:exe02_fe_mobile/models/chapters/chapters_model.dart';
 import 'package:exe02_fe_mobile/models/course/course_detail_model.dart';
+import 'package:exe02_fe_mobile/models/lectures/lecture_detail_model.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/lecture_video.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:iconsax/iconsax.dart';
@@ -198,39 +201,42 @@ class _CourseDetailState extends State<CourseDetail> {
                                   FutureBuilder<ChapterResponse>(
                                     future: chapterDetails[chapter.id],
                                     builder: (context, lectureSnapshot) {
-                                      if (lectureSnapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Center(
-                                            child: CircularProgressIndicator());
+                                      if (lectureSnapshot.connectionState == ConnectionState.waiting) {
+                                        return const Center(child: CircularProgressIndicator());
                                       } else if (lectureSnapshot.hasError) {
-                                        return Center(
-                                            child: Text(
-                                                "Lỗi: ${lectureSnapshot.error}"));
-                                      } else if (!lectureSnapshot.hasData ||
-                                          lectureSnapshot.data!.data.chapter.lectures!.isEmpty) {
+                                        return Center(child: Text("Lỗi: ${lectureSnapshot.error}"));
+                                      } else if (!lectureSnapshot.hasData || lectureSnapshot.data!.data.chapter.lectures!.isEmpty) {
                                         return const Padding(
                                           padding: EdgeInsets.all(16),
-                                          child: Center(
-                                              child: Text("Không có bài giảng")),
+                                          child: Center(child: Text("Bài giảng chưa có video")),
                                         );
                                       }
 
                                       return Column(
-                                        children: lectureSnapshot.data!.data.chapter.lectures!
-                                            .map((lecture) {
+                                        children: lectureSnapshot.data!.data.chapter.lectures.map((lecture) {
                                           return ListTile(
-                                            contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                horizontal: 16, vertical: 4),
-                                            leading: const Icon(
-                                                Icons.play_circle_fill,
-                                                color: Colors.green,
-                                                size: 28),
+                                            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                                            leading: const Icon(Icons.play_circle_fill, color: Colors.black, size: 28),
                                             title: Text(
                                               lecture.name,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w600),
+                                              style: const TextStyle(fontWeight: FontWeight.w600),
                                             ),
+                                            onTap: () async {
+                                              try {
+                                                LectureDetailService lectureService = LectureDetailService();
+                                                LectureModel lectureDetail = await lectureService.fetchLectureById(lecture.id);
+
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) => LectureVideo(videoId: lectureDetail.videoLecture.publicId),
+                                                  ),
+                                                );
+                                              } catch (e) {
+                                                // Xử lý lỗi (có thể hiện thông báo lỗi)
+                                                print("Lỗi khi tải bài giảng: $e");
+                                              }
+                                            },
                                           );
                                         }).toList(),
                                       );

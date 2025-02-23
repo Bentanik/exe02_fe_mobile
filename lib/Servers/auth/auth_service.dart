@@ -58,7 +58,7 @@ class AuthService {
         await LoginApi(api).login(idTokenFirebase: idToken);
         // Chuyển hướng người dùng sau khi đăng nhập thành công
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Categories()));
+            context, MaterialPageRoute(builder: (context) => Home()));
       } else {
         // Xử lý trường hợp không lấy được idToken
         Fluttertoast.showToast(

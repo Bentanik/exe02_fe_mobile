@@ -1,6 +1,8 @@
 import 'package:exe02_fe_mobile/Servers/auth/auth_service.dart';
+import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/common/widget/input_field.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register_hook.dart';
 import 'package:flutter/material.dart';
 
@@ -39,7 +41,8 @@ class _RegisterState extends State<Register> {
         backgroundColor: Theme.of(context).colorScheme.background,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.primary),
+          icon: Icon(Icons.arrow_back,
+              color: Theme.of(context).colorScheme.primary),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -108,10 +111,11 @@ class _RegisterState extends State<Register> {
                   child: Button(
                     text: _isLoading ? 'Đang đăng ký...' : 'Tạo tài khoản',
                     onPressed: () => _registerController.register(
-                            () => setState(() => _isLoading = true),
-                            () => setState(() => _isLoading = false),
-                      ),
+                      () => setState(() => _isLoading = true),
+                      () => setState(() => _isLoading = false),
+                    ),
                     buttonSize: Size(350, 50),
+                    backgroundColor: Color(0xFF047099),
                   ),
                 ),
               ),
@@ -133,14 +137,16 @@ class _RegisterState extends State<Register> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text("Bạn đã có tài khoản? "),
+                    const Text(
+                      "Bạn đã có tài khoản? ",
+                      style: TextStyle(color: Colors.grey),
+                    ),
                     GestureDetector(
-                      onTap: () {
-                        // Chuyển sang trang đăng nhập
-                      },
+                      onTap: () => Routes.navigateToPage(context, Login()),
                       child: const Text(
                         "Đăng nhập tại đây",
                         style: TextStyle(
+                          color: Color(0xFF6BB7CD),
                           fontWeight: FontWeight.bold,
                         ),
                       ),

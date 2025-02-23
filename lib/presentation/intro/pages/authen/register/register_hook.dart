@@ -3,6 +3,7 @@ import 'package:exe02_fe_mobile/Servers/api.dart';
 import 'package:exe02_fe_mobile/Servers/auth/register_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/ErrorDialog.dart';
+import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,13 +53,13 @@ class RegisterController {
           msg: "Đăng kí thành công!",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.black,
           textColor: Colors.white,
           fontSize: 16.0,
         );
 
         Future.delayed(Duration(seconds: 1), () {
-          Routes.navigateToPage(context, Home());
+          Routes.navigateToPage(context, Login());
         });
       }
     } catch (error) {

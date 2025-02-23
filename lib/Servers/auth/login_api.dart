@@ -8,7 +8,7 @@ class LoginApi {
 
   LoginApi(this.api);
 
-  Future<void> login({required String idTokenFirebase}) async {
+  Future<bool> login({required String idTokenFirebase}) async {
     try {
       final response = await api.api.post(
         '/api/auth/v1/login',
@@ -21,22 +21,25 @@ class LoginApi {
         final authTokenDTO = response.data['authTokenDTO'];
         final authUserDTO = response.data['authUserDTO'];
 
-        // Lưu accessToken và thông tin người dùng
-        api.accessToken = authTokenDTO['accessToken'];
-        await _storage.write(key: 'accessToken', value: api.accessToken);
+        final newAccessToken = authTokenDTO['accessToken'];
+
+        // ✅ Cập nhật token ngay lập tức vào Api class
+        await api.updateAccessToken(newAccessToken);
+
+        // Lưu thông tin vào storage
+        await _storage.write(key: 'refreshToken', value: authTokenDTO['refreshToken']);
         await _storage.write(key: 'userFullName', value: authUserDTO['fullName']);
         await _storage.write(key: 'userEmail', value: authUserDTO['email']);
         await _storage.write(key: 'userAvatarUrl', value: authUserDTO['avatarUrl']);
 
-
-        print(await _storage.read(key: 'userEmail'));
+        return true;
       } else {
-        // Xử lý các mã trạng thái khác nếu cần
-        print('Đăng nhập thất bại với mã trạng thái: ${response.statusCode}');
+        print('❌ Đăng nhập thất bại. Mã trạng thái: ${response.statusCode}');
+        return false;
       }
     } catch (error) {
-      print('Lỗi khi gọi API đăng nhập: $error');
-      rethrow;
+      print('❌ Lỗi khi gọi API đăng nhập: $error');
+      return false;
     }
   }
 }

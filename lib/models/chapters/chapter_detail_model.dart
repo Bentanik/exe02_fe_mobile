@@ -39,7 +39,7 @@ class Chapter {
   final String name;
   final String description;
   final int quantityLectures;
-  final int totalDurationLectures;
+  final double totalDurationLectures;
   final List<Lecture> lectures;
 
   Chapter({

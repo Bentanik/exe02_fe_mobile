@@ -61,19 +61,23 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class YouTubeEmbed extends StatefulWidget {
+class LectureVideo extends StatefulWidget {
+  final String videoId; // Nhận videoId từ file khác
+
+  const LectureVideo({super.key, required this.videoId});
+
   @override
   _YouTubeEmbedState createState() => _YouTubeEmbedState();
 }
 
-class _YouTubeEmbedState extends State<YouTubeEmbed> {
+class _YouTubeEmbedState extends State<LectureVideo> {
   late YoutubePlayerController _controller;
 
   @override
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'HHY-CbyH7_s', // ID của video YouTube
+      initialVideoId: widget.videoId, // Dùng videoId từ widget
       flags: const YoutubePlayerFlags(
         autoPlay: false,
         mute: false,
@@ -100,3 +104,4 @@ class _YouTubeEmbedState extends State<YouTubeEmbed> {
     );
   }
 }
+

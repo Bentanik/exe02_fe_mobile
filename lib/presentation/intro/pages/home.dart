@@ -133,7 +133,7 @@ class _HomeState extends State<Home> {
                     children: [
                       TextButton(
                         onPressed: () => Routes.navigateToPage(
-                            context, Login(updateLoginState: updateLoginState)),
+                            context, Login()),
                         child: Text("Đăng nhập"),
                       ),
                       SizedBox(width: 10),
