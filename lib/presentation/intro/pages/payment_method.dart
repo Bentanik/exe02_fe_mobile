@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
 import 'package:exe02_fe_mobile/Servers/premiums/premium_detail_api.dart';
 import 'package:exe02_fe_mobile/Servers/users/purchase_api.dart';
@@ -30,21 +31,36 @@ class _PaymentMethodsState extends State<PaymentMethods> {
   Future<void> _handlePayment() async {
     try {
       PaymentResponse response =
-          await _purchaseVipApi.fetchPurchase(widget.premiumId);
-      if (response.value.data.success &&
+      await _purchaseVipApi.fetchPurchase(widget.premiumId);
+
+      // Kiểm tra nếu thanh toán thành công
+      if (response.isSuccess && response.value?.data.success == true &&
           await canLaunchUrl(Uri.parse(response.value.data.paymentUrl))) {
         await launchUrl(Uri.parse(response.value.data.paymentUrl));
       } else {
+        // Nếu không thành công, hiển thị lỗi về thanh toán
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Không thể mở đường dẫn thanh toán')),
+          SnackBar(content: Text(response.error.message)),
         );
       }
     } catch (error) {
+      // Kiểm tra lỗi từ PaymentResponse nếu có
+      String errorMessage = "Lỗi không xác định";
+
+      if (error is DioException) {
+        var errorData = error.response?.data;
+        if (errorData != null && errorData['message'] != null) {
+          errorMessage = errorData['message'] ?? "Có lỗi xảy ra khi xử lý thanh toán";
+        }
+      }
+
+      // Hiển thị lỗi ra giao diện
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lỗi khi xử lý thanh toán: $error')),
+        SnackBar(content: Text('Lỗi khi xử lý thanh toán: $errorMessage')),
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

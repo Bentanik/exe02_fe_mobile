@@ -14,4 +14,7 @@ class AppImages {
   static const String signal = '${basePath}signal.png';
   static const String success = '${basePath}success.png';
   static const String bg_success = '${basePath}bg_success.png';
+  static const String scam1 = '${basePath}scam1.jpg';
+  static const String scam2 = '${basePath}scam2.jpg';
+  static const String scam3 = '${basePath}scam3.png';
 }

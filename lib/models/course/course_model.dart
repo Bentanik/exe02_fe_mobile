@@ -18,6 +18,7 @@ class CourseResponse {
   });
 
   factory CourseResponse.fromJson(Map<String, dynamic> json) {
+    print('json: $json');
     return CourseResponse(
       code: json['value']['code'] ?? '',
       message: json['value']['message'] ?? '',

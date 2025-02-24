@@ -1,13 +1,11 @@
-       import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 
 class FeatureBlogCard extends StatelessWidget {
-  final String category;
   final String title;
   final String imageUrl;
 
   const FeatureBlogCard({
     Key? key,
-    required this.category,
     required this.title,
     required this.imageUrl,
   }) : super(key: key);
@@ -38,14 +36,6 @@ class FeatureBlogCard extends StatelessWidget {
                 color: Colors.black.withOpacity(0.7),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
-                category.toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
             ),
           ),
           Positioned(
@@ -61,17 +51,6 @@ class FeatureBlogCard extends StatelessWidget {
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          Positioned(
-            bottom: 30,
-            right: 16,
-            child: Row(
-              children: [
-                Icon(Icons.bookmark_border, color: Colors.white),
-                SizedBox(width: 16),
-                Icon(Icons.share, color: Colors.white),
-              ],
             ),
           ),
         ],

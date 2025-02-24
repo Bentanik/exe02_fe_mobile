@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
 import 'package:exe02_fe_mobile/models/premiums/premiums_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class PremiumsApiService {
   final Dio _dio = Api().api;
@@ -19,7 +20,11 @@ class PremiumsApiService {
         throw Exception("Lỗi khi lấy dữ liệu");
       }
     } catch (e) {
-      throw Exception("Lỗi kết nối: $e");
+      if (e.toString().contains("đăng nhập")) {
+        throw e; // Ném lỗi giữ nguyên mà không thêm text
+      } else {
+        throw Exception("Đã xảy ra lỗi không xác định: $e");
+      }
     }
   }
 

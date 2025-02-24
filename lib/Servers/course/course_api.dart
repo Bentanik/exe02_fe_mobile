@@ -7,7 +7,12 @@ class CourseService {
 
   Future<CourseResponse> fetchCourses() async {
     try {
-      final response = await _dio.get('/api/course/v1/get-courses?searchTerm=Kh&sortColumn=name&sortOrder=Asc&includes=Level&includes=Chapter&includes=Category');
+      final response = await _dio.get('/api/course/v1/get-courses', queryParameters: {
+        'searchTerm': '',
+        'sortColumn': 'name',
+        'sortOrder': 'Asc',
+        'includes': ['Level', 'Chapter', 'Category'],
+      });
 
       if (response.statusCode == 200) {
         return CourseResponse.fromJson(response.data);

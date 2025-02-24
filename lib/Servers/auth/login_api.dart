@@ -27,10 +27,12 @@ class LoginApi {
         await api.updateAccessToken(newAccessToken);
 
         // Lưu thông tin vào storage
+        await _storage.write(key: 'accessToken', value: authTokenDTO['accessToken']);
         await _storage.write(key: 'refreshToken', value: authTokenDTO['refreshToken']);
         await _storage.write(key: 'userFullName', value: authUserDTO['fullName']);
         await _storage.write(key: 'userEmail', value: authUserDTO['email']);
         await _storage.write(key: 'userAvatarUrl', value: authUserDTO['avatarUrl']);
+
 
         return true;
       } else {

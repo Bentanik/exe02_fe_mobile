@@ -19,7 +19,6 @@ class Api {
           if (accessToken != null) {
             options.headers['Authorization'] = 'Bearer $accessToken';
           }
-
           return handler.next(options);
         },
         onError: (DioError error, handler) async {
@@ -42,8 +41,10 @@ class Api {
               ),
             ));
           }
-
           if(error.response?.statusCode == 400) {
+            return handler.reject(error);
+          }
+          if(error.response?.statusCode == 404) {
             return handler.reject(error);
           }
           return handler.next(error);

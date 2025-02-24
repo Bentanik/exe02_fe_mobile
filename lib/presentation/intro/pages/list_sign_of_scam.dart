@@ -3,16 +3,34 @@ import 'package:flutter/material.dart';
 class ScamSignsList extends StatelessWidget {
   final List<Map<String, String>> scamArticles = [
     {
-      'title': 'Social Engineering',
+      'title': 'Đường link lạ, giả mạo thương hiệu',
       'description':
-      'Cybercriminals manipulate or trick individuals into revealing confidential information by pretending to be someone trustworthy, such as a colleague, customer support, or auth.....',
+      'Địa chỉ website có lỗi chính tả hoặc sử dụng tên miền lạ (vd: abc-bank.xyz thay vì abc-bank.com). Thường yêu cầu nhấp vào link để nhận thưởng, xác nhận tài khoản, v.v.',
       'tagColor': '0xFFFFF3D0', // Light yellow
     },
     {
-      'title': 'Social Engineering',
+      'title': 'Nội dung mơ hồ, hấp dẫn quá mức',
       'description':
-      'Cybercriminals manipulate or trick individuals into revealing confidential information by pretending to be someone trustworthy, such as a colleague, customer support, or auth.....',
-      'tagColor': '0xFFFFE4E6', // Light pink
+      'Hứa hẹn kiếm tiền dễ dàng, trúng thưởng lớn mà không cần làm gì. Dùng từ ngữ khẩn cấp như: "Chỉ còn 1 suất duy nhất", "Hành động ngay để không bỏ lỡ!".',
+      'tagColor': '0xFFFFCDD2', // Light red
+    },
+    {
+      'title': 'Yêu cầu cung cấp thông tin cá nhân, tài khoản',
+      'description':
+      'Hỏi mật khẩu, mã OTP, số thẻ ngân hàng, hoặc thông tin cá nhân. Giả mạo ngân hàng, công ty tài chính để yêu cầu xác minh danh tính.',
+      'tagColor': '0xFFC8E6C9', // Light green
+    },
+    {
+      'title': 'Chuyển tiền trước để nhận quà hoặc đầu tư',
+      'description':
+      'Bắt đóng phí trước khi nhận thưởng, hàng hóa, hoặc đầu tư sinh lời cao. Kêu gọi góp vốn, nhưng không có thông tin công ty rõ ràng.',
+      'tagColor': '0xFFBBDEFB', // Light blue
+    },
+    {
+      'title': 'Giả danh cơ quan chức năng, người nổi tiếng',
+      'description':
+      'Mạo danh công an, tòa án, ngân hàng để đe dọa hoặc yêu cầu đóng tiền phạt. Giả mạo người nổi tiếng kêu gọi quyên góp, đầu tư.',
+      'tagColor': '0xFFD1C4E9', // Light purple
     },
   ];
 
@@ -23,12 +41,8 @@ class ScamSignsList extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
         title: Text(
-          'Signs of Scam',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          'Dấu hiệu nhận biết',
         ),
-        centerTitle: true,
         // backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
@@ -63,6 +77,7 @@ class ScamSignsList extends StatelessWidget {
                       article['title']!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.black,
                       ),
                     ),
                   ),

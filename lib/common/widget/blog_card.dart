@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
 class BlogCard extends StatelessWidget {
-  final String category;
   final String title;
   final String imageUrl;
   final VoidCallback onPress;
 
   const BlogCard({
     Key? key,
-    required this.category,
     required this.title,
     required this.imageUrl,
     required this.onPress,
@@ -34,20 +32,11 @@ class BlogCard extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 16),
+            const SizedBox(width: 10,),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    category.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  SizedBox(height: 4),
                   Text(
                     title,
                     style: TextStyle(
