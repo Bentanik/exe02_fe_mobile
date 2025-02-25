@@ -9,7 +9,6 @@ class ChaptersResponse {
   final List<ChapterModel> chapters;
   final bool isSuccess;
 
-
   ChaptersResponse({
     required this.code,
     required this.message,

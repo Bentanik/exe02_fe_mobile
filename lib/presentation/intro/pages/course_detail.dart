@@ -22,26 +22,31 @@ class CourseDetail extends StatefulWidget {
 }
 
 class _CourseDetailState extends State<CourseDetail> {
-  late Future<CourseDetailModel> courseFuture;
+  CourseDetailModel? courseDetail;
   late Future<ChaptersResponse> chaptersFuture;
   Map<String, Future<ChapterResponse>> chapterDetails = {};
-  String? token;
   final storage = FlutterSecureStorage();
-
-  _loadUserData() async {
-    token = await storage.read(key: 'accessToken');
-  }
-
-  final CourseDetailService _courseService = CourseDetailService();
+  final CourseDetailService _courseDetailService = CourseDetailService();
   final ChaptersService _chaptersService = ChaptersService();
   final ChapterService _chapterService = ChapterService();
 
   @override
   void initState() {
     super.initState();
-    courseFuture = _courseService.fetchCourse(widget.courseId);
+    _fetchCourseDetail(widget.courseId);
     chaptersFuture = _chaptersService.fetchChapters(widget.courseId);
-    _loadUserData();
+  }
+
+  Future<void> _fetchCourseDetail(String courseId) async {
+    try {
+      final courseDetailResponse =
+          await _courseDetailService.fetchCourseDetail(courseId);
+      setState(() {
+        courseDetail = courseDetailResponse.data;
+      });
+    } catch (error) {
+      print('Lỗi khi tải chi tiết khóa học: $error');
+    }
   }
 
   Future<void> _fetchChapterDetails(String chapterId) async {
@@ -60,117 +65,109 @@ class _CourseDetailState extends State<CourseDetail> {
         title: const Text("Chi tiết khóa học"),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
-      body: FutureBuilder<CourseDetailModel>(
-        future: courseFuture,
-        builder: (context, courseSnapshot) {
-          if (courseSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (courseSnapshot.hasError) {
-            return Center(child: Text("Lỗi: ${courseSnapshot.error}"));
-          } else if (!courseSnapshot.hasData) {
-            return const Center(child: Text("Không có dữ liệu"));
-          }
-
-          final course = courseSnapshot.data!;
-
-          return FutureBuilder<ChaptersResponse>(
-            future: chaptersFuture,
-            builder: (context, chapterSnapshot) {
-              if (chapterSnapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (chapterSnapshot.hasError) {
-                return Center(child: Text("Lỗi: ${chapterSnapshot.error}"));
-              } else if (!chapterSnapshot.hasData ||
-                  chapterSnapshot.data!.chapters.isEmpty) {
-                return const Center(child: Text("Không có chương học"));
-              }
-
-              final chapters = chapterSnapshot.data!.chapters;
-
-              return SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (courseDetail != null) ...[
+              Stack(
+                children: [
+                  Image.network(
+                    courseDetail!.thumbnailUrl ?? '',
+                    width: double.infinity,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Stack(
+                    Text(
+                      courseDetail!.name ?? 'Không có tên',
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
                       children: [
-                        Image.network(
-                          course.thumbnailUrl,
-                          width: double.infinity,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
+                        const Icon(Icons.star, color: Colors.amber, size: 16),
+                        Text("4 (100 đánh giá)"),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            course.name,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              const Icon(Icons.star,
-                                  color: Colors.amber, size: 16),
-                              Text("4 (100 đánh giá)"),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Text("Lần cập nhật gần nhất: 12 giờ trước"),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
+                    const SizedBox(height: 10),
+                    Text("Lần cập nhật gần nhất: 12 giờ trước"),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Phân loại khóa học",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Phân loại khóa học",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          Text('Độ khó: ${course.levelName}'),
-                          const SizedBox(height: 10),
-                          Text('Thể loại: ${course.categoryName}'),
-                        ],
-                      ),
+                    const SizedBox(height: 10),
+                    Text(
+                        'Độ khó: ${courseDetail!.levelName ?? 'Không xác định'}'),
+                    const SizedBox(height: 10),
+                    Text(
+                        'Thể loại: ${courseDetail!.categoryName ?? 'Không xác định'}'),
+                  ],
+                ),
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Mô tả về khóa học",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    const Divider(),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Mô tả về khóa học",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          ExpandableText(text: course.description),
-                        ],
-                      ),
+                    const SizedBox(height: 10),
+                    ExpandableText(text: courseDetail!.description),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      "Chương trình giảng dạy",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Chương trình giảng dạy",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          ...chapters.map((chapter) {
+                    const SizedBox(height: 10),
+                    FutureBuilder<ChaptersResponse>(
+                      future: chaptersFuture,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (snapshot.hasError) {
+                          return Center(child: Text("Lỗi: ${snapshot.error}"));
+                        } else if (!snapshot.hasData ||
+                            snapshot.data!.chapters.isEmpty) {
+                          return const Center(
+                              child: Text("Không có chương học"));
+                        }
+
+                        final chapters = snapshot.data!.chapters;
+                        return Column(
+                          children: chapters.map((chapter) {
                             return Card(
                               margin: const EdgeInsets.symmetric(
                                   vertical: 6, horizontal: 12),
@@ -229,7 +226,9 @@ class _CourseDetailState extends State<CourseDetail> {
                                                     vertical: 4),
                                             leading: Icon(
                                                 Icons.play_circle_fill,
-                                                color: Theme.of(context).colorScheme.primary,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .primary,
                                                 size: 28),
                                             title: Text(
                                               lecture.name,
@@ -245,15 +244,17 @@ class _CourseDetailState extends State<CourseDetail> {
                                                     LectureDetailService();
                                                 LectureModel? lectureDetail =
                                                     await lectureService
-                                                        .fetchLectureById(context,
+                                                        .fetchLectureById(
+                                                            context,
                                                             lecture.id);
                                                 Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         LectureVideo(
-                                                            videoId:
-                                                            lectureDetail?.videoLecture?.publicId),
+                                                            videoId: lectureDetail
+                                                                ?.videoLecture
+                                                                ?.publicId),
                                                   ),
                                                 );
                                               } catch (e) {
@@ -275,15 +276,16 @@ class _CourseDetailState extends State<CourseDetail> {
                               ),
                             );
                           }).toList(),
-                        ],
-                      ),
+                        );
+                      },
                     ),
                   ],
                 ),
-              );
-            },
-          );
-        },
+              ),
+            ] else
+              const Center(child: CircularProgressIndicator()),
+          ],
+        ),
       ),
     );
   }

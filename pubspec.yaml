@@ -55,6 +55,7 @@ dependencies:
   flutter_secure_storage: ^9.2.4
   flutter_svg:
   video_player: ^2.9.2
+  wakelock_plus: ^1.2.10
 
 
 dev_dependencies:

@@ -10,9 +10,9 @@ class Api {
     api.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          // Đảm bảo token mới nhất
           await _ensureToken();
           if (!options.path.contains('http')) {
+            // options.path = 'https://c365-116-110-42-212.ngrok-free.app' + options.path;
             options.path = 'http://10.0.2.2:5000' + options.path;
           }
           print('check token');
@@ -31,7 +31,6 @@ class Api {
           }
 
           if (error.response?.statusCode == 403) {
-            print("❌ Không có quyền truy cập");
             return handler.reject(DioError(
               requestOptions: error.requestOptions,
               response: Response(
@@ -41,10 +40,10 @@ class Api {
               ),
             ));
           }
-          if(error.response?.statusCode == 400) {
+          if (error.response?.statusCode == 400) {
             return handler.reject(error);
           }
-          if(error.response?.statusCode == 404) {
+          if (error.response?.statusCode == 404) {
             return handler.reject(error);
           }
           return handler.next(error);
@@ -53,7 +52,6 @@ class Api {
     );
   }
 
-  /// Đảm bảo `accessToken` luôn được cập nhật trước khi dùng
   Future<void> _ensureToken() async {
     if (accessToken == null) {
       accessToken = await _storage.read(key: 'accessToken');
@@ -130,4 +128,3 @@ class Api {
     await _storage.write(key: 'accessToken', value: newToken);
   }
 }
-

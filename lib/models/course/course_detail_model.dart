@@ -1,5 +1,50 @@
 import 'package:exe02_fe_mobile/models/chapters/chapters_model.dart';
 
+class CourseDetailResponse {
+  final String code;
+  final String message;
+  final CourseDetailModel data;
+  final bool isSuccess;
+  final bool isFailure;
+  final ErrorResponse error;
+
+  CourseDetailResponse({
+    required this.code,
+    required this.message,
+    required this.data,
+    required this.isSuccess,
+    required this.isFailure,
+    required this.error,
+  });
+
+  factory CourseDetailResponse.fromJson(Map<String, dynamic> json) {
+    print('json: $json');
+    return CourseDetailResponse(
+      code: json['value']['code'] ?? '',
+      message: json['value']['message'] ?? '',
+      data: CourseDetailModel.fromJson(json['value']['data']['course']),
+      isSuccess: json['isSuccess'] ?? false,
+      isFailure: json['isFailure'] ?? false,
+      error: ErrorResponse.fromJson(json['error']),
+    );
+  }
+}
+
+class ErrorResponse {
+  final String code;
+  final String message;
+
+  ErrorResponse({required this.code, required this.message});
+
+  factory ErrorResponse.fromJson(Map<String, dynamic> json) {
+    return ErrorResponse(
+      code: json['code'] ?? '',
+      message: json['message'] ?? '',
+    );
+  }
+}
+
+
 class CourseDetailModel {
   final String id;
   final String name;
@@ -22,20 +67,17 @@ class CourseDetailModel {
   });
 
   factory CourseDetailModel.fromJson(Map<String, dynamic> json) {
-    final courseJson = json['value']?['data']?['course'] ?? {};
-
     return CourseDetailModel(
-      id: courseJson['id'] ?? '',
-      name: courseJson['name'] ?? '',
-      description: courseJson['description'] ?? '',
-      thumbnailUrl: courseJson['thumbnail']?['publicUrl'] ?? '',
-      quantityChapters: courseJson['quantityChapters'] ?? 0,
-      categoryName: courseJson['category']?['name'] ?? 'Không phân loại',
-      levelName: courseJson['level']?['name'] ?? 'Không phân cấp độ',
-      chapters: (courseJson['chapters'] as List<dynamic>?)
+      id: json['id'] ?? '',
+      name: json['name'] ?? '',
+      description: json['description'] ?? '',
+      thumbnailUrl: json['thumbnail']?['publicUrl'] ?? '',
+      quantityChapters: json['quantityChapters'] ?? 0,
+      categoryName: json['category']?['name'] ?? 'Không phân loại',
+      levelName: json['level']?['name'] ?? 'Không phân cấp độ',
+      chapters: (json['chapters'] as List<dynamic>?)
           ?.map((chapter) => ChapterModel.fromJson(chapter))
-          .toList() ??
-          [],
+          .toList() ?? [],
     );
   }
 }

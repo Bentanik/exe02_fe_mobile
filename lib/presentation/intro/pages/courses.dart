@@ -13,6 +13,7 @@ class Courses extends StatefulWidget {
   @override
   _CoursesState createState() => _CoursesState();
 }
+
 class _CoursesState extends State<Courses> {
   List<Course> courses = [];
 
@@ -23,10 +24,8 @@ class _CoursesState extends State<Courses> {
   }
 
   Future<void> _fetchCourses() async {
-    print("🔍 Bắt đầu gọi API từ Home");
     try {
       CourseResponse courseResponse = await CourseService().fetchCourses();
-
       if (courseResponse.isSuccess) {
         setState(() {
           courses = courseResponse.data.items;

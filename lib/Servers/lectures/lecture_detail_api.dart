@@ -36,7 +36,7 @@ class LectureDetailService {
       throw Exception(errorMessage);
     } catch (e) {
       if (e.toString().contains("đăng nhập")) {
-        throw e; // Ném lỗi giữ nguyên mà không thêm text
+        throw e;
       } else {
         throw Exception("Đã xảy ra lỗi không xác định: $e");
       }

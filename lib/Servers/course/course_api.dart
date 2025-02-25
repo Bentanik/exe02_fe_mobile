@@ -7,7 +7,8 @@ class CourseService {
 
   Future<CourseResponse> fetchCourses() async {
     try {
-      final response = await _dio.get('/api/course/v1/get-courses', queryParameters: {
+      final response =
+          await _dio.get('/api/course/v1/get-courses', queryParameters: {
         'searchTerm': '',
         'sortColumn': 'name',
         'sortOrder': 'Asc',
