@@ -12,12 +12,10 @@ class PurchaseVipApi {
 
   Future<PaymentResponse> fetchPurchase(String subscriptionPackageId) async {
     try {
-
       var checkAccess = await _storage.read(key: 'accessToken');
       if (checkAccess == null || checkAccess.isEmpty) {
         throw Exception("Bạn cần đăng nhập để có thể mua được!");
       }
-
       final response = await api.api.post(
         '/api/user/v1/purcharse-vip',
         queryParameters: {"subscriptionPackageId": subscriptionPackageId},

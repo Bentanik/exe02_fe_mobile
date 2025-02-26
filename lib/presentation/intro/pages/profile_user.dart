@@ -23,7 +23,7 @@ class _ProfileUserState extends State<ProfileUser> {
   bool isLoggedIn = true;
   String userFullName = "Loading...";
   String userEmail = "Loading...";
-  String userAvatar = AppImages.chatBot; // Avatar mặc định
+  String userAvatar = AppImages.chatBot;
 
   @override
   void initState() {
@@ -105,18 +105,12 @@ class _ProfileUserState extends State<ProfileUser> {
               Icon(FontAwesomeIcons.user, size: 20, color: Theme.of(context).colorScheme.primary,),
               title: Text('Chỉnh sửa hồ sơ'),
             ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, LightDarkMode()),
-              leading:
-              Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text('Trạng thái màn hình'),
-            ),
-            ProfileButton(
-              onTap: () => Routes.navigateToPage(context, Language()),
-              leading:
-              Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
-              title: Text('Tùy chỉnh ngôn ngữ'),
-            ),
+            // ProfileButton(
+            //   onTap: () => Routes.navigateToPage(context, Language()),
+            //   leading:
+            //   Icon(FontAwesomeIcons.cog, size: 20, color: Theme.of(context).colorScheme.primary,),
+            //   title: Text('Tùy chỉnh ngôn ngữ'),
+            // ),
             ProfileButton(
               onTap: () => Routes.navigateToPage(context, NotificationPage()),
               leading: Icon(FontAwesomeIcons.creditCard,

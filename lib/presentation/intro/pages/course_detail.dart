@@ -9,7 +9,7 @@ import 'package:exe02_fe_mobile/models/course/course_detail_model.dart';
 import 'package:exe02_fe_mobile/models/lectures/lecture_detail_model.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/lecture_video.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 
 class CourseDetail extends StatefulWidget {
@@ -23,24 +23,24 @@ class CourseDetail extends StatefulWidget {
 
 class _CourseDetailState extends State<CourseDetail> {
   CourseDetailModel? courseDetail;
-  late Future<ChaptersResponse> chaptersFuture;
-  Map<String, Future<ChapterResponse>> chapterDetails = {};
-  final storage = FlutterSecureStorage();
+  List<ChapterModel>? chapters;
+  Map<String, ChapterResponse?> chapterDetails = {};
   final CourseDetailService _courseDetailService = CourseDetailService();
   final ChaptersService _chaptersService = ChaptersService();
   final ChapterService _chapterService = ChapterService();
+  final LectureDetailService _lectureDetailService = LectureDetailService();
 
   @override
   void initState() {
     super.initState();
     _fetchCourseDetail(widget.courseId);
-    chaptersFuture = _chaptersService.fetchChapters(widget.courseId);
+    _fetchChapters(widget.courseId);
   }
 
   Future<void> _fetchCourseDetail(String courseId) async {
     try {
       final courseDetailResponse =
-          await _courseDetailService.fetchCourseDetail(courseId);
+      await _courseDetailService.fetchCourseDetail(courseId);
       setState(() {
         courseDetail = courseDetailResponse.data;
       });
@@ -49,11 +49,44 @@ class _CourseDetailState extends State<CourseDetail> {
     }
   }
 
+  Future<void> _fetchChapters(String courseId) async {
+    try {
+      final chaptersResponse = await _chaptersService.fetchChapters(courseId);
+      setState(() {
+        chapters = chaptersResponse.chapters;
+      });
+    } catch (error) {
+      print('Lỗi khi tải danh sách chương: $error');
+    }
+  }
+
   Future<void> _fetchChapterDetails(String chapterId) async {
     if (!chapterDetails.containsKey(chapterId)) {
-      setState(() {
-        chapterDetails[chapterId] = _chapterService.fetchChapter(chapterId);
-      });
+      try {
+        final chapterResponse = await _chapterService.fetchChapter(chapterId);
+        setState(() {
+          chapterDetails[chapterId] = chapterResponse;
+        });
+      } catch (error) {
+        print('Lỗi khi tải chi tiết chương: $error');
+      }
+    }
+  }
+
+  Future<LectureModel?> getLectureDetail(String lectureId) async {
+    final result = await _lectureDetailService.fetchLectureById(context, lectureId);
+
+    if (result.isSuccess) {
+      return result.data;
+    } else {
+      Fluttertoast.showToast(
+        msg: result.error!,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      );
+      return null;
     }
   }
 
@@ -99,7 +132,6 @@ class _CourseDetailState extends State<CourseDetail> {
                     ),
                     const SizedBox(height: 10),
                     Text("Lần cập nhật gần nhất: 12 giờ trước"),
-                    const SizedBox(height: 10),
                   ],
                 ),
               ),
@@ -112,7 +144,7 @@ class _CourseDetailState extends State<CourseDetail> {
                     const Text(
                       "Phân loại khóa học",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     Text(
@@ -132,7 +164,7 @@ class _CourseDetailState extends State<CourseDetail> {
                     const Text(
                       "Mô tả về khóa học",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
                     ExpandableText(text: courseDetail!.description),
@@ -147,138 +179,103 @@ class _CourseDetailState extends State<CourseDetail> {
                     const Text(
                       "Chương trình giảng dạy",
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
-                    FutureBuilder<ChaptersResponse>(
-                      future: chaptersFuture,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (snapshot.hasError) {
-                          return Center(child: Text("Lỗi: ${snapshot.error}"));
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.chapters.isEmpty) {
-                          return const Center(
-                              child: Text("Không có chương học"));
-                        }
-
-                        final chapters = snapshot.data!.chapters;
-                        return Column(
-                          children: chapters.map((chapter) {
-                            return Card(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 6, horizontal: 12),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              elevation: 3,
-                              child: ExpansionTile(
-                                tilePadding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                title: Text(
-                                  chapter.name,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                leading: const Icon(Iconsax.book,
-                                    color: Colors.blue),
-                                onExpansionChanged: (isExpanded) {
-                                  if (isExpanded) {
-                                    _fetchChapterDetails(chapter.id);
-                                  }
-                                },
-                                children: [
-                                  FutureBuilder<ChapterResponse>(
-                                    future: chapterDetails[chapter.id],
-                                    builder: (context, lectureSnapshot) {
-                                      if (lectureSnapshot.connectionState ==
-                                          ConnectionState.waiting) {
-                                        return const Center(
-                                            child: CircularProgressIndicator());
-                                      } else if (lectureSnapshot.hasError) {
-                                        return Center(
-                                            child: Text(
-                                                "Lỗi: ${lectureSnapshot.error}"));
-                                      } else if (!lectureSnapshot.hasData ||
-                                          lectureSnapshot.data!.data.chapter
-                                              .lectures!.isEmpty) {
-                                        return const Padding(
-                                          padding: EdgeInsets.all(16),
-                                          child: Center(
-                                              child: Text(
-                                                  "Bài giảng chưa có video")),
-                                        );
-                                      }
-
-                                      return Column(
-                                        children: lectureSnapshot
-                                            .data!.data.chapter.lectures
-                                            .map((lecture) {
-                                          return ListTile(
-                                            contentPadding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 16,
-                                                    vertical: 4),
-                                            leading: Icon(
-                                                Icons.play_circle_fill,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                size: 28),
-                                            title: Text(
-                                              lecture.name,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            onTap: () async {
-                                              try {
-                                                LectureDetailService
-                                                    lectureService =
-                                                    LectureDetailService();
-                                                LectureModel? lectureDetail =
-                                                    await lectureService
-                                                        .fetchLectureById(
-                                                            context,
-                                                            lecture.id);
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LectureVideo(
-                                                            videoId: lectureDetail
-                                                                ?.videoLecture
-                                                                ?.publicId),
-                                                  ),
-                                                );
-                                              } catch (e) {
-                                                // Xử lý lỗi (có thể hiện thông báo lỗi)
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                      content:
-                                                          Text(e.toString())),
-                                                );
-                                              }
-                                            },
-                                          );
-                                        }).toList(),
-                                      );
-                                    },
-                                  ),
-                                ],
+                    if (chapters == null)
+                      const Center(child: CircularProgressIndicator())
+                    else if (chapters!.isEmpty)
+                      const Center(child: Text("Không có chương học"))
+                    else
+                      Column(
+                        children: chapters!.map((chapter) {
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 12),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            elevation: 3,
+                            child: ExpansionTile(
+                              tilePadding: const EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              title: Text(
+                                chapter.name,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
-                            );
-                          }).toList(),
-                        );
-                      },
-                    ),
+                              leading: const Icon(Iconsax.book,
+                                  color: Colors.blue),
+                              onExpansionChanged: (isExpanded) {
+                                if (isExpanded) {
+                                  _fetchChapterDetails(chapter.id);
+                                }
+                              },
+                              children: [
+                                if (!chapterDetails.containsKey(chapter.id))
+                                  const Center(
+                                      child: CircularProgressIndicator())
+                                else if (chapterDetails[chapter.id] == null ||
+                                    chapterDetails[chapter.id]!.data.chapter
+                                        .lectures!.isEmpty)
+                                  const Padding(
+                                    padding: EdgeInsets.all(16),
+                                    child:
+                                    Center(child: Text("Bài giảng chưa có video")),
+                                  )
+                                else
+                                  Column(
+                                    children: chapterDetails[chapter.id]!
+                                        .data.chapter.lectures!
+                                        .map((lecture) {
+                                      return ListTile(
+                                        contentPadding:
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 16, vertical: 4),
+                                        leading: Icon(
+                                            Icons.play_circle_fill,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            size: 28),
+                                        title: Text(
+                                          lecture.name,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        onTap: () async {
+                                          try {
+                                            final result = await getLectureDetail(lecture.id);
+
+                                            if (result != null) {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => LectureVideo(videoId: result.videoLecture?.publicId),
+                                                ),
+                                              );
+                                            }
+                                          } catch (e) {
+                                            Fluttertoast.showToast(
+                                              msg: e.toString(),
+                                              toastLength: Toast.LENGTH_LONG,
+                                              gravity: ToastGravity.TOP,
+                                              backgroundColor: Colors.red,
+                                              textColor: Colors.white,
+                                            );
+                                          }
+                                        },
+                                      );
+                                    }).toList(),
+                                  ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
                   ],
                 ),
               ),
@@ -290,3 +287,4 @@ class _CourseDetailState extends State<CourseDetail> {
     );
   }
 }
+

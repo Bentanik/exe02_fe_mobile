@@ -1,4 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/limit_word.dart';
+import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/core/configs/theme/theme.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/check_scam/check_scam.dart';
@@ -66,15 +67,18 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void updateLoginState(bool status, {String? fullName, String? avatarUrl}) async {
+  void updateLoginState(bool status,
+      {String? fullName, String? avatarUrl}) async {
     setState(() {
       isLoggedIn = status;
       userFullName = fullName ?? userFullName;
       userAvatar = avatarUrl ?? userAvatar;
     });
     if (status) {
-      if (fullName != null) await storage.write(key: 'userFullName', value: fullName);
-      if (avatarUrl != null) await storage.write(key: 'userAvatarUrl', value: avatarUrl);
+      if (fullName != null)
+        await storage.write(key: 'userFullName', value: fullName);
+      if (avatarUrl != null)
+        await storage.write(key: 'userAvatarUrl', value: avatarUrl);
     } else {
       storage.deleteAll();
     }
@@ -102,53 +106,65 @@ class _HomeState extends State<Home> {
                   ),
                   Spacer(),
                   isLoggedIn
-                      ?
-
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Routes.navigateToPage(context, ProfileUser()),
-                        child: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: userAvatar != null
-                              ? NetworkImage(userAvatar!)
-                              : AssetImage('assets/images/default_avatar.png') as ImageProvider,
-                        ),
-                      ),
-                      const SizedBox(width: 10,),
-                      GestureDetector(
-                        onTap: () {
-                          themeProvider.tongleTheme();
-                        },
-                        child: Icon(
-                          isDarkMode ? Icons.nightlight_round : Icons.wb_sunny,
-                          size: 20,
-                          color: isDarkMode ? Colors.amber : Colors.orange,
-                        ),
-                      ),
-                    ],
-
-                  )
+                      ? Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () =>
+                                  Routes.navigateToPage(context, ProfileUser()),
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundImage: userAvatar != null
+                                    ? NetworkImage(userAvatar!)
+                                    : AssetImage(
+                                            'assets/images/default_avatar.png')
+                                        as ImageProvider,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                themeProvider.tongleTheme();
+                              },
+                              child: Icon(
+                                isDarkMode
+                                    ? Icons.nightlight_round
+                                    : Icons.wb_sunny,
+                                size: 20,
+                                color:
+                                    isDarkMode ? Colors.amber : Colors.orange,
+                              ),
+                            ),
+                          ],
+                        )
                       : Row(
-                    children: [
-                      TextButton(
-                        onPressed: () => Routes.navigateToPage(
-                            context, Login()),
-                        child: Text("Đăng nhập"),
-                      ),
-                      SizedBox(width: 10),
-                      ElevatedButton(
-                        onPressed: () => Routes.navigateToPage(context, Register()),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
+                          children: [
+                            TextButton(
+                              onPressed: () =>
+                                  Routes.navigateToPage(context, Login()),
+                              child: Text(
+                                "Đăng nhập",
+                                style: TextStyle(
+                                  color: Color(0xFF047099)
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            ElevatedButton(
+                              onPressed: () =>
+                                  Routes.navigateToPage(context, Register()),
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xFF047099),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                              ),
+                              child: Text("Đăng ký",
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ],
                         ),
-                        child: Text("Đăng ký", style: TextStyle(color: Colors.white)),
-                      ),
-                    ],
-                  ),
                   SizedBox(width: 10),
                 ],
               ),
@@ -161,7 +177,8 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       "Xin chào, ${userFullName ?? 'User'}",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
                     Text(
                       "Có những gì nổi bật vào hôm nay ?",
@@ -181,7 +198,10 @@ class _HomeState extends State<Home> {
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
+                  image: DecorationImage(
+                    image: AssetImage(AppImages.home_bg),
+                    fit: BoxFit.cover, // Phủ kín Container
+                  ),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
@@ -189,7 +209,8 @@ class _HomeState extends State<Home> {
                   children: [
                     Text(
                       "antiSCM xin chào !",
-                      style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 8),
                     Text(
@@ -205,9 +226,12 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Tính năng nổi bật", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text("Tính năng nổi bật",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   TextButton(
-                    onPressed: () => Routes.navigateToPage(context, Categories()),
+                    onPressed: () =>
+                        Routes.navigateToPage(context, Categories()),
                     child: Text("Xem tất cả"),
                   ),
                 ],
@@ -220,23 +244,26 @@ class _HomeState extends State<Home> {
                   children: [
                     Button(
                       text: 'Nhắn với AI',
-                      onPressed: () => Routes.navigateToPage(context, ChatBot()),
+                      onPressed: () =>
+                          Routes.navigateToPage(context, ChatBot()),
                       buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
+                      backgroundColor: Color(0xFF047099),
                     ),
                     SizedBox(width: 10),
                     Button(
                       text: 'Premium',
-                      onPressed: () => Routes.navigateToPage(context, PremiumOption()),
+                      onPressed: () =>
+                          Routes.navigateToPage(context, PremiumOption()),
                       buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
+                      backgroundColor: Color(0xFF047099),
                     ),
                     SizedBox(width: 10),
                     Button(
                       text: 'Kiểm tra lừa đảo',
-                      onPressed: () => Routes.navigateToPage(context, ScamVerifierScreen()),
+                      onPressed: () =>
+                          Routes.navigateToPage(context, ScamVerifierScreen()),
                       buttonSize: Size(100, 40),
-                      backgroundColor: Color(0xFF167F71),
+                      backgroundColor: Color(0xFF047099),
                     ),
                   ],
                 ),
@@ -249,11 +276,13 @@ class _HomeState extends State<Home> {
                 child: Row(
                   children: courses
                       .map((course) => HomeCard(
-                    imageUrl: course.thumbnail.publicUrl,
-                    level: limitWords(course.level?.name ?? "Không phân cấp độ", 3),
-                    title: course.name,
-                    onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
-                  ))
+                            imageUrl: course.thumbnail.publicUrl,
+                            level: limitWords(
+                                course.level?.name ?? "Không phân cấp độ", 3),
+                            title: course.name,
+                            onTap: () => Routes.navigateToPage(
+                                context, CourseDetail(courseId: course.id)),
+                          ))
                       .toList(),
                 ),
               ),

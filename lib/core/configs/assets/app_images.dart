@@ -17,4 +17,11 @@ class AppImages {
   static const String scam1 = '${basePath}scam1.jpg';
   static const String scam2 = '${basePath}scam2.jpg';
   static const String scam3 = '${basePath}scam3.png';
+  static const String home_bg = '${basePath}home_bg.png';
+  static const String cate1 = '${basePath}cate1.png';
+  static const String cate2 = '${basePath}cate2.png';
+  static const String cate3 = '${basePath}cate3.png';
+  static const String cate4 = '${basePath}cate4.png';
+  static const String cate5 = '${basePath}cate5.png';
+  static const String cate6 = '${basePath}cate6.png';
 }

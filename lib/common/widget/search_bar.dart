@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SearchField extends StatelessWidget {
-  final VoidCallback? onPressed; // ✅ Thêm tham số onPressed
+  final VoidCallback? onPressed;
 
   const SearchField({Key? key, this.onPressed}) : super(key: key);
 
@@ -28,7 +28,7 @@ class SearchField extends StatelessWidget {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.send, color: Colors.blue),
+            icon: const Icon(Icons.send, color: Color(0xFF047099)),
             onPressed: onPressed,
           ),
         ],

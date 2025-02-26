@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:exe02_fe_mobile/Servers/ApiResponse/api_exception.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
 import 'package:exe02_fe_mobile/models/lectures/lecture_detail_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,37 +10,28 @@ class LectureDetailService {
   final Dio _dio = Api().api;
   FlutterSecureStorage _storage = FlutterSecureStorage();
 
-  Future<LectureModel> fetchLectureById(
+  Future<ApiResponse<LectureModel>> fetchLectureById(
       BuildContext context, String lectureId) async {
     try {
       var checkAccess = await _storage.read(key: 'accessToken');
       if (checkAccess == null || checkAccess.isEmpty) {
-        throw Exception("Bạn cần đăng nhập để xem được video này!");
+        return ApiResponse(error: "Bạn cần đăng nhập để xem được video này!");
       }
+
       final response = await _dio.get(
         '/api/course/v1/get-lecture-by-id',
         queryParameters: {'lectureId': lectureId},
       );
+
       final data = response.data['value']['data']['lecture'];
-      return LectureModel.fromJson(data);
+      return ApiResponse(data: LectureModel.fromJson(data));
     } on DioException catch (e) {
       var errorData = e.response?.data;
-      print('data: ${errorData}');
-      String errorMessage =
-          errorData['detail'] ?? "Lỗi không xác định từ server";
-      print("Bắt lỗi trong try-catch:");
-      print("Title: ${errorData['title']}");
-      print("Status: ${e.response?.statusCode}");
-      print("Detail: $errorMessage");
-      print("Error Code: ${errorData['errorCode']}");
+      String errorMessage = errorData?['detail'] ?? "Lỗi không xác định từ server";
 
-      throw Exception(errorMessage);
+      return ApiResponse(error: errorMessage);
     } catch (e) {
-      if (e.toString().contains("đăng nhập")) {
-        throw e;
-      } else {
-        throw Exception("Đã xảy ra lỗi không xác định: $e");
-      }
+      return ApiResponse(error: "Đã xảy ra lỗi không xác định: $e");
     }
   }
 }

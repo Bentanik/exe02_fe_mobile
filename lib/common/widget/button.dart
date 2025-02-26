@@ -46,14 +46,7 @@ class _LoadingButtonState extends State<Button> {
         backgroundColor: widget.backgroundColor,
         minimumSize: widget.buttonSize,
       ),
-      child: _isLoading
-          ? const SizedBox(
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-                color: Colors.red,
-              ),
-            )
-          : Text(
+      child:Text(
               widget.text,
               style: TextStyle(color: widget.textColor, fontSize: 16),
             ),

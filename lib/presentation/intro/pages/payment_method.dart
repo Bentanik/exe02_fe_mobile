@@ -6,6 +6,7 @@ import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/models/premiums/premium_detail_model.dart';
 import 'package:exe02_fe_mobile/models/users/purchase_model.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PaymentMethods extends StatefulWidget {
@@ -18,14 +19,31 @@ class PaymentMethods extends StatefulWidget {
 }
 
 class _PaymentMethodsState extends State<PaymentMethods> {
-  late Future<PremiumResponse> _premiumFuture;
-  final PremiumApiService _apiService = PremiumApiService();
+  PremiumData? premiumData;
+  late PremiumApiService _premiumDetail;
   final PurchaseVipApi _purchaseVipApi = PurchaseVipApi(Api());
 
   @override
   void initState() {
     super.initState();
-    _premiumFuture = _apiService.fetchPremiums(widget.premiumId);
+    _premiumDetail = PremiumApiService();
+    _fetchPremiumDetail(widget.premiumId);
+    // _handlePayment();
+  }
+
+  Future<void> _fetchPremiumDetail(String premiumId) async {
+    try {
+      var result = await _premiumDetail.fetchPremiums(premiumId);
+      if (result != null && result.data != null) {
+        setState(() {
+          premiumData = result.data!.data;
+        });
+      }
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Lỗi khi tải dữ liệu: ${error.toString()}')),
+      );
+    }
   }
 
   Future<void> _handlePayment() async {
@@ -33,14 +51,16 @@ class _PaymentMethodsState extends State<PaymentMethods> {
       PaymentResponse response =
       await _purchaseVipApi.fetchPurchase(widget.premiumId);
 
-      // Kiểm tra nếu thanh toán thành công
       if (response.isSuccess && response.value?.data.success == true &&
           await canLaunchUrl(Uri.parse(response.value.data.paymentUrl))) {
         await launchUrl(Uri.parse(response.value.data.paymentUrl));
       } else {
-        // Nếu không thành công, hiển thị lỗi về thanh toán
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.error.message)),
+        Fluttertoast.showToast(
+          msg: response.error.message,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
         );
       }
     } catch (error) {
@@ -53,14 +73,22 @@ class _PaymentMethodsState extends State<PaymentMethods> {
           errorMessage = errorData['message'] ?? "Có lỗi xảy ra khi xử lý thanh toán";
         }
       }
-
       // Hiển thị lỗi ra giao diện
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lỗi khi xử lý thanh toán: $errorMessage')),
+      Fluttertoast.showToast(
+        msg: errorMessage,
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
       );
     }
   }
 
+  void _showErrorSnackbar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,91 +99,70 @@ class _PaymentMethodsState extends State<PaymentMethods> {
         title: Text('Đăng kí chi tiết'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: FutureBuilder<PremiumResponse>(
-            future: _premiumFuture,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              } else if (snapshot.hasError) {
-                return Center(child: Text("Lỗi: ${snapshot.error}"));
-              } else if (!snapshot.hasData) {
-                return Center(child: Text("Không có dữ liệu"));
-              }
-
-              final premium = snapshot.data!;
-              return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        border:
-                            Border.all(color: Colors.grey.shade800, width: 2),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: Colors.cyan,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                                premium.data.subscriptionPackage.name,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'Premium',
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '${premium.data.subscriptionPackage.price} vnd',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          const Text(
-                            '• 1 tài khoản Premium\n'
-                            '• Hủy bất cứ lúc nào\n'
-                            '• Đăng ký hoặc thanh toán một lần',
-                            style: TextStyle(
-                              fontSize: 16,
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Center(
-                      child: Button(
-                          text: 'Thanh toán',
-                          onPressed: _handlePayment,
-                          buttonSize: Size(double.infinity, 40),
-                          backgroundColor: Color(0xFF047099)),
-                    ),
-                  ]
-              );
-            },
-          ),
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildPremiumInfo(),
+            SizedBox(height: 20),
+            Center(
+              child: Button(
+                text: 'Thanh toán',
+                onPressed: _handlePayment,
+                buttonSize: Size(double.infinity, 40),
+                backgroundColor: Color(0xFF047099),
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPremiumInfo() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade800, width: 2),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: Colors.cyan,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              premiumData?.subscriptionPackage.name ?? 'N/A',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
+            ),
+          ),
+          SizedBox(height: 16),
+          Text(
+            'Premium',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 8),
+          Text(
+            '${premiumData?.subscriptionPackage.price ?? 0} vnd',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 16),
+          const Text(
+            '• 1 tài khoản Premium\n'
+                '• Hủy bất cứ lúc nào\n'
+                '• Đăng ký hoặc thanh toán một lần',
+            style: TextStyle(fontSize: 16, height: 1.5),
+          ),
+        ],
       ),
     );
   }

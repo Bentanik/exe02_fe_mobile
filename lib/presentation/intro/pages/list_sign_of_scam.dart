@@ -68,16 +68,17 @@ class ScamSignsList extends StatelessWidget {
                 children: [
                   // Tag
                   Container(
+                    width: double.infinity,
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Color(int.parse(article['tagColor']!)),
+                      color: Color(0xFF047099),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
                       article['title']!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                        color: Colors.white,
                       ),
                     ),
                   ),

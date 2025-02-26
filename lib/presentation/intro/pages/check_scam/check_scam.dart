@@ -37,7 +37,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
                     child: ElevatedButton(
                         onPressed: () => switchTab(true),
                         style: ElevatedButton.styleFrom(
-                        backgroundColor: isBankVerify ? Colors.blue : Colors.white,
+                        backgroundColor: isBankVerify ? Color(0xFF047099) : Colors.white,
                         foregroundColor: isBankVerify ? Colors.white : Colors.black,
                       ),
                       child: const Text("Ngân hàng"),
@@ -47,7 +47,7 @@ class _ScamVerifierScreenState extends State<ScamVerifierScreen> {
                     child: ElevatedButton(
                       onPressed: () => switchTab(false),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: !isBankVerify ? Colors.blue : Colors.white,
+                        backgroundColor: !isBankVerify ? Color(0xFF047099) : Colors.white,
                         foregroundColor: !isBankVerify ? Colors.white : Colors.black,
                       ),
                       child: const Text("Số điện thoại"),

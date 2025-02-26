@@ -14,7 +14,8 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
     String input = _webController.text.trim();
     if (input.isEmpty) return;
 
-    String result = await checkScamReport(input, "phone"); // Gọi API kiểm tra web scam
+    String result =
+        await checkScamReport(input, "phone"); // Gọi API kiểm tra web scam
     setState(() {
       resultText = result;
     });
@@ -30,7 +31,6 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 10),
-
         TextField(
           controller: _webController,
           decoration: InputDecoration(
@@ -42,21 +42,19 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
           ),
         ),
         const SizedBox(height: 20),
-
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
             onPressed: checkScam,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              padding: const EdgeInsets.symmetric(vertical: 14),
+              backgroundColor: Color(0xFF047099),
+              padding: const EdgeInsets.symmetric(vertical: 10),
             ),
-            child: const Text("Kiểm tra", style: TextStyle(fontSize: 18)),
+            child: const Text("Kiểm tra",
+                style: TextStyle(color: Colors.white, fontSize: 15)),
           ),
         ),
-
         const SizedBox(height: 20),
-
         const Text("Kết quả trả về:"),
         const SizedBox(height: 10),
         if (resultText.isNotEmpty)

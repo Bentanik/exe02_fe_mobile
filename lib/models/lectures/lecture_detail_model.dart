@@ -1,5 +1,4 @@
 
-
 class LectureModel {
   final String id;
   final String chapterId;

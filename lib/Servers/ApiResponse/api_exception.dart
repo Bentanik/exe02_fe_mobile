@@ -1,14 +1,7 @@
-class ApiException implements Exception {
-  final int statusCode;
-  final String message;
-  final dynamic response;
+class ApiResponse<T> {
+  final T? data;
+  final String? error;
 
-  ApiException({
-    required this.statusCode,
-    required this.message,
-    this.response,
-  });
-
-  @override
-  String toString() => 'ApiException($statusCode): $message';
+  ApiResponse({this.data, this.error});
+  bool get isSuccess => error == null;
 }
