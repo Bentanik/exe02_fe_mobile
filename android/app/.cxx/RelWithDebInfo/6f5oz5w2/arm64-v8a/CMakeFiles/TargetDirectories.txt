@@ -1,0 +1,2 @@
+D:/STUDY/FPT/8/EXE201/Mobile/exe2/exe02_fe_mobile/android/app/.cxx/RelWithDebInfo/6f5oz5w2/arm64-v8a/CMakeFiles/edit_cache.dir
+D:/STUDY/FPT/8/EXE201/Mobile/exe2/exe02_fe_mobile/android/app/.cxx/RelWithDebInfo/6f5oz5w2/arm64-v8a/CMakeFiles/rebuild_cache.dir

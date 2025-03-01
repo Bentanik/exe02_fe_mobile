@@ -16,14 +16,14 @@ class _ChatBotState extends State<ChatBot> {
   List<ChatMessage> messages = [];
   ChatUser currentUser = ChatUser(id: '0', firstName: "User");
   ChatUser geminiUser =
-      ChatUser(id: '1', firstName: "Gemini", profileImage: AppImages.chatBot);
+      ChatUser(id: '1', firstName: "antiSCM bot", profileImage: AppImages.chatBot);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Chat Bot'),
+        title: const Text('antiSCM Bot'),
       ),
       body: _buildUI(),
     );

@@ -1,3 +1,7 @@
+import java.util.Properties
+import java.io.File
+import java.io.FileInputStream
+
 plugins {
     id "com.android.application"
     id "kotlin-android"
@@ -5,6 +9,11 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = new File(rootProject.projectDir, "key.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
 android {
     namespace = "com.example.exe02_fe_mobile"
     compileSdk = flutter.compileSdkVersion
@@ -28,9 +37,17 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"]
+            keyPassword = keystoreProperties["keyPassword"]
+            storeFile = keystoreProperties["storeFile"] ? file(keystoreProperties["storeFile"]) : null
+            storePassword = keystoreProperties["storePassword"]
+        }
+    }
     buildTypes {
         release {
-            signingConfig = signingConfigs.debug
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
