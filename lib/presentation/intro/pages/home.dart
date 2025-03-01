@@ -54,9 +54,9 @@ class _HomeState extends State<Home> {
     });
   }
 
-  Future<void> _fetchCourses() async {
+  Future<void> _fetchCourses({String searchTerm = ''}) async {
     try {
-      CourseResponse courseResponse = await CourseService().fetchCourses();
+      CourseResponse courseResponse = await CourseService().fetchCourses(searchTerm);
       if (courseResponse.isSuccess) {
         setState(() {
           courses = courseResponse.data.items;

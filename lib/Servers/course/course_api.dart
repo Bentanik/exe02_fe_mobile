@@ -5,11 +5,11 @@ import 'package:exe02_fe_mobile/models/course/course_model.dart';
 class CourseService {
   final Dio _dio = Api().api;
 
-  Future<CourseResponse> fetchCourses() async {
+  Future<CourseResponse> fetchCourses([String searchTerm = '']) async {
     try {
       final response =
           await _dio.get('/api/course/v1/get-courses', queryParameters: {
-        'searchTerm': '',
+        'searchTerm': searchTerm,
         'sortColumn': 'name',
         'sortOrder': 'Asc',
         'includes': ['Level', 'Chapter', 'Category'],

@@ -16,6 +16,7 @@ class Courses extends StatefulWidget {
 
 class _CoursesState extends State<Courses> {
   List<Course> courses = [];
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -23,9 +24,9 @@ class _CoursesState extends State<Courses> {
     _fetchCourses();
   }
 
-  Future<void> _fetchCourses() async {
+  Future<void> _fetchCourses({String searchTerm = ''}) async {
     try {
-      CourseResponse courseResponse = await CourseService().fetchCourses();
+      CourseResponse courseResponse = await CourseService().fetchCourses(searchTerm);
       if (courseResponse.isSuccess) {
         setState(() {
           courses = courseResponse.data.items;
@@ -64,6 +65,7 @@ class _CoursesState extends State<Courses> {
                   ),
                   Expanded(
                     child: TextField(
+                      controller: _searchController,
                       decoration: const InputDecoration(
                         hintText: 'Tìm kiếm...',
                         hintStyle: TextStyle(color: Colors.black),
@@ -72,8 +74,8 @@ class _CoursesState extends State<Courses> {
                     ),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.list_rounded, color: Colors.blue),
-                    onPressed: () => Routes.navigateToPage(context, Filters()),
+                    icon: const Icon(Icons.send, color: Color(0xFF047099)),
+                    onPressed: () => _fetchCourses(searchTerm: _searchController.text),
                   ),
                 ],
               ),
@@ -88,18 +90,31 @@ class _CoursesState extends State<Courses> {
             const SizedBox(height: 10),
 
             // Course cards
-            Expanded(
-              child: ListView(
-                children: courses.map((course) => SearchCourseCard(
-                  imageUrl: course.thumbnail.publicUrl,
-                  onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
-                  category: limitWords(course.category?.name?? "Không phân loại", 4),
-                  level: limitWords(course.level?.name ?? "Không phân cấp độ", 3),
-                  title: course.name,
-                  isBookmarked: false,
-                )).toList(),
+            if (courses.isEmpty)
+              Column(
+                children: [
+                  const SizedBox(height: 200,),
+                  const  Center(
+                    child: Text(
+                      "Không tìm thấy khóa học nào.",
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              )
+            else
+              Expanded(
+                child: ListView(
+                  children: courses.map((course) => SearchCourseCard(
+                    imageUrl: course.thumbnail.publicUrl,
+                    onTap: () => Routes.navigateToPage(context, CourseDetail(courseId: course.id)),
+                    category: limitWords(course.category?.name ?? "Không phân loại", 4),
+                    level: limitWords(course.level?.name ?? "Không phân cấp độ", 3),
+                    title: course.name,
+                    isBookmarked: false,
+                  )).toList(),
+                ),
               ),
-            )
           ],
         ),
       ),
