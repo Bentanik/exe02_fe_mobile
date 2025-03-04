@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 
 class GeminiService {
-  static const String _apiKey = "AIzaSyA6_y14wkK9lsnelN4fSDJy1fOq_1FvRlo";
+  static const String _apiKey = "AIzaSyBR1WTendmzoOLpFvlMgBHd4G8Td6THlwI";
   static const String _baseUrl =
-      "https://generativelanguage.googleapis.com/v1beta/tunedModels/antiscm-dg1g8e1wcdky:generateContent";
-
+      "https://generativelanguage.googleapis.com/v1beta/tunedModels/trainaiantiscm-ujhljfzje9a9:generateContent";
   final Dio _dio = Dio();
 
   Future<String?> getResponse(String prompt) async {
@@ -22,17 +21,14 @@ class GeminiService {
         },
       );
 
-      print("📩 Full API Response: ${response.data}");
-
       if (response.data["candidates"] != null &&
           response.data["candidates"].isNotEmpty) {
         return response.data["candidates"][0]["content"]["parts"][0]["text"];
       }
-
-      return "⚠️ Không có phản hồi hợp lệ.";
+      return "Không có phản hồi hợp lệ.";
     } catch (error) {
-      print("❌ Lỗi khi gọi API: $error");
-      return "❌ Lỗi khi gọi API.";
+      print("Lỗi khi gọi API: $error");
+      return "Xin lỗi! Bot xảy ra lỗi.";
     }
   }
 }

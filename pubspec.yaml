@@ -68,8 +68,6 @@ flutter_icons:
   image_path: "assets/icon/logo.png"
   android: true
 
-
-
   flutter_lints: ^5.0.0
 
 flutter:
