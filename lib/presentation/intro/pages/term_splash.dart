@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
@@ -103,7 +102,6 @@ class SplashTerm extends StatelessWidget {
       ),
     );
   }
-
   Widget _buildSectionCard({required String title, required String content}) {
     return Container(
       padding: EdgeInsets.all(16),
@@ -118,7 +116,6 @@ class SplashTerm extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.black,
                 fontWeight: FontWeight.w400,
                 fontSize: 20,
               ),
@@ -127,7 +124,7 @@ class SplashTerm extends StatelessWidget {
           SizedBox(height: 12),
           Text(
             content,
-            style: TextStyle(color: Colors.black, fontSize: 14, height: 1.5),
+            style: TextStyle(fontSize: 14, height: 1.5),
           ),
         ],
       ),

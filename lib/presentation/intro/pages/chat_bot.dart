@@ -25,11 +25,11 @@ class _ChatBotState extends State<ChatBot> {
 
     setState(() {
       messages.insert(0, {"user": "User", "text": text});
+      messages.insert(0, {"user": "Bot", "text": "..."});
     });
-
     String? response = await geminiService.getResponse(text);
-
     setState(() {
+      messages.removeAt(0);
       messages.insert(0, {"user": "Bot", "text": response ?? "Không có phản hồi."});
     });
   }
@@ -88,8 +88,8 @@ class _ChatBotState extends State<ChatBot> {
                 backgroundImage: AssetImage(AppImages.chatBot),
                 radius: 20,
               ),
-            const SizedBox(width: 8), // Thêm khoảng cách giữa avatar và tin nhắn
-            Flexible( // Đảm bảo tin nhắn không bị tràn
+            const SizedBox(width: 8),
+            Flexible(
               child: Container(
                 padding: const EdgeInsets.all(10),
                 margin: const EdgeInsets.symmetric(vertical: 5),
@@ -118,8 +118,6 @@ class _ChatBotState extends State<ChatBot> {
       },
     );
   }
-
-
 
   Widget _buildInputField() {
     return Padding(
