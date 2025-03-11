@@ -17,7 +17,6 @@ class AuthService {
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      print("Đăng ký thành công, chuyển sang Home...");
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => Home()));
     } on FirebaseAuthException catch (e) {

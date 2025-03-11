@@ -15,9 +15,9 @@ class _ChatBotState extends State<ChatBot> {
   final GeminiService geminiService = GeminiService();
 
   List<String> exampleQuestions = [
+    "Tôi có nên tải ứng dụng không rõ nguồn gốc không?",
+    "Tôi có nên chia sẻ mã OTP cho ai đó không?",
     "Làm sao để nhận biết một tin nhắn lừa đảo?",
-    "SCM là gì và tại sao quan trọng?",
-    "Làm thế nào để phát hiện nội dung sao chép?",
   ];
 
   void _sendMessage(String text) async {
@@ -97,7 +97,7 @@ class _ChatBotState extends State<ChatBot> {
                   maxWidth: 250,
                 ),
                 decoration: BoxDecoration(
-                  color: isUser ? Color(0xFF047099) : Colors.grey.shade300,
+                  color: isUser ? Color(0xFF047099) : Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Text(

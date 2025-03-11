@@ -23,8 +23,8 @@ class LoginApi {
 
         final newAccessToken = authTokenDTO['accessToken'];
 
-        // ✅ Cập nhật token ngay lập tức vào Api class
         await api.updateAccessToken(newAccessToken);
+        api.api.options.headers['Authorization'] = 'Bearer $newAccessToken';
 
         // Lưu thông tin vào storage
         await _storage.write(key: 'accessToken', value: authTokenDTO['accessToken']);
@@ -36,11 +36,11 @@ class LoginApi {
 
         return true;
       } else {
-        print('❌ Đăng nhập thất bại. Mã trạng thái: ${response.statusCode}');
+        print('Đăng nhập thất bại. Mã trạng thái: ${response.statusCode}');
         return false;
       }
     } catch (error) {
-      print('❌ Lỗi khi gọi API đăng nhập: $error');
+      print('Lỗi khi gọi API đăng nhập: $error');
       return false;
     }
   }

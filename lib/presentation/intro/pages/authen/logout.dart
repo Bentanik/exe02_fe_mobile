@@ -7,6 +7,7 @@ class LogoutController {
   final _storage = const FlutterSecureStorage();
 
   Future<bool> logout() async {
+    print("vaologout");
     try {
       Response response = await api.api.post('/api/auth/v1/logout');
 
@@ -21,7 +22,13 @@ class LogoutController {
       print("Lỗi trong quá trình logout: $e");
       return false;
     } finally {
+      String? token = await _storage.read(key: 'accessToken');
+      print("Before delete, token: $token");
+
       await _storage.deleteAll();
+
+      String? tokenAfter = await _storage.read(key: 'accessToken');
+      print("After delete, token: $tokenAfter");
     }
   }
 }

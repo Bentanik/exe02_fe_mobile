@@ -2,11 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
 import 'package:exe02_fe_mobile/models/course/course_model.dart';
 import 'package:exe02_fe_mobile/models/course/course_detail_model.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class CourseDetailService {
   final Dio _dio = Api().api;
+  FlutterSecureStorage _storage = FlutterSecureStorage();
 
   Future<CourseDetailResponse> fetchCourseDetail(String courseId) async {
+
+    var checkAccess = await _storage.read(key: 'accessToken');
+    print("validToken: ${checkAccess}");
     try {
       final response = await _dio.get(
         '/api/course/v1/get-course-by-id',

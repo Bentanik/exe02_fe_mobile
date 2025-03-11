@@ -129,7 +129,7 @@ class _ProfileUserState extends State<ProfileUser> {
               onTap: () async {
                 bool isSuccess = await _logoutController.logout();
                 if (isSuccess && context.mounted) {
-                  await _storage.deleteAll(); // Xóa dữ liệu sau khi đăng xuất
+                  await _storage.deleteAll();
                   setState(() {
                     isLoggedIn = false;
                     userFullName = "Loading...";
