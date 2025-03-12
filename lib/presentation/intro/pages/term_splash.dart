@@ -87,8 +87,8 @@ class SplashTerm extends StatelessWidget {
                           );
                         },
                       );
-                      Navigator.pop(context); // Đóng dialog
-                      Routes.navigateToPage(context, Home()); // Chuyển đến Home()
+                      Navigator.pop(context);
+                      Routes.navigateToPage(context, Home());
                     },
                     text: 'Tôi đồng ý',
                     backgroundColor: Color(0xFF047099),
@@ -102,6 +102,7 @@ class SplashTerm extends StatelessWidget {
       ),
     );
   }
+
   Widget _buildSectionCard({required String title, required String content}) {
     return Container(
       padding: EdgeInsets.all(16),

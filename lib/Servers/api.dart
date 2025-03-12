@@ -15,7 +15,8 @@ class Api {
         onRequest: (options, handler) async {
           await _ensureToken();
           if (!options.path.contains('http')) {
-            options.path = 'http://10.0.2.2:5000' + options.path;
+            // options.path = 'http://10.0.2.2:5000' + options.path;
+            options.path = 'https://exeapi-dscyd2hsacb7ergj.southeastasia-01.azurewebsites.net/' + options.path;
           }
           print('check token');
           if (accessToken != null) {
@@ -24,29 +25,40 @@ class Api {
           return handler.next(options);
         },
         onError: (DioError error, handler) async {
+          final statusCode = error.response?.statusCode;
           dynamic data = error.response?.data;
 
           print("🟡 Raw error.response?.data: $data");
           print("🟡 Type of data: ${data.runtimeType}");
 
-          String? message;
+          String message = "Lỗi không xác định";
 
           if (data is Map<String, dynamic>) {
-            message = data['detail'];
+            message = data['detail'] ?? data['message'] ?? message;
           } else if (data is String) {
             message = data;
           }
 
           print("🟢 Extracted message: $message");
 
-          if (error.response?.statusCode == 401 && message == 'Invalid JWT') {
-            bool success = await refreshToken();
-            if (success) {
-              return handler.resolve(await _retry(error.requestOptions));
+          if (statusCode == 401) {
+            if (message == 'Invalid JWT') {
+              bool success = await refreshToken();
+              if (success) {
+                return handler.resolve(await _retry(error.requestOptions));
+              }
             }
+            return handler.reject(DioError(
+              requestOptions: error.requestOptions,
+              response: Response(
+                requestOptions: error.requestOptions,
+                statusCode: 401,
+                data: {"message": "Bạn cần đăng nhập lại!"},
+              ),
+            ));
           }
 
-          if (error.response?.statusCode == 403) {
+          if (statusCode == 403) {
             return handler.reject(DioError(
               requestOptions: error.requestOptions,
               response: Response(
@@ -57,7 +69,7 @@ class Api {
             ));
           }
 
-          if (error.response?.statusCode == 400 || error.response?.statusCode == 404) {
+          if (statusCode == 400 || statusCode == 404) {
             return handler.reject(error);
           }
 

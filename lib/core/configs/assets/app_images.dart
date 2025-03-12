@@ -24,4 +24,7 @@ class AppImages {
   static const String cate4 = '${basePath}cate4.png';
   static const String cate5 = '${basePath}cate5.png';
   static const String cate6 = '${basePath}cate6.png';
+  static const String blog1_bg = '${basePath}blog1_bg.jpg';
+  static const String blog1_true = '${basePath}blog1_true.webp';
+  static const String blog1_viser = '${basePath}blog1_viser.png';
 }

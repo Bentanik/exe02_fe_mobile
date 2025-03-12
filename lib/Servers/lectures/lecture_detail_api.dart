@@ -29,7 +29,11 @@ class LectureDetailService {
       var errorData = e.response?.data;
       String errorMessage = errorData?['detail'] ?? "Lỗi không xác định từ server";
 
-      return ApiResponse(error: errorMessage);
+      final responseError = errorMessage.contains(
+          "Lỗi không xác định")
+          ? "Bạn cần mua gói premium để xem được video!": errorMessage;
+
+      return ApiResponse(error: responseError);
     } catch (e) {
       return ApiResponse(error: "Đã xảy ra lỗi không xác định: $e");
     }

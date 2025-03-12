@@ -27,6 +27,15 @@ class FeatureBlogCard extends StatelessWidget {
               ),
             ),
           ),
+
+          // Lớp phủ đen mờ (overlay)
+          Container(
+            height: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.black.withOpacity(0.4), // Độ mờ tùy chỉnh
+            ),
+          ),
           Positioned(
             top: 16,
             left: 16,

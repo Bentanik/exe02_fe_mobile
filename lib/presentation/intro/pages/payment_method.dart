@@ -48,34 +48,35 @@ class _PaymentMethodsState extends State<PaymentMethods> {
 
   Future<void> _handlePayment() async {
     try {
-      PaymentResponse response =
-      await _purchaseVipApi.fetchPurchase(widget.premiumId);
+      final response = await _purchaseVipApi.fetchPurchase(widget.premiumId);
 
-      if (response.isSuccess && response.value?.data.success == true &&
-          await canLaunchUrl(Uri.parse(response.value.data.paymentUrl))) {
-        await launchUrl(Uri.parse(response.value.data.paymentUrl));
+      if (response.isSuccess && response.data?.value?.data.success == true) {
+        final paymentUrl = response.data!.value!.data.paymentUrl;
+        final url = Uri.parse(paymentUrl);
+
+        if (await canLaunchUrl(url)) {
+          await launchUrl(url);
+        } else {
+          Fluttertoast.showToast(
+            msg: "Không thể mở đường dẫn thanh toán!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.TOP,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+          );
+        }
       } else {
         Fluttertoast.showToast(
-          msg: response.error.message,
+          msg: response.error ?? "Thanh toán thất bại!",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.TOP,
           backgroundColor: Colors.red,
           textColor: Colors.white,
         );
       }
-    } catch (error) {
-      // Kiểm tra lỗi từ PaymentResponse nếu có
-      String errorMessage = "Lỗi không xác định";
-
-      if (error is DioException) {
-        var errorData = error.response?.data;
-        if (errorData != null && errorData['message'] != null) {
-          errorMessage = errorData['message'] ?? "Có lỗi xảy ra khi xử lý thanh toán";
-        }
-      }
-      // Hiển thị lỗi ra giao diện
+    } catch (e) {
       Fluttertoast.showToast(
-        msg: errorMessage,
+        msg: "Lỗi không xác định: ${e.toString()}",
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.TOP,
         backgroundColor: Colors.red,
@@ -83,7 +84,6 @@ class _PaymentMethodsState extends State<PaymentMethods> {
       );
     }
   }
-
   void _showErrorSnackbar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),

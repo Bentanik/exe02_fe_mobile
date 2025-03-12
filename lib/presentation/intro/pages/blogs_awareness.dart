@@ -12,8 +12,8 @@ class BlogsAwareness extends StatelessWidget {
     final List<Map<String, dynamic>> newsItems = [
       {
         'id': 1,
-        'title': 'Cách Nhận Biết Trang Web Lừa Đảo',
-        'imageUrl': AppImages.scam1,
+        'title': 'Cách Nhận Biết Trang Web Lừa Đảo (HieuPC)',
+        'imageUrl': AppImages.blog1_bg,
         'createDate': '15h30 23/02/2025',
         'content': '''
 Dạo gần đây, tình trạng lừa đảo xuất hiện càng nhiều, gây hậu quả nặng nề về tinh thần lẫn tài chính của nhiều người. 
@@ -75,7 +75,6 @@ Chúng tôi xin lưu ý tới Quý khách hàng một vài điểm như sau:
       },
     ];
 
-
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
@@ -106,7 +105,6 @@ Chúng tôi xin lưu ý tới Quý khách hàng một vài điểm như sau:
                         final blog = newsItems[index];
                         return GestureDetector(
                           onTap: () {
-                            // Điều hướng đến trang chi tiết với dữ liệu của blog
                             Routes.navigateToPage(
                               context,
                               BlogAwarenessDetail(blogData: blog),
@@ -123,7 +121,6 @@ Chúng tôi xin lưu ý tới Quý khách hàng một vài điểm như sau:
                 ],
               ),
             ),
-            // Latest News Section
             Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

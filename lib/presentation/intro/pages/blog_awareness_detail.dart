@@ -14,7 +14,6 @@ class BlogAwarenessDetail extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Image and Back Button
               Stack(
                 children: [
                   Container(
@@ -26,11 +25,12 @@ class BlogAwarenessDetail extends StatelessWidget {
                         bottomRight: Radius.circular(20),
                       ),
                       image: DecorationImage(
-                        image: AssetImage(blogData['imageUrl']), // Dùng ảnh từ blogData
+                        image: AssetImage(blogData['imageUrl']),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
+
                   Positioned(
                     top: 16,
                     left: 16,

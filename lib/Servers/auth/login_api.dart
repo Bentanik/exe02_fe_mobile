@@ -7,7 +7,6 @@ class LoginApi {
   final FlutterSecureStorage _storage = const FlutterSecureStorage();
 
   LoginApi(this.api);
-
   Future<bool> login({required String idTokenFirebase}) async {
     try {
       final response = await api.api.post(
@@ -32,7 +31,6 @@ class LoginApi {
         await _storage.write(key: 'userFullName', value: authUserDTO['fullName']);
         await _storage.write(key: 'userEmail', value: authUserDTO['email']);
         await _storage.write(key: 'userAvatarUrl', value: authUserDTO['avatarUrl']);
-
 
         return true;
       } else {
