@@ -16,14 +16,17 @@ class BlogsAwareness extends StatelessWidget {
         'imageUrl': AppImages.blog1_bg,
         'createDate': '15h30 23/02/2025',
         'content': '''
-Dạo gần đây, tình trạng lừa đảo xuất hiện càng nhiều, gây hậu quả nặng nề về tinh thần lẫn tài chính của nhiều người. 
+Dạo gần đây, tình trạng lừa đảo xuất hiện càng nhiều gây hậu quả nặng nề về tinh thần lẫn tài chính của nhiều người. Chính vì vậy, Hiếu PC cùng với nhóm Chống Lừa Đảo quyết định cho ra mắt chuỗi Series: “Nhận Biết Lừa Đảo” vào mỗi Chủ Nhật hàng tuần vào lúc 7 giờ tối tại kênh Youtube 7onez. Ở phần 1, tụi mình sẽ hướng dẫn mọi người cách nhận biết trang web lừa đảo, trang web giả có nguy cơ đánh cắp tài sản và thông tin cá nhân thông qua các dấu hiệu như: đường link, nội dung, thông báo trên website…
 
-Chính vì vậy, Hiếu PC cùng với nhóm Chống Lừa Đảo quyết định cho ra mắt chuỗi Series: “Nhận Biết Lừa Đảo” vào mỗi Chủ Nhật hàng tuần lúc 7 giờ tối tại kênh Youtube 7onez.
+① Cách nhận biết trang web lừa đảo nhanh qua đường dẫn link độc hại:
 
-Ở phần 1, tụi mình sẽ hướng dẫn mọi người cách nhận biết trang web lừa đảo, trang web giả có nguy cơ đánh cắp tài sản và thông tin cá nhân thông qua các dấu hiệu như:
-- Đường link
-- Nội dung
-- Thông báo trên website…
+Để nhận biết trang web lừa đảo, trước hết hãy kiểm tra kỹ địa chỉ trang web. Một số dấu hiệu thường gặp là lỗi chính tả trong tên miền như sai, thiếu, thừa ký tự hoặc thay thế bằng ký tự gần giống (ví dụ: shopeepv.com, fptshopvn.com), tên miền có tiền tố/hậu tố lạ hoặc sử dụng tên miền phụ bắt chước trang uy tín (shopee.sukientriankhachhang2021.com). Các tên miền sử dụng đuôi phổ biến như .com, .org, .gov, .edu thường đáng tin hơn, trong khi các đuôi ít phổ biến như .info, .asia, .vip, .tk, .xyz thường có độ tin cậy thấp. Ngoài ra, cần cảnh giác với tên miền mới đăng ký, tên miền có ký tự đặc biệt (ví dụ: fàcebook.com), các link rút gọn (bit.ly, cutt.ly, shorturl.at), hay các trường hợp tên miền phụ bị chiếm quyền (subdomain takeover). Một số trang còn cố tình tạo tên miền dài để đánh lừa người dùng hoặc sử dụng các nền tảng web miễn phí như Weebly, Google Sites, Wix để dựng trang giả mạo. Bên cạnh đó, kẻ xấu còn đầu tư fanpage (thậm chí có tích xanh), đổi tên gần giống thương hiệu nổi tiếng, rồi dùng tài khoản ảo để bình luận giả nhằm tăng độ tin cậy.
+
+② Cách nhận biết trang web lừa đảo qua giao diện trang web
+
+Mọi người hãy xem kỹ giao diện web. Cách nhận biết web lừa đảo này rất dễ nhận biết vì website thật thường giao diện rất chuyên nghiệp, tương thích cho cả điện thoại, laptop hay máy tính bảng. Hãy để ý các yếu tố như logo, hình nền và chắc chắn rằng chúng không phải là phiên bản nhái (sai khác về chi tiết, màu sắc) hay phiên bản lỗi thời (sử dụng hình ảnh phiên bản cũ). Một trang web sử dụng hình ảnh không đúng quy chuẩn thương hiệu chắc chắn là trang web không an toàn.
+
+
 '''
       },
       {
@@ -32,18 +35,22 @@ Chính vì vậy, Hiếu PC cùng với nhóm Chống Lừa Đảo quyết đị
         'imageUrl': AppImages.scam2,
         'createDate': '15h33 23/02/2025',
         'content': '''
-18/03/2024
-
 Kính gửi Quý khách hàng,
 
-Hiện nay, chúng tôi đã ghi nhận một số trường hợp lừa đảo nhằm chiếm đoạt tài sản qua hình thức chuyển khoản vào số tài khoản VNSC có chủ tài khoản khác tên. 
-
-Tất cả các hình thức này đều là giả mạo Công ty Cổ phần Chứng khoán Vina (VNSC).
+Hiện nay, chúng tôi đã ghi nhận một số trường hợp lừa đảo nhằm chiếm đoạt tài sản qua hình thức chuyển khoản vào số tài khoản VNSC có chủ tài khoản khác tên. Tất cả các hình thức này đều là giả mạo Công ty Cổ phần Chứng khoán Vina (VNSC).
 
 Chúng tôi xin lưu ý tới Quý khách hàng một vài điểm như sau:
-- VNSC không uỷ quyền cho bất kỳ cá nhân hay đơn vị nào đại diện cho VNSC.
-- Chỉ có một cách thức chuyển tiền duy nhất trên tài khoản chứng khoán VNSC của mỗi khách hàng.
-- Khách hàng chỉ chuyển khoản vào số tài khoản có tên “VNSC – [Tên khách hàng]”. Tuyệt đối không chuyển vào tài khoản VNSC nào khác.
+• VNSC không uỷ quyền cho bất kỳ cá nhân hay đơn vị nào đại diện cho VNSC.
+• Chỉ có 1 cách thức chuyển tiền duy nhất trên tài khoản chứng khoán VNSC của mỗi khách hàng, Quý khách hàng vui lòng chỉ thực hiện theo đúng hướng dẫn chuyển tiền được ghi trên chính tài khoản cá nhân của mình.
+Ví dụ: Khách hàng Nguyễn Văn A sẽ chỉ chuyển khoản vào số tài khoản có tên “VNSC – Nguyễn Văn A”. Ngoài ra, tuyệt đối không chuyển khoản vào số tài khoản VNSC nào khác.
+
+Ngoài ra, tất cả thông tin về sản phẩm, chương trình khuyến mãi, chúng tôi đều cập nhật trên các kênh truyền thông chính thức:
+• Trang website thông tin chính thức và duy nhất của VNSC: https://www.vnsc.vn/
+• Trang web trading chính thức và duy nhất: https://invest.vnsc.vn/
+• Trang fanpage chính thức: https://www.facebook.com/vnscbyfinhay
+• Group cộng đồng VNSC by Finhay với hơn 200k thành viên: https://www.facebook.com/groups/238021257145972
+
+❗Nếu có bất kỳ thông tin nào cần giải đáp, Quý khách hàng vui lòng gọi ngay tới hotline 024 7777 8996 để được hỗ trợ kịp thời.
 '''
       },
       {
@@ -52,25 +59,25 @@ Chúng tôi xin lưu ý tới Quý khách hàng một vài điểm như sau:
         'imageUrl': AppImages.scam3,
         'createDate': '15h35 23/02/2025',
         'content': '''
-1️⃣ **Bảo vệ thông tin cá nhân:** Không công khai thông tin cá nhân như ngày sinh, số CMND, số tài khoản ngân hàng trên mạng xã hội để tránh bị khai thác.
+① Bảo vệ thông tin cá nhân: Không công khai thông tin cá nhân như ngày sinh, số CMND, số tài khoản ngân hàng trên mạng xã hội để tránh bị khai thác.
 
-2️⃣ **Kiểm tra và cập nhật bảo mật:** Luôn cập nhật tính năng bảo mật trên tài khoản ngân hàng, mạng xã hội. Không chia sẻ thông tin đăng nhập, OTP.
+② Kiểm tra và cập nhật bảo mật: Luôn cập nhật tính năng bảo mật trên tài khoản ngân hàng, mạng xã hội. Không chia sẻ thông tin đăng nhập, OTP.
 
-3️⃣ **Xác minh tin nhắn vay tiền:** Nếu nhận tin nhắn vay tiền qua mạng xã hội, hãy gọi điện xác minh trước khi chuyển tiền.
+③ Xác minh tin nhắn vay tiền: Nếu nhận tin nhắn vay tiền qua mạng xã hội, hãy gọi điện xác minh trước khi chuyển tiền.
 
-4️⃣ **Cẩn trọng khi kết bạn trên mạng:** Không kết bạn với người lạ hứa hẹn tặng tiền, tài sản lớn.
+④ Cẩn trọng khi kết bạn trên mạng: Không kết bạn với người lạ hứa hẹn tặng tiền, tài sản lớn.
 
-5️⃣ **Trình báo ngay khi nghi ngờ lừa đảo:** Nếu nhận cuộc gọi tự xưng công an hoặc cơ quan nhà nước đe dọa, hãy trình báo công an gần nhất.
+⑤ Trình báo ngay khi nghi ngờ lừa đảo: Nếu nhận cuộc gọi tự xưng công an hoặc cơ quan nhà nước đe dọa, hãy trình báo công an gần nhất.
 
-6️⃣ **Cẩn trọng khi thực hiện giao dịch:** Không truy cập các đường link lạ, không cung cấp OTP hoặc thông tin tài khoản ngân hàng.
+⑥ Cẩn trọng khi thực hiện giao dịch: Không truy cập các đường link lạ, không cung cấp OTP hoặc thông tin tài khoản ngân hàng.
 
-7️⃣ **Cảnh giác với lời mời kiếm tiền dễ dàng:** Không tin vào lời dụ dỗ làm việc nhẹ nhàng, kiếm tiền nhanh hoặc yêu cầu chuyển khoản trước.
+⑦ Cảnh giác với lời mời kiếm tiền dễ dàng: Không tin vào lời dụ dỗ làm việc nhẹ nhàng, kiếm tiền nhanh hoặc yêu cầu chuyển khoản trước.
 
-8️⃣ **Cẩn trọng khi cài đặt ứng dụng:** Không cài đặt ứng dụng không rõ nguồn gốc. Khi phát hiện SIM bị vô hiệu hóa, liên hệ nhà mạng ngay lập tức.
+⑧ Cẩn trọng khi cài đặt ứng dụng: Không cài đặt ứng dụng không rõ nguồn gốc. Khi phát hiện SIM bị vô hiệu hóa, liên hệ nhà mạng ngay lập tức.
 
-9️⃣ **Quản lý tài khoản ngân hàng:** Không mở, cho thuê hoặc bán tài khoản ngân hàng. Nếu phát hiện hành vi này, hãy báo công an.
+⑨ Quản lý tài khoản ngân hàng: Không mở, cho thuê hoặc bán tài khoản ngân hàng. Nếu phát hiện hành vi này, hãy báo công an.
 
-🔟 **Tránh truy cập website giả mạo:** Không truy cập vào các trang web không rõ ràng, giả mạo ngân hàng hoặc dịch vụ tài chính.
+⑩ Tránh truy cập website giả mạo: Không truy cập vào các trang web không rõ ràng, giả mạo ngân hàng hoặc dịch vụ tài chính.
 '''
       },
     ];

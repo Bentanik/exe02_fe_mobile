@@ -23,10 +23,7 @@ class Categories extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Search Bar
-            SearchField(),
             const SizedBox(height: 10),
-
             Expanded(
               child: ListView(
                 children: [

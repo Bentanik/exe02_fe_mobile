@@ -1,5 +1,6 @@
 import 'package:exe02_fe_mobile/Servers/CheckScam/check_scam_api.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class WebVerifyBody extends StatefulWidget {
   @override
@@ -12,10 +13,19 @@ class _WebVerifyBodyState extends State<WebVerifyBody> {
 
   void checkScam() async {
     String input = _webController.text.trim();
+    if (input.isEmpty || !RegExp(r'^\d{10}$').hasMatch(input)) {
+      Fluttertoast.showToast(
+        msg: "Vui lòng nhập đúng định dạng 10 số!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+      );
+      return;
+    }
     if (input.isEmpty) return;
 
+
     String result =
-        await checkScamReport(input, "phone"); // Gọi API kiểm tra web scam
+        await checkScamReport(input, "phone");
     setState(() {
       resultText = result;
     });

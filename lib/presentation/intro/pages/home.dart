@@ -11,14 +11,12 @@ import 'package:exe02_fe_mobile/Servers/course/course_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/home_card.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
-import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/models/course/course_model.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/register/register.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/categories.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/premium_option.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/profile_user.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/search_course.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -178,7 +176,7 @@ class _HomeState extends State<Home> {
                     Text(
                       "Xin chào, ${userFullName ?? 'User'}",
                       style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                     ),
                     Text(
                       "Có những gì nổi bật vào hôm nay ?",
@@ -187,10 +185,6 @@ class _HomeState extends State<Home> {
                     SizedBox(height: 20),
                   ],
                 ),
-
-              SearchField(
-                onPressed: () => Routes.navigateToPage(context, SearchCourse()),
-              ),
               SizedBox(height: 20),
 
               // Banner Welcome
@@ -280,8 +274,10 @@ class _HomeState extends State<Home> {
                             level: limitWords(
                                 course.level?.name ?? "Không phân cấp độ", 3),
                             title: course.name,
-                            onTap: () => Routes.navigateToPage(
-                                context, CourseDetail(courseId: course.id)),
+                            onTap: () {
+                              Routes.navigateToPage(
+                                  context, CourseDetail(courseId: course.id));
+                            }
                           ))
                       .toList(),
                 ),

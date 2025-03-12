@@ -5,14 +5,14 @@ class HomeCard extends StatelessWidget {
   final String? level;
   final String title;
   final bool isBookmarked;
-  final VoidCallback? onTap; // Thêm tham số onTap
+  final VoidCallback? onTap;
 
   HomeCard({
     required this.imageUrl,
     required this.level,
     required this.title,
     this.isBookmarked = false,
-    this.onTap, // Nhận onTap từ bên ngoài
+    this.onTap,
   });
 
   @override
@@ -77,16 +77,6 @@ class HomeCard extends StatelessWidget {
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            isBookmarked ? Icons.bookmark : Icons.bookmark_outline,
-                            color: Colors.teal,
-                            size: 24,
-                          ),
-                        ],
                       ),
                     ],
                   ),

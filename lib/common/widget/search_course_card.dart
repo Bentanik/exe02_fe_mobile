@@ -27,7 +27,7 @@ class SearchCourseCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap, // Gọi hàm onTap khi người dùng nhấn vào thẻ
+      onTap: onTap,
       child: Container(
         margin: const EdgeInsets.only(top: 10),
         decoration: BoxDecoration(
@@ -43,7 +43,6 @@ class SearchCourseCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            // Hình ảnh khóa học
             Container(
               width: 100,
               height: 120,
@@ -96,14 +95,6 @@ class SearchCourseCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-            ),
-            // Bookmark icon
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Icon(
-                isBookmarked ? Icons.bookmark : Icons.bookmark_border,
-                color: Colors.green,
               ),
             ),
           ],

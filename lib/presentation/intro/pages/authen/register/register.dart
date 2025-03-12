@@ -48,7 +48,7 @@ class _RegisterState extends State<Register> {
           },
         ),
         title: Text(
-          'Đăng kí',
+          'Đăng ký',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
             children: [
               const Center(
                 child: Text(
-                  "Cùng đăng kí nào!",
+                  "Cùng đăng ký nào!",
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
               ),

@@ -4,7 +4,6 @@ import 'package:exe02_fe_mobile/Servers/auth/register_api.dart';
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/ErrorDialog.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/authen/login/login.dart';
-import 'package:exe02_fe_mobile/presentation/intro/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -29,12 +28,20 @@ class RegisterController {
     final emailRegex = RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
 
     if (!emailRegex.hasMatch(emailController.text)) {
-      _showErrorDialog("Email không hợp lệ!");
+      Fluttertoast.showToast(
+        msg: "Email không hợp lệ!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+      );
       return;
     }
 
     if (passwordController.text != confirmPasswordController.text) {
-      _showErrorDialog("Mật khẩu không khớp!");
+      Fluttertoast.showToast(
+        msg: "Mật kẩu không khớp! Vui lòng nhập lại.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+      );
       return;
     }
 
