@@ -29,7 +29,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.exe02_fe_mobile"
+        applicationId = "com.antiSCM.exe02_fe_mobile"
 //        minSdk = flutter.minSdkVersion
         minSdkVersion 23
         targetSdk = flutter.targetSdkVersion
