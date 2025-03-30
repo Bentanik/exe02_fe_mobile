@@ -245,9 +245,9 @@ class _HomeState extends State<Home> {
                     ),
                     SizedBox(width: 10),
                     Button(
-                      text: 'Premium',
+                      text: 'Ủng hộ',
                       onPressed: () =>
-                          Routes.navigateToPage(context, PremiumOption()),
+                          Routes.navigateToPage(context, DonationOption()),
                       buttonSize: Size(100, 40),
                       backgroundColor: Color(0xFF047099),
                     ),

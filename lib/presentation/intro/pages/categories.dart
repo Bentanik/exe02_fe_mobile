@@ -1,6 +1,5 @@
 import 'package:exe02_fe_mobile/common/helpers/routes.dart';
 import 'package:exe02_fe_mobile/common/widget/category_card.dart';
-import 'package:exe02_fe_mobile/common/widget/search_bar.dart';
 import 'package:exe02_fe_mobile/core/configs/assets/app_images.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/blogs_awareness.dart';
 import 'package:exe02_fe_mobile/presentation/intro/pages/chat_bot.dart';
@@ -40,15 +39,13 @@ class Categories extends StatelessWidget {
                     title: 'Khóa học',
                     imageUrl: AppImages.course,
                     backgroundImage: AppImages.cate2,
-
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(
-                    onPress: () => Routes.navigateToPage(context, PremiumOption()),
-                    title: 'Premium',
+                    onPress: () => Routes.navigateToPage(context, DonationOption()),
+                    title: 'Ủng hộ chúng tôi',
                     imageUrl: AppImages.premium,
                     backgroundImage: AppImages.cate3,
-
                   ),
                   const SizedBox(height: 10),
                   CategoryCard(

@@ -1,56 +1,36 @@
-import 'package:dio/dio.dart';
 import 'package:exe02_fe_mobile/Servers/api.dart';
-import 'package:exe02_fe_mobile/Servers/premiums/premium_detail_api.dart';
 import 'package:exe02_fe_mobile/Servers/users/purchase_api.dart';
 import 'package:exe02_fe_mobile/common/widget/button.dart';
-import 'package:exe02_fe_mobile/models/premiums/premium_detail_model.dart';
-import 'package:exe02_fe_mobile/models/users/purchase_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PaymentMethods extends StatefulWidget {
-  final String premiumId;
+  final String donationAmount;
+  final String donationDescription;
 
-  PaymentMethods({required this.premiumId});
+  PaymentMethods({
+    required this.donationAmount,
+    required this.donationDescription,
+  });
 
   @override
   _PaymentMethodsState createState() => _PaymentMethodsState();
 }
 
 class _PaymentMethodsState extends State<PaymentMethods> {
-  PremiumData? premiumData;
-  late PremiumApiService _premiumDetail;
+  // Sử dụng API thanh toán có thể dùng chung cho donation.
   final PurchaseVipApi _purchaseVipApi = PurchaseVipApi(Api());
-
-  @override
-  void initState() {
-    super.initState();
-    _premiumDetail = PremiumApiService();
-    _fetchPremiumDetail(widget.premiumId);
-    // _handlePayment();
-  }
-
-  Future<void> _fetchPremiumDetail(String premiumId) async {
-    try {
-      var result = await _premiumDetail.fetchPremiums(premiumId);
-      if (result != null && result.data != null) {
-        setState(() {
-          premiumData = result.data!.data;
-        });
-      }
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Lỗi khi tải dữ liệu: ${error.toString()}')),
-      );
-    }
-  }
 
   Future<void> _handlePayment() async {
     try {
-      final response = await _purchaseVipApi.fetchPurchase(widget.premiumId);
+      final response = await _purchaseVipApi.fetchPurchase(
+        price: widget.donationAmount,
+        description: widget.donationDescription,
+      );
 
-      if (response.isSuccess && response.data?.value?.data.success == true) {
+      if (response.isSuccess &&
+          response.data?.value?.data.success == true) {
         final paymentUrl = response.data!.value!.data.paymentUrl;
         final url = Uri.parse(paymentUrl);
 
@@ -84,42 +64,8 @@ class _PaymentMethodsState extends State<PaymentMethods> {
       );
     }
   }
-  void _showErrorSnackbar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: Text('Đăng kí chi tiết'),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildPremiumInfo(),
-            SizedBox(height: 20),
-            Center(
-              child: Button(
-                text: 'Thanh toán',
-                onPressed: _handlePayment,
-                buttonSize: Size(double.infinity, 40),
-                backgroundColor: Color(0xFF047099),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPremiumInfo() {
+  Widget _buildDonationInfo() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -130,39 +76,55 @@ class _PaymentMethodsState extends State<PaymentMethods> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(
-              color: Colors.cyan,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              premiumData?.subscriptionPackage.name ?? 'N/A',
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
-            ),
-          ),
-          SizedBox(height: 16),
           Text(
-            'Premium',
+            'Bạn ủng hộ số tiền',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 8),
           Text(
-            '${premiumData?.subscriptionPackage.price ?? 0} vnd',
+            '${widget.donationAmount} vnd',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
           SizedBox(height: 16),
-          const Text(
-            '• 1 tài khoản Premium\n'
-                '• Hủy bất cứ lúc nào\n'
-                '• Đăng ký hoặc thanh toán một lần',
+          widget.donationDescription.isNotEmpty
+              ? Text(
+            widget.donationDescription,
+            style: TextStyle(fontSize: 16, height: 1.5),
+          )
+              : Text(
+            'Không có mô tả thêm.',
             style: TextStyle(fontSize: 16, height: 1.5),
           ),
         ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text('Ủng hộ chi tiết'),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildDonationInfo(),
+            SizedBox(height: 20),
+            Center(
+              child: Button(
+                text: 'Ủng hộ',
+                onPressed: _handlePayment,
+                buttonSize: Size(double.infinity, 40),
+                backgroundColor: Color(0xFF047099),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
