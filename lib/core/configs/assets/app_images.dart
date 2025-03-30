@@ -6,7 +6,6 @@ class AppImages {
   static const String check = '${basePath}check.png';
   static const String course = '${basePath}course.png';
   static const String setting = '${basePath}setting.png';
-  static const String premium = '${basePath}premium.png';
   static const String report = '${basePath}report.png';
   static const String premiumBg = '${basePath}premium_bg.png';
   static const String premiumBg1 = '${basePath}premium_bg1.png';
@@ -27,4 +26,6 @@ class AppImages {
   static const String blog1_bg = '${basePath}blog1_bg.jpg';
   static const String blog1_true = '${basePath}blog1_true.webp';
   static const String blog1_viser = '${basePath}blog1_viser.png';
+  static const String donate = '${basePath}donate.png';
+  static const String sp_thumb = '${basePath}sp_thumb.png';
 }

@@ -44,7 +44,7 @@ class Categories extends StatelessWidget {
                   CategoryCard(
                     onPress: () => Routes.navigateToPage(context, DonationOption()),
                     title: 'Ủng hộ chúng tôi',
-                    imageUrl: AppImages.premium,
+                    imageUrl: AppImages.donate,
                     backgroundImage: AppImages.cate3,
                   ),
                   const SizedBox(height: 10),

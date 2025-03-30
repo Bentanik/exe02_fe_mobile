@@ -14,6 +14,7 @@ class DonationOption extends StatefulWidget {
 class _DonationOptionState extends State<DonationOption> {
   // Danh sách gói donate mặc định
   final List<Map<String, String>> donatePackages = [
+    {'name': 'Ủng hộ', 'price': '2500'},
     {'name': 'Ủng hộ', 'price': '10000'},
     {'name': 'Ủng hộ', 'price': '20000'},
     {'name': 'Ủng hộ', 'price': '50000'},
@@ -96,7 +97,7 @@ class _DonationOptionState extends State<DonationOption> {
                     scrollDirection: Axis.horizontal,
                     children: [
                       Image.asset(
-                        AppImages.premiumBg1,
+                        AppImages.sp_thumb,
                         fit: BoxFit.cover,
                         width: MediaQuery.of(context).size.width,
                       ),
