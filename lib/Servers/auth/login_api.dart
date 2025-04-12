@@ -23,7 +23,8 @@ class LoginApi {
         final newAccessToken = authTokenDTO['accessToken'];
 
         await api.updateAccessToken(newAccessToken);
-        api.api.options.headers['Authorization'] = 'Bearer $newAccessToken';
+        var check =  api.api.options.headers['Authorization'] = 'Bearer $newAccessToken';
+
 
         // Lưu thông tin vào storage
         await _storage.write(key: 'accessToken', value: authTokenDTO['accessToken']);
